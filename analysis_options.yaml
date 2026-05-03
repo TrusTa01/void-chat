@@ -1,0 +1,51 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - "build/**"
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+  
+  errors:
+    # Treat missing return statements as errors
+    missing_return: error
+    # Treat unused imports as errors to keep the code clean
+    unused_import: error
+    # Warn about unused local variables
+    unused_local_variable: warning
+    # Ensure BuildContext is used safely across async gaps
+    use_build_context_synchronously: error
+
+linter:
+  rules:
+    # --- STYLE & CLEANLINESS ---
+    # Always specify return types for methods
+    - always_declare_return_types
+    # Prefer 'final' for variables that don't change
+    - prefer_final_locals
+    # Ensure futures are either awaited or explicitly marked as unawaited
+    - unawaited_futures
+    # Disallow 'print' statements in production code
+    - avoid_print
+    
+    # --- FLUTTER SPECIFIC ---
+    # Enforce using Keys in widget constructors for proper state management
+    - use_key_in_widget_constructors
+    # Prefer 'const' constructors for performance optimization
+    - prefer_const_constructors
+    # Use 'const' for constant declarations
+    - prefer_const_declarations
+    # Remove unnecessary Container widgets to flatten the widget tree
+    - avoid_unnecessary_containers
+    # Use SizedBox instead of Container for empty whitespace
+    - sized_box_for_whitespace
+    # Ensure BuildContext is checked if used after an 'await'
+    - use_build_context_synchronously
+    
+    # --- ADDITIONAL BEST PRACTICES ---
+    # Sort imports alphabetically for consistency
+    - directives_ordering
+    # Use single quotes
+    - prefer_single_quotes
+    # Don't use 'null' as a default value for parameters
+    - avoid_init_to_null
