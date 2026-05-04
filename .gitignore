@@ -1,30 +1,4 @@
-# --- Dart / Flutter ---
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.packages
-.pub-cache/
-.pub/
-build/
-
-# --- Android ---
-android/.gradle/
-android/local.properties
-android/**/build/
-android/**/.cxx/
-*.keystore
-*.jks
-
-# --- iOS / macOS ---
-ios/.generated/
-ios/Flutter/App.framework/
-ios/Flutter/Flutter.framework/
-ios/Flutter/GeneratedPluginRegistrant.*
-ios/Flutter/Flutter.podspec
-ios/Pods/
-.fvm/flutter_sdk
-
-# --- IDE ---
+# ------- IDE -------
 .idea/
 *.iml
 *.iws
@@ -34,15 +8,67 @@ ios/Pods/
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# --- Secrets and logs ---
-.env*
-!.env.example
-*.log
-
-# Generated code
-*.g.dart
-*.freezed.dart
-
-# --- Cursor AI ---
+# ------- Cursor AI -------
 .cursor/
-.cursorignore
+
+# ------- Dart & Shared -------
+**/.dart_tool/
+**/.pub-cache/
+**/.pub/
+**/build/
+**/.packages
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+
+
+# ------- Frontend -------
+# --- Flutter ---
+frontend/.flutter-plugins
+frontend/.flutter-plugins-dependencies
+frontend/.packages
+frontend/.pub-cache/
+frontend/.pub/
+frontend/build/
+
+# --- Android ---
+frontend/android/.gradle/
+frontend/android/local.properties
+frontend/android/**/build/
+frontend/android/**/.cxx/
+frontend/*.keystore
+frontend/*.jks
+
+# --- iOS / macOS ---
+frontend/ios/.generated/
+frontend/ios/Flutter/App.framework/
+frontend/ios/Flutter/Flutter.framework/
+frontend/ios/Flutter/GeneratedPluginRegistrant.*
+frontend/ios/Flutter/Flutter.podspec
+frontend/ios/Pods/
+frontend/.fvm/flutter_sdk
+
+# --- Secrets ---
+frontend/.env
+frontend/.env*
+!frontend/.env.example
+
+# --- Logs ---
+frontend/*.log
+
+# --- Generated code ---
+frontend/*.g.dart
+frontend/*.freezed.dart
+
+
+# ------- Backend -------
+backend/.dart_tool/
+backend/build/
+backend/.packages
+
+# --- Secrets ---
+backend/.env
+backend/.env.*
+!backend/.env.example
+
+# --- Logs ---
+backend/*.log

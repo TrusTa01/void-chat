@@ -1,0 +1,16 @@
+name: backend
+description: A backend for a void chat.
+version: 1.0.0
+repository: https://github.com/TrusTa01/void-chat
+
+environment:
+  sdk: ^3.11.1
+
+dependencies:
+  path: ^1.9.0
+  shelf: ^1.4.2
+  shelf_router: ^1.1.4
+
+dev_dependencies:
+  lints: ^6.0.0
+  test: ^1.25.6
