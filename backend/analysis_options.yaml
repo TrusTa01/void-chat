@@ -1,1 +1,33 @@
 include: package:lints/recommended.yaml
+
+analyzer:
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+  errors:
+    todo: ignore
+
+linter:
+  rules:
+    # --- Backend-oriented checks ---
+    # Warns when a Future is started but not awaited, so errors and completion are not handled.
+    - unawaited_futures
+    # Ensures StreamSubscription instances are cancelled when no longer needed (avoids leaks).
+    - cancel_subscriptions
+    # Ensures Sinks and stream controllers are closed so resources and listeners are released.
+    - close_sinks
+    # Requires explicit return types on functions and methods (clearer APIs, especially for async handlers).
+    - always_declare_return_types
+
+    # --- Code style ---
+    # Prefer `final` for locals that are never reassigned (clearer intent, fewer accidental mutations).
+    - prefer_final_locals
+    # Omit redundant local type annotations when the type is obvious from the initializer.
+    - omit_local_variable_types
+    # Discourages `print` in favor of structured logging on the server.
+    - avoid_print
+    # Prefer forwarding constructor parameters to the superclass with `super.` parameters.
+    - use_super_parameters
+    # Keeps dependency entries in pubspec.yaml sorted for easier diffs and reviews.
+    - sort_pub_dependencies
