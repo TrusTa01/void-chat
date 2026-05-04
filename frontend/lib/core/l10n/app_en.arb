@@ -1,0 +1,7 @@
+{
+  "@@locale": "en",
+  "appTitle": "Void",
+  "@appTitle": {
+    "description": "App title in app bar and system"
+  }
+}
