@@ -14,7 +14,7 @@ class VoidChat extends StatelessWidget {
       onGenerateTitle: (context) => context.l10n.appTitle,
       localizationsDelegates: AppLocalizationSetup.delegates,
       supportedLocales: AppLocalizationSetup.supportedLocales,
-      locale: const Locale('en'),
+      locale: const Locale('en'), // TODO: locale provider
 
       // router
       routerConfig: appRouter.config(
@@ -22,7 +22,7 @@ class VoidChat extends StatelessWidget {
       ),
 
       // theme
-      theme: ThemeData.dark(),
+      theme: ThemeData.dark(), // TODO: switch theme
 
       // other
       debugShowCheckedModeBanner: false,
