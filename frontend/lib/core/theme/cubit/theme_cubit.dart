@@ -1,16 +1,49 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
+import 'package:void_chat/core/storage/app_prefs.dart';
 import 'package:void_chat/core/theme/palette/built_in_palettes.dart';
 import 'package:void_chat/core/theme/palette/palette_data.dart';
 import 'package:void_chat/core/theme/theme_preferences.dart';
 
+@injectable
 class ThemeCubit extends Cubit<ThemePreferences> {
-  ThemeCubit() : super(ThemePreferences.initial());
+  final AppPrefs _prefs;
 
-  void setPalette(String paletteId) =>
-      emit(state.copyWith(activePaletteId: paletteId));
+  ThemeCubit(this._prefs) : super(ThemePreferences.initial()) {
+    _restore();
+  }
 
-  void setBrightness(ThemeBrightnessPreference brightness) =>
-      emit(state.copyWith(brightness: brightness));
+  Future<void> _restore() async {
+    final brightnessRaw = _prefs.themeBrightness;
+    final paletteId = _prefs.themePaletteId;
+
+    ThemeBrightnessPreference brightness = ThemeBrightnessPreference.system;
+
+    if (brightnessRaw != null) {
+      try {
+        brightness = ThemeBrightnessPreference.values.byName(brightnessRaw);
+      } catch (_) {
+        brightness = ThemeBrightnessPreference.system;
+      }
+    }
+    
+    emit(
+      state.copyWith(
+        brightness: brightness,
+        activePaletteId: paletteId ?? state.activePaletteId,
+      ),
+    );
+  }
+
+  Future<void> setPalette(String paletteId) async {
+    emit(state.copyWith(activePaletteId: paletteId));
+    await _prefs.setThemePaletteId(paletteId);
+  }
+
+  Future<void> setBrightness(ThemeBrightnessPreference brightness) async {
+    emit(state.copyWith(brightness: brightness));
+    await _prefs.setThemeBrightness(brightness.name);
+  }
 
   void addCustomPalette(PaletteData palette) => emit(
     state.copyWith(
