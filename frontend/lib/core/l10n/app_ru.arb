@@ -1,4 +1,9 @@
 {
   "@@locale": "ru",
-  "appTitle": "Void"
+  "appTitle": "Void",
+  "paletteBrand": "Бренд",
+  "paletteCoffee": "Кофе",
+  "paletteOcean": "Океан",
+  "paletteRose": "Роза",
+  "paletteForest": "Лес"
 }

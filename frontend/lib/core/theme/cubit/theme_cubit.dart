@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:void_chat/core/theme/palette/built_in_palettes.dart';
 import 'package:void_chat/core/theme/palette/palette_data.dart';
 import 'package:void_chat/core/theme/theme_preferences.dart';
 
@@ -22,7 +23,7 @@ class ThemeCubit extends Cubit<ThemePreferences> {
     state.copyWith(
       customPalettes: state.customPalettes.where((p) => p.id != id).toList(),
       activePaletteId: state.activePaletteId == id
-          ? 'brand'
+          ? BuiltInPalettes.all.first.id
           : state.activePaletteId,
     ),
   );

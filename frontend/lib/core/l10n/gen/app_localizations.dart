@@ -103,6 +103,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Void'**
   String get appTitle;
+
+  /// Built-in palette name: Brand
+  ///
+  /// In en, this message translates to:
+  /// **'Brand'**
+  String get paletteBrand;
+
+  /// Built-in palette name: Coffee
+  ///
+  /// In en, this message translates to:
+  /// **'Coffee'**
+  String get paletteCoffee;
+
+  /// Built-in palette name: Ocean
+  ///
+  /// In en, this message translates to:
+  /// **'Ocean'**
+  String get paletteOcean;
+
+  /// Built-in palette name: Rose
+  ///
+  /// In en, this message translates to:
+  /// **'Rose'**
+  String get paletteRose;
+
+  /// Built-in palette name: Forest
+  ///
+  /// In en, this message translates to:
+  /// **'Forest'**
+  String get paletteForest;
 }
 
 class _AppLocalizationsDelegate

@@ -10,4 +10,19 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get appTitle => 'Void';
+
+  @override
+  String get paletteBrand => 'Бренд';
+
+  @override
+  String get paletteCoffee => 'Кофе';
+
+  @override
+  String get paletteOcean => 'Океан';
+
+  @override
+  String get paletteRose => 'Роза';
+
+  @override
+  String get paletteForest => 'Лес';
 }

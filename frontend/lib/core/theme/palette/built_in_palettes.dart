@@ -30,7 +30,6 @@ abstract final class BuiltInPalettes {
   static const Color _forestLight = Color(0xFFF0FDF4);
   static const Color _forestDark = Color(0xFF0A1F13);
 
-  // TODO: locale names
   // Palette instances
   static const brand = PaletteData(
     id: 'brand',

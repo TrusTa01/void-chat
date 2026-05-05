@@ -10,4 +10,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get appTitle => 'Void';
+
+  @override
+  String get paletteBrand => 'Brand';
+
+  @override
+  String get paletteCoffee => 'Coffee';
+
+  @override
+  String get paletteOcean => 'Ocean';
+
+  @override
+  String get paletteRose => 'Rose';
+
+  @override
+  String get paletteForest => 'Forest';
 }

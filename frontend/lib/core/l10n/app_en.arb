@@ -3,5 +3,25 @@
   "appTitle": "Void",
   "@appTitle": {
     "description": "App title in app bar and system"
+  },
+  "paletteBrand": "Brand",
+  "@paletteBrand": {
+    "description": "Built-in palette name: Brand"
+  },
+  "paletteCoffee": "Coffee",
+  "@paletteCoffee": {
+    "description": "Built-in palette name: Coffee"
+  },
+  "paletteOcean": "Ocean",
+  "@paletteOcean": {
+    "description": "Built-in palette name: Ocean"
+  },
+  "paletteRose": "Rose",
+  "@paletteRose": {
+    "description": "Built-in palette name: Rose"
+  },
+  "paletteForest": "Forest",
+  "@paletteForest": {
+    "description": "Built-in palette name: Forest"
   }
 }
