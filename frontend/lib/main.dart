@@ -6,7 +6,7 @@ import 'package:void_chat/core/di/locator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await initDI();
+  await configureDependencies();
   runApp(
     MultiBlocProvider(
       providers: AppProviders.providers,

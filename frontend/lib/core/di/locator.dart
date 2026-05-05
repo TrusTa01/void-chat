@@ -7,7 +7,7 @@ import 'package:void_chat/router/app_router.dart';
 final getIt = GetIt.instance;
 
 @InjectableInit()
-Future<void> initDI() async => getIt.init();
+Future<void> configureDependencies() async => getIt.init();
 
 AppRouter get appRouter => getIt<AppRouter>();
 Talker get talker => getIt<Talker>();
