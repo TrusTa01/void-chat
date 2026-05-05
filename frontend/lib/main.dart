@@ -4,6 +4,6 @@ import 'package:void_chat/core/di/locator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await init();
+  await initDi();
   runApp(const VoidChat());
 }
