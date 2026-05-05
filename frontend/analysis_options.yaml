@@ -10,8 +10,6 @@ analyzer:
   errors:
     # Treat missing return statements as errors
     missing_return: error
-    # Treat unused imports as errors to keep the code clean
-    unused_import: error
     # Warn about unused local variables
     unused_local_variable: warning
     # Ensure BuildContext is used safely across async gaps

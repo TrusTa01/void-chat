@@ -11,7 +11,8 @@ abstract final class AppColors {
 
   // layers
   static const Color surface = Color(0xFF0A0A0A);
-  static const Color overlay = Color(0xFF000000);
+  static const Color darkOverlay = Color(0xFF000000);
+  static const Color lightOverlay = Color(0xFFCBC4D2);
 
   // text
   static const Color textMain = Color(0xFFFFFFFF);

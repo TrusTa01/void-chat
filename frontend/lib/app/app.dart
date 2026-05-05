@@ -3,6 +3,7 @@ import 'package:talker_flutter/talker_flutter.dart';
 import 'package:void_chat/core/di/locator.dart';
 import 'package:void_chat/core/extensions/l10n_ext.dart';
 import 'package:void_chat/core/l10n/app_localization_setup.dart';
+import 'package:void_chat/core/theme/theme.dart';
 
 class VoidChat extends StatelessWidget {
   const VoidChat({super.key});
@@ -15,15 +16,12 @@ class VoidChat extends StatelessWidget {
       localizationsDelegates: AppLocalizationSetup.delegates,
       supportedLocales: AppLocalizationSetup.supportedLocales,
       locale: const Locale('en'), // TODO: locale provider
-
       // router
       routerConfig: appRouter.config(
         navigatorObservers: () => [TalkerRouteObserver(talker)],
       ),
-
       // theme
-      theme: ThemeData.dark(), // TODO: switch theme
-
+      theme: darkTheme, // TODO: theme provider
       // other
       debugShowCheckedModeBanner: false,
     );

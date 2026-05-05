@@ -19,6 +19,9 @@ dependencies:
   json_annotation: ^4.11.0
   freezed_annotation: ^3.1.0
 
+  # state management
+  flutter_bloc: ^9.1.1
+
   # di
   get_it: ^9.2.1
   injectable: ^3.0.0
