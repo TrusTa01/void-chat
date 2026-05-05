@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  
+
   # ui
   flutter_colorpicker: ^1.1.0
 
@@ -29,7 +29,7 @@ dependencies:
   # di
   get_it: ^9.2.1
   injectable: ^3.0.0
-  
+
   # router
   auto_route: ^11.1.0
 
@@ -37,6 +37,9 @@ dependencies:
   talker_flutter: ^5.1.17
   talker_bloc_logger: ^5.1.17
   talker_dio_logger: ^5.1.17
+
+  # locale caching
+  shared_preferences: ^2.5.5
 
 dev_dependencies:
   flutter_test:
@@ -46,7 +49,7 @@ dev_dependencies:
 
   # localization
   intl: ^0.20.2
-  
+
   # generators
   build_runner: ^2.15.0
   json_serializable: ^6.13.2
