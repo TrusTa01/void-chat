@@ -40,6 +40,7 @@ dependencies:
 
   # locale caching
   shared_preferences: ^2.5.5
+  flutter_secure_storage: ^8.1.0
 
 dev_dependencies:
   flutter_test:

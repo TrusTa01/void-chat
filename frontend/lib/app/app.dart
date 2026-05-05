@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talker_flutter/talker_flutter.dart';
+import 'package:void_chat/app/app_global_listeners.dart';
 import 'package:void_chat/core/di/locator.dart';
 import 'package:void_chat/core/extensions/l10n_ext.dart';
 import 'package:void_chat/core/l10n/app_localization_setup.dart';
@@ -18,22 +19,24 @@ class VoidChat extends StatelessWidget {
     final themePrefs = context.select((ThemeCubit c) => c.state);
     final pair = themePairForPalette(themePrefs.activePalette);
 
-    return MaterialApp.router(
-      // locale
-      onGenerateTitle: (context) => context.l10n.appTitle,
-      localizationsDelegates: AppLocalizationSetup.delegates,
-      supportedLocales: AppLocalizationSetup.supportedLocales,
-      locale: locale,
-      // router
-      routerConfig: appRouter.config(
-        navigatorObservers: () => [TalkerRouteObserver(talker)],
+    return AppGlobalListeners(
+      child: MaterialApp.router(
+        // locale
+        onGenerateTitle: (context) => context.l10n.appTitle,
+        localizationsDelegates: AppLocalizationSetup.delegates,
+        supportedLocales: AppLocalizationSetup.supportedLocales,
+        locale: locale,
+        // router
+        routerConfig: appRouter.config(
+          navigatorObservers: () => [TalkerRouteObserver(talker)],
+        ),
+        // theme
+        theme: pair.light,
+        darkTheme: pair.dark,
+        themeMode: themePrefs.brightness.asThemeMode,
+        // other
+        debugShowCheckedModeBanner: false,
       ),
-      // theme
-      theme: pair.light,
-      darkTheme: pair.dark,
-      themeMode: themePrefs.brightness.asThemeMode,
-      // other
-      debugShowCheckedModeBanner: false,
     );
   }
 }

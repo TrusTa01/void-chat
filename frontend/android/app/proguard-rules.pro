@@ -1,0 +1,2 @@
+-keep class com.it_nevis.flutter_secure_storage.** { *; }
+-keep class androidx.security.crypto.** { *; }

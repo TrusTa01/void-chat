@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:void_chat/core/storage/prefs_keys.dart';
+import 'package:void_chat/core/storage/shared_preferences/prefs_keys.dart';
 
 @lazySingleton
 class AppPrefs {
