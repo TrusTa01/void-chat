@@ -29,5 +29,3 @@ linter:
     - avoid_print
     # Prefer forwarding constructor parameters to the superclass with `super.` parameters.
     - use_super_parameters
-    # Keeps dependency entries in pubspec.yaml sorted for easier diffs and reviews.
-    - sort_pub_dependencies
