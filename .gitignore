@@ -11,24 +11,26 @@
 # ------- Cursor AI -------
 .cursor/
 
-# ------- Dart & Shared -------
+# ------- Dart && Shared -------
 **/.dart_tool/
-**/.pub-cache/
-**/.pub/
-**/build/
-**/.packages
-**/.flutter-plugins
-**/.flutter-plugins-dependencies
+build/
+.packages
 
+#  ------- Secrets  -------
+.env
+.env*
+!.env.example
+!.env.template
+
+# --- Logs ---
+*.log
 
 # ------- Frontend -------
 # --- Flutter ---
 frontend/.flutter-plugins
 frontend/.flutter-plugins-dependencies
-frontend/.packages
 frontend/.pub-cache/
 frontend/.pub/
-frontend/build/
 
 # --- Android ---
 frontend/android/.gradle/
@@ -47,28 +49,10 @@ frontend/ios/Flutter/Flutter.podspec
 frontend/ios/Pods/
 frontend/.fvm/flutter_sdk
 
-# --- Secrets ---
-frontend/.env
-frontend/.env*
-!frontend/.env.example
-
-# --- Logs ---
-frontend/*.log
-
 # --- Generated code ---
 frontend/*.g.dart
 frontend/*.freezed.dart
 
-
 # ------- Backend -------
-backend/.dart_tool/
-backend/build/
-backend/.packages
-
-# --- Secrets ---
-backend/.env
-backend/.env.*
-!backend/.env.example
-
-# --- Logs ---
-backend/*.log
+bin/*.exe
+*.exe
