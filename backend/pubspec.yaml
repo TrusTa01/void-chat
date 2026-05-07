@@ -18,6 +18,12 @@ dependencies:
   get_it: ^9.2.1
   injectable: ^3.0.0
 
+  # db
+  postgres: ^3.5.9
+
+  # secret
+  dotenv: ^4.2.0
+
 dev_dependencies:
   lints: ^6.0.0
   test: ^1.25.6

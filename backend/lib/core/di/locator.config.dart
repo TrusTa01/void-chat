@@ -14,6 +14,7 @@ import 'package:backend/core/di/modules.dart' as _i837;
 import 'package:backend/src/api/auth_api.dart' as _i731;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:postgres/postgres.dart' as _i103;
 import 'package:shelf_router/shelf_router.dart' as _i278;
 import 'package:talker/talker.dart' as _i993;
 
@@ -27,6 +28,7 @@ extension GetItInjectableX on _i174.GetIt {
     final registerModule = _$RegisterModule();
     gh.lazySingleton<_i278.Router>(() => registerModule.router);
     gh.lazySingleton<_i993.Talker>(() => registerModule.talker);
+    gh.lazySingleton<_i103.Pool<_i103.Connection>>(() => registerModule.pool);
     gh.lazySingleton<_i731.AuthApi>(() => _i731.AuthApi());
     gh.lazySingleton<_i974.AppModule>(
       () => _i974.AppModule(gh<_i278.Router>(), gh<_i731.AuthApi>()),
