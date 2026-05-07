@@ -6,6 +6,7 @@ analyzer:
     strict-inference: true
     strict-raw-types: true
   errors:
+    prefer_typing_uninitialized_variables: ignore
     todo: ignore
 
 linter:
