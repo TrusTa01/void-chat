@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:void_chat/features/auth/presentation/screens/register_screen.dart';
+import 'package:void_chat/router/app_router.dart';
 
 @RoutePage()
 class LoginScreen extends StatefulWidget {
@@ -22,7 +22,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Register screen')),
       body: Center(
         child: Row(
           children: [
@@ -46,9 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(height: 20),
 
             TextButton(
-              onPressed: () => Navigator.of(
-                context,
-              ).push(MaterialPageRoute(builder: (_) => const RegisterScreen())),
+              onPressed: () => context.router.push(const RegisterRoute()),
               child: const Text('Зарегистрироваться'),
             ),
           ],

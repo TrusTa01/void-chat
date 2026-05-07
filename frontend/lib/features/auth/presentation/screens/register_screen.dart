@@ -15,7 +15,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Register screen')),
       body: Center(
         child: Row(
           children: [
@@ -37,13 +36,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
 
             const SizedBox(height: 20),
-
-            TextButton(
-              onPressed: () => Navigator.of(
-                context,
-              ).push(MaterialPageRoute(builder: (_) => const RegisterScreen())),
-              child: const Text('Зарегистрироваться'),
-            ),
           ],
         ),
       ),

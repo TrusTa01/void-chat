@@ -11,6 +11,38 @@
 part of 'app_router.dart';
 
 /// generated route for
+/// [AppLayoutScreen]
+class AppLayoutRoute extends PageRouteInfo<void> {
+  const AppLayoutRoute({List<PageRouteInfo>? children})
+    : super(AppLayoutRoute.name, initialChildren: children);
+
+  static const String name = 'AppLayoutRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AppLayoutScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [AuthLayoutScreen]
+class AuthLayoutRoute extends PageRouteInfo<void> {
+  const AuthLayoutRoute({List<PageRouteInfo>? children})
+    : super(AuthLayoutRoute.name, initialChildren: children);
+
+  static const String name = 'AuthLayoutRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AuthLayoutScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [HomeScreen]
 class HomeRoute extends PageRouteInfo<void> {
   const HomeRoute({List<PageRouteInfo>? children})
