@@ -3,13 +3,13 @@ import 'dart:io';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:backend/core/di/locator.dart';
-import 'package:backend/middleware/talker_middleware.dart';
+import 'package:backend/middleware/logging_middleware.dart';
 
 void main() async {
   await configureDependencies();
 
   final handler = const Pipeline()
-      .addMiddleware(talkerMiddleware(talker))
+      .addMiddleware(LoggingMiddleware.talkerMiddleware(talker))
       .addHandler(appModule.handler);
 
   final server = await shelf_io.serve(
