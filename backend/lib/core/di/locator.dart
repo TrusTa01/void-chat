@@ -1,6 +1,6 @@
 import 'package:backend/app_module.dart';
 import 'package:backend/core/di/locator.config.dart';
-import 'package:backend/src/api/auth_api.dart';
+import 'package:backend/features/auth/api/auth_api.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';

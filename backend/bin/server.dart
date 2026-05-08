@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:backend/middleware/error_middleware.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:backend/core/di/locator.dart';
@@ -22,6 +23,7 @@ Future<void> main() async {
     // http pipeline
     final handler = const Pipeline()
         .addMiddleware(LoggingMiddleware.talkerMiddleware(talker))
+        .addMiddleware(errorMiddleware())
         .addHandler(appModule.handler);
 
     // server

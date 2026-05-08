@@ -1,4 +1,4 @@
-import 'package:backend/src/api/auth_api.dart';
+import 'package:backend/features/auth/api/auth_api.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';

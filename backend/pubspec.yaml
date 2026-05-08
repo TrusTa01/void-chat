@@ -18,11 +18,16 @@ dependencies:
   get_it: ^9.2.1
   injectable: ^3.0.0
 
+  # data
+  json_annotation: ^4.11.0
+  freezed_annotation: ^3.1.0
+
   # db
   postgres: ^3.5.9
 
-  # secret
+  # secrets
   dotenv: ^4.2.0
+  dargon2: ^3.2.1
 
 dev_dependencies:
   lints: ^6.0.0
@@ -31,3 +36,5 @@ dev_dependencies:
   # generators
   build_runner: ^2.15.0
   injectable_generator: ^3.0.2
+  json_serializable: ^6.13.2
+  freezed: ^3.2.5
