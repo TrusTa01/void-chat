@@ -46,20 +46,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i447.DisplayNamePolicy>(
       () => const _i447.ReservedDisplayNamePolicy(),
     );
+    gh.lazySingleton<_i701.PasswordHasher>(
+      () => const _i701.Argon2idPasswordHasher(),
+    );
     gh.lazySingleton<_i447.EmailPolicy>(
       () => const _i447.BlocklistEmailPolicy(),
     );
     gh.lazySingleton<_i447.UsernamePolicy>(
       () => const _i447.BlacklistUsernamePolicy(),
-    );
-    gh.lazySingleton<_i701.PasswordHasher>(
-      () => _i701.Argon2idPasswordHasher(
-        memory: gh<int>(),
-        iterations: gh<int>(),
-        parallelism: gh<int>(),
-        hashLength: gh<int>(),
-        saltLength: gh<int>(),
-      ),
     );
     gh.lazySingleton<_i278.IUserRepository>(
       () => _i175.PostgresUserRepository(gh<_i103.Pool<_i103.Connection>>()),
