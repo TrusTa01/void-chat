@@ -59,29 +59,60 @@ Handler buildHandler(IRegisterUser useCase) {
       .addHandler(root.call);
 }
 
+Request buildRequest(String body) => Request(
+  'POST',
+  Uri.parse('http://localhost/auth/register'),
+  headers: {'content-type': 'application/json'},
+  body: body,
+);
+
 void main() {
-  test('POST /auth/register invalid payload -> 400 json error', () async {
-    final handler = buildHandler(ThrowingRegisterUser());
+  group(
+    'POST /auth/register. Users fault - invalid payload or the data doesnt pass validation',
+    () {
+      test('invalid payload -> 400 json error', () async {
+        final handler = buildHandler(ThrowingRegisterUser());
 
-    final request = Request(
-      'POST',
-      Uri.parse('http://localhost/auth/register'),
-      headers: {'content-type': 'application/json'},
-      body: jsonEncode({
-        'login': [0],
-        'password': 1,
-        'email': 'john@example.com',
-        'username': 'johnny',
-        'display_name': 'John',
-      }),
-    );
+        final request = buildRequest(
+          jsonEncode({
+            'login': [0],
+            'password': 1,
+            'email': 'john@example.com',
+            'username': 'johnny',
+            'display_name': 'John',
+          }),
+        );
 
-    final response = await handler(request);
-    final body =
-        jsonDecode(await response.readAsString()) as Map<String, dynamic>;
+        final response = await handler(request);
+        final body =
+            jsonDecode(await response.readAsString()) as Map<String, dynamic>;
 
-    expect(response.statusCode, 400);
-    expect(body['success'], false);
-    expect(body['error']['code'], 'INVALID_FIELDS');
-  });
+        expect(response.statusCode, 400);
+        expect(body['success'], false);
+        expect(body['error']['code'], 'INVALID_REQUEST_FIELDS');
+      });
+
+      test('valid payload, invalid validation', () async {
+        final handler = buildHandler(ThrowingRegisterUser());
+
+        final request = buildRequest(
+          jsonEncode({
+            'login': 'admin',
+            'password': 'qwerty',
+            'email': 'john@example.com',
+            'username': 'jo',
+            'display_name': 'John',
+          }),
+        );
+
+        final response = await handler(request);
+        final body =
+            jsonDecode(await response.readAsString()) as Map<String, dynamic>;
+
+        expect(response.statusCode, 400);
+        expect(body['success'], false);
+        expect(body['error']['code'], 'INVALID_FIELD_VALUES');
+      });
+    },
+  );
 }

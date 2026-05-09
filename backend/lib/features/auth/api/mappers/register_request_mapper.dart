@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:backend/core/errors/app_exception.dart';
 import 'package:backend/features/auth/api/dto/request/register_request_dto.dart';
+import 'package:backend/features/auth/auth_error_codes.dart';
 import 'package:backend/features/auth/domain/value_objects/new_user.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -36,9 +37,16 @@ NewUser parseRegisterBody(String body) {
   try {
     final dto = RegisterRequestDto.fromJson(decoded);
     return dto.toNewUser();
-  } on TypeError catch (e) {
-    throw ValidationException('INVALID_FIELDS', e.toString());
+  } on TypeError catch (_) {
+    throw const ValidationException(
+      AuthErrorCodes.invalidRequestFields,
+      'Registration fields must be strings: login, password, email, '
+      'username, display_name',
+    );
   } on CheckedFromJsonException catch (e) {
-    throw ValidationException('INVALID_FIELDS', e.message ?? 'invalide fields');
+    throw ValidationException(
+      AuthErrorCodes.invalidRequestFields,
+      e.message ?? 'Missing or invalid registration fields',
+    );
   }
 }

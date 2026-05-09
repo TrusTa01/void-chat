@@ -1,4 +1,5 @@
 import 'package:backend/core/errors/app_exception.dart';
+import 'package:backend/features/auth/auth_error_codes.dart';
 
 const int newUserLoginMinLength = 3;
 const int newUserLoginMaxLength = 64;
@@ -96,7 +97,10 @@ NormalizedNewUserFields validateNewUserInput({
   }
 
   if (errors.isNotEmpty) {
-    throw ValidationException('INVALID_FIELDS', errors.join('; '));
+    throw ValidationException(
+      AuthErrorCodes.invalidFieldValues,
+      errors.join('; '),
+    );
   }
 
   return (

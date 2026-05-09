@@ -4,6 +4,13 @@
 /// flows. They are part of the public API contract — keep them stable and in
 /// SCREAMING_SNAKE_CASE.
 abstract class AuthErrorCodes {
+  /// JSON parses but field types or keys do not match [RegisterRequestDto].
+  static const String invalidRequestFields = 'INVALID_REQUEST_FIELDS';
+
+  /// DTO is valid but normalized values break registration rules (length,
+  /// format, password complexity, etc.).
+  static const String invalidFieldValues = 'INVALID_FIELD_VALUES';
+
   /// Email is already registered (UNIQUE violation on `auth.users.email`).
   static const String emailTaken = 'EMAIL_TAKEN';
 
