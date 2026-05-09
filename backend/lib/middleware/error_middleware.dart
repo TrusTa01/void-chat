@@ -10,6 +10,14 @@ Middleware errorMiddleware() {
     return (Request request) async {
       try {
         return await innerHandler(request);
+      } on ValidationFailedException catch (e) {
+        talker.warning(e);
+        return _handleCustomError(
+          e.code,
+          e.message,
+          statusCode: e.statusCode,
+          details: e.details,
+        );
       } on AppException catch (e) {
         talker.warning(e);
         return _handleCustomError(e.code, e.message, statusCode: e.statusCode);
@@ -43,11 +51,15 @@ Response _handleCustomError(
   String code,
   String message, {
   int statusCode = 400,
+  List<FieldError>? details,
 }) {
-  final body = jsonEncode({
-    'success': false,
-    'error': {'code': code, 'message': message},
-  });
+  final error = <String, Object?>{'code': code, 'message': message};
+  if (details != null && details.isNotEmpty) {
+    error['details'] = details
+        .map((d) => {'field': d.field, 'code': d.code, 'message': d.message})
+        .toList(growable: false);
+  }
+  final body = jsonEncode({'success': false, 'error': error});
   return Response(
     statusCode,
     body: body,

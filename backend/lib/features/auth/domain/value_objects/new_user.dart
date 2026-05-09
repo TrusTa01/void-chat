@@ -1,3 +1,4 @@
+import 'package:backend/core/errors/app_exception.dart';
 import 'package:backend/features/auth/domain/validators/new_user_validator.dart';
 
 /// Raw user with plain pass
@@ -16,6 +17,9 @@ final class NewUser {
     required this.displayName,
   });
 
+  /// Validates and normalizes the input. If any field fails validation,
+  /// throws a single [ValidationFailedException] carrying every collected
+  /// [FieldError] so the client can render them all at once.
   factory NewUser.validate({
     required String login,
     required String password,
@@ -23,13 +27,17 @@ final class NewUser {
     required String username,
     required String displayName,
   }) {
-    final n = validateNewUserInput(
+    final result = validateNewUserInput(
       login: login,
       password: password,
       email: email,
       username: username,
       displayName: displayName,
     );
+    if (result.errors.isNotEmpty) {
+      throw ValidationFailedException(result.errors);
+    }
+    final n = result.normalized;
     return NewUser._(
       login: n.login,
       password: n.password,

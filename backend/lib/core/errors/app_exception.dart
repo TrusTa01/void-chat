@@ -6,10 +6,17 @@ sealed class AppException implements Exception {
   const AppException(this.code, this.message, this.statusCode);
 }
 
-// 400
+// 400, fail fast
 class ValidationException extends AppException {
   const ValidationException(String code, String message)
     : super(code, message, 400);
+}
+
+// 400, aggregate
+class ValidationFailedException extends AppException {
+  final List<FieldError> details;
+  const ValidationFailedException(this.details)
+    : super('VALIDATION_FAILED', 'Some fields are invalid', 400);
 }
 
 // 401
@@ -52,4 +59,16 @@ class ServiceUnavailableException extends AppException {
 class GatewayTimeoutException extends AppException {
   const GatewayTimeoutException(String code, String message)
     : super(code, message, 504);
+}
+
+class FieldError {
+  final String field; // 'email', 'password', ...
+  final String code; // 'INVALID_EMAIL', 'WEAK_PASSWORD'
+  final String message; // 'Email format is invalid'
+
+  const FieldError({
+    required this.field,
+    required this.code,
+    required this.message,
+  });
 }

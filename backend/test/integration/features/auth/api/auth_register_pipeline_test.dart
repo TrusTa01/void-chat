@@ -19,6 +19,13 @@ Middleware testErrorMiddleware() {
     return (Request request) async {
       try {
         return await innerHandler(request);
+      } on ValidationFailedException catch (e) {
+        return _handleTestError(
+          e.code,
+          e.message,
+          statusCode: e.statusCode,
+          details: e.details,
+        );
       } on AppException catch (e) {
         return _handleTestError(e.code, e.message, statusCode: e.statusCode);
       } on FormatException {
@@ -38,11 +45,19 @@ Middleware testErrorMiddleware() {
   };
 }
 
-Response _handleTestError(String code, String message, {int statusCode = 400}) {
-  final body = jsonEncode({
-    'success': false,
-    'error': {'code': code, 'message': message},
-  });
+Response _handleTestError(
+  String code,
+  String message, {
+  int statusCode = 400,
+  List<FieldError>? details,
+}) {
+  final error = <String, Object?>{'code': code, 'message': message};
+  if (details != null && details.isNotEmpty) {
+    error['details'] = details
+        .map((d) => {'field': d.field, 'code': d.code, 'message': d.message})
+        .toList(growable: false);
+  }
+  final body = jsonEncode({'success': false, 'error': error});
   return Response(
     statusCode,
     body: body,
@@ -92,15 +107,15 @@ void main() {
         expect(body['error']['code'], 'INVALID_REQUEST_FIELDS');
       });
 
-      test('valid payload, invalid validation', () async {
+      test('valid payload, invalid validation -> aggregated errors', () async {
         final handler = buildHandler(ThrowingRegisterUser());
 
         final request = buildRequest(
           jsonEncode({
             'login': 'admin',
-            'password': 'qwerty',
+            'password': 'qwerty', // 6 chars, fails length
             'email': 'john@example.com',
-            'username': 'jo',
+            'username': 'jo', // 2 chars, fails length
             'display_name': 'John',
           }),
         );
@@ -111,7 +126,20 @@ void main() {
 
         expect(response.statusCode, 400);
         expect(body['success'], false);
-        expect(body['error']['code'], 'INVALID_FIELD_VALUES');
+        expect(body['error']['code'], 'VALIDATION_FAILED');
+
+        final details = body['error']['details'] as List<dynamic>;
+        final fields = details
+            .map((d) => (d as Map<String, dynamic>)['field'])
+            .toSet();
+        expect(fields, {'password', 'username'});
+
+        final passwordError =
+            details.firstWhere(
+                  (d) => (d as Map<String, dynamic>)['field'] == 'password',
+                )
+                as Map<String, dynamic>;
+        expect(passwordError['code'], 'INVALID_PASSWORD');
       });
     },
   );

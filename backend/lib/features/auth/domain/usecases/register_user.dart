@@ -1,3 +1,4 @@
+import 'package:backend/core/errors/app_exception.dart';
 import 'package:backend/core/security/password_hasher.dart';
 import 'package:backend/features/auth/domain/entities/user_entity.dart';
 import 'package:backend/features/auth/domain/policies/registration_policies.dart';
@@ -28,18 +29,30 @@ class RegisterUser implements IRegisterUser {
 
   @override
   Future<UserEntity> call(NewUser data) async {
-    final login = _loginPolicy.ensure(data.login);
+    // Run every policy and aggregate their findings before deciding to throw.
+    // This guarantees the client gets all policy violations in one round
+    // trip, mirroring the contract of the field validator
+    final errors = <FieldError>[];
+    _loginPolicy.check(data.login, errors);
+    _emailPolicy.check(data.email, errors);
+    _usernamePolicy.check(data.username, errors);
+    _displayNamePolicy.check(data.displayName, errors);
+
+    if (errors.isNotEmpty) {
+      throw ValidationFailedException(errors);
+    }
+
+    // Hashing is intentionally deferred until policies succeed so we
+    // do not waste the (deliberately expensive) Argon2id work on rejected
+    // payloads
     final passwordHash = await _hasher.hash(data.password);
-    final email = _emailPolicy.ensure(data.email);
-    final username = _usernamePolicy.ensure(data.username);
-    final displayName = _displayNamePolicy.ensure(data.displayName);
 
     final record = NewUserRecord(
-      login: login,
+      login: data.login,
       passwordHash: passwordHash,
-      email: email,
-      username: username,
-      displayName: displayName,
+      email: data.email,
+      username: data.username,
+      displayName: data.displayName,
     );
 
     return _repo.create(record);

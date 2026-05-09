@@ -1,5 +1,6 @@
 import 'package:backend/core/errors/app_exception.dart';
 import 'package:backend/features/auth/auth_error_codes.dart';
+import 'package:backend/features/auth/auth_field_names.dart';
 
 const int newUserLoginMinLength = 3;
 const int newUserLoginMaxLength = 64;
@@ -29,8 +30,25 @@ typedef NormalizedNewUserFields = ({
   String displayName,
 });
 
-/// Validates registration fields; throws [ValidationException] on failure.
-NormalizedNewUserFields validateNewUserInput({
+/// Result of [validateNewUserInput]: the normalized values together with
+/// every [FieldError] discovered during the pass.
+///
+/// Keeping these together lets the caller decide what to do (throw a
+/// [ValidationFailedException] when [errors] is non-empty, or proceed with
+/// [normalized] when it is empty).
+typedef NewUserValidationResult = ({
+  NormalizedNewUserFields normalized,
+  List<FieldError> errors,
+});
+
+/// Aggregates every validation problem into a single [FieldError] per field.
+///
+/// Rationale for at-most-one error per field: it keeps the response payload
+/// small, makes the frontend mapping trivial (one inline error per input),
+/// and avoids overwhelming the user with multiple complaints about the same
+/// input. The most blocking issue (length/empty) wins; secondary issues
+/// (format, complexity) are merged into a single descriptive message.
+NewUserValidationResult validateNewUserInput({
   required String login,
   required String password,
   required String email,
@@ -42,72 +60,146 @@ NormalizedNewUserFields validateNewUserInput({
   final trimmedUsername = username.trim();
   final trimmedDisplayName = displayName.trim();
 
-  final errors = <String>[];
+  final errors = <FieldError>[];
 
-  if (trimmedLogin.length < newUserLoginMinLength ||
-      trimmedLogin.length > newUserLoginMaxLength) {
-    errors.add(
-      'login must be between $newUserLoginMinLength and $newUserLoginMaxLength characters',
-    );
-  } else if (!_loginUsernamePattern.hasMatch(trimmedLogin)) {
-    errors.add(
-      'login may only contain letters, digits, underscore, and hyphen',
-    );
-  }
+  // Login
+  final loginError = _validateLogin(trimmedLogin);
+  if (loginError != null) errors.add(loginError);
 
-  if (password.length < newUserPasswordMinLength ||
-      password.length > newUserPasswordMaxLength) {
-    errors.add(
-      'password must be between $newUserPasswordMinLength and $newUserPasswordMaxLength characters',
-    );
-  } else {
-    if (!_passwordHasLetter.hasMatch(password)) {
-      errors.add('password must contain at least one letter');
-    }
-    if (!_passwordHasDigit.hasMatch(password)) {
-      errors.add('password must contain at least one digit');
-    }
-  }
+  // Password (the raw value, intentionally not trimmed)
+  final passwordError = _validatePassword(password);
+  if (passwordError != null) errors.add(passwordError);
 
-  if (trimmedEmail.isEmpty || trimmedEmail.length > newUserEmailMaxLength) {
-    errors.add(
-      'email must be a valid address (max $newUserEmailMaxLength characters)',
-    );
-  } else if (!_emailPattern.hasMatch(trimmedEmail)) {
-    errors.add('email format is invalid');
-  }
+  // Email
+  final emailError = _validateEmail(trimmedEmail);
+  if (emailError != null) errors.add(emailError);
 
-  if (trimmedUsername.length < newUserUsernameMinLength ||
-      trimmedUsername.length > newUserUsernameMaxLength) {
-    errors.add(
-      'username must be between $newUserUsernameMinLength and $newUserUsernameMaxLength characters',
-    );
-  } else if (!_loginUsernamePattern.hasMatch(trimmedUsername)) {
-    errors.add(
-      'username may only contain letters, digits, underscore, and hyphen',
-    );
-  }
+  // Username
+  final usernameError = _validateUsername(trimmedUsername);
+  if (usernameError != null) errors.add(usernameError);
 
-  if (trimmedDisplayName.isEmpty) {
-    errors.add('display name must not be empty');
-  } else if (trimmedDisplayName.length > newUserDisplayNameMaxLength) {
-    errors.add(
-      'display name must be at most $newUserDisplayNameMaxLength characters',
-    );
-  }
-
-  if (errors.isNotEmpty) {
-    throw ValidationException(
-      AuthErrorCodes.invalidFieldValues,
-      errors.join('; '),
-    );
-  }
+  // Display name
+  final displayNameError = _validateDisplayName(trimmedDisplayName);
+  if (displayNameError != null) errors.add(displayNameError);
 
   return (
-    login: trimmedLogin,
-    password: password,
-    email: trimmedEmail,
-    username: trimmedUsername,
-    displayName: trimmedDisplayName,
+    normalized: (
+      login: trimmedLogin,
+      password: password,
+      email: trimmedEmail,
+      username: trimmedUsername,
+      displayName: trimmedDisplayName,
+    ),
+    errors: errors,
   );
+}
+
+FieldError? _validateLogin(String trimmedLogin) {
+  if (trimmedLogin.length < newUserLoginMinLength ||
+      trimmedLogin.length > newUserLoginMaxLength) {
+    return const FieldError(
+      field: AuthFieldNames.login,
+      code: AuthErrorCodes.invalidLogin,
+      message:
+          'Login must be between $newUserLoginMinLength and '
+          '$newUserLoginMaxLength characters',
+    );
+  }
+  if (!_loginUsernamePattern.hasMatch(trimmedLogin)) {
+    return const FieldError(
+      field: AuthFieldNames.login,
+      code: AuthErrorCodes.invalidLogin,
+      message: 'Login may only contain letters, digits, underscore, and hyphen',
+    );
+  }
+  return null;
+}
+
+FieldError? _validatePassword(String password) {
+  if (password.length < newUserPasswordMinLength ||
+      password.length > newUserPasswordMaxLength) {
+    return const FieldError(
+      field: AuthFieldNames.password,
+      code: AuthErrorCodes.invalidPassword,
+      message:
+          'Password must be between $newUserPasswordMinLength and '
+          '$newUserPasswordMaxLength characters',
+    );
+  }
+
+  final problems = <String>[];
+  if (!_passwordHasLetter.hasMatch(password)) {
+    problems.add('contain at least one letter');
+  }
+  if (!_passwordHasDigit.hasMatch(password)) {
+    problems.add('contain at least one digit');
+  }
+  if (problems.isNotEmpty) {
+    return FieldError(
+      field: AuthFieldNames.password,
+      code: AuthErrorCodes.invalidPassword,
+      message: 'Password must ${problems.join(' and ')}',
+    );
+  }
+  return null;
+}
+
+FieldError? _validateEmail(String trimmedEmail) {
+  if (trimmedEmail.isEmpty || trimmedEmail.length > newUserEmailMaxLength) {
+    return const FieldError(
+      field: AuthFieldNames.email,
+      code: AuthErrorCodes.invalidEmail,
+      message:
+          'Email must be a valid address (max $newUserEmailMaxLength characters)',
+    );
+  }
+  if (!_emailPattern.hasMatch(trimmedEmail)) {
+    return const FieldError(
+      field: AuthFieldNames.email,
+      code: AuthErrorCodes.invalidEmail,
+      message: 'Email format is invalid',
+    );
+  }
+  return null;
+}
+
+FieldError? _validateUsername(String trimmedUsername) {
+  if (trimmedUsername.length < newUserUsernameMinLength ||
+      trimmedUsername.length > newUserUsernameMaxLength) {
+    return const FieldError(
+      field: AuthFieldNames.username,
+      code: AuthErrorCodes.invalidUsername,
+      message:
+          'Username must be between $newUserUsernameMinLength and '
+          '$newUserUsernameMaxLength characters',
+    );
+  }
+  if (!_loginUsernamePattern.hasMatch(trimmedUsername)) {
+    return const FieldError(
+      field: AuthFieldNames.username,
+      code: AuthErrorCodes.invalidUsername,
+      message:
+          'Username may only contain letters, digits, underscore, and hyphen',
+    );
+  }
+  return null;
+}
+
+FieldError? _validateDisplayName(String trimmedDisplayName) {
+  if (trimmedDisplayName.isEmpty) {
+    return const FieldError(
+      field: AuthFieldNames.displayName,
+      code: AuthErrorCodes.invalidDisplayName,
+      message: 'Display name must not be empty',
+    );
+  }
+  if (trimmedDisplayName.length > newUserDisplayNameMaxLength) {
+    return const FieldError(
+      field: AuthFieldNames.displayName,
+      code: AuthErrorCodes.invalidDisplayName,
+      message:
+          'Display name must be at most $newUserDisplayNameMaxLength characters',
+    );
+  }
+  return null;
 }
