@@ -7,7 +7,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 extension RegisterRequestMapper on RegisterRequestDto {
   NewUser toNewUser() {
-    return NewUser(
+    return NewUser.validate(
       login: login,
       password: password,
       email: email,

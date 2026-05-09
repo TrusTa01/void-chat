@@ -15,6 +15,8 @@ import 'package:backend/core/security/password_hasher.dart' as _i701;
 import 'package:backend/features/auth/api/auth_api.dart' as _i592;
 import 'package:backend/features/auth/data/repository/postgres_user_repo.dart'
     as _i175;
+import 'package:backend/features/auth/domain/policies/registration_policies.dart'
+    as _i447;
 import 'package:backend/features/auth/domain/repository/i_user_repository.dart'
     as _i278;
 import 'package:backend/features/auth/domain/usecases/i_register_user.dart'
@@ -38,6 +40,18 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i278.Router>(() => registerModule.router);
     gh.lazySingleton<_i993.Talker>(() => registerModule.talker);
     gh.lazySingleton<_i103.Pool<_i103.Connection>>(() => registerModule.pool);
+    gh.lazySingleton<_i447.LoginPolicy>(
+      () => const _i447.BlacklistLoginPolicy(),
+    );
+    gh.lazySingleton<_i447.DisplayNamePolicy>(
+      () => const _i447.ReservedDisplayNamePolicy(),
+    );
+    gh.lazySingleton<_i447.EmailPolicy>(
+      () => const _i447.BlocklistEmailPolicy(),
+    );
+    gh.lazySingleton<_i447.UsernamePolicy>(
+      () => const _i447.BlacklistUsernamePolicy(),
+    );
     gh.lazySingleton<_i701.PasswordHasher>(
       () => _i701.Argon2idPasswordHasher(
         memory: gh<int>(),
@@ -54,6 +68,10 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i799.RegisterUser(
         gh<_i278.IUserRepository>(),
         gh<_i701.PasswordHasher>(),
+        gh<_i447.LoginPolicy>(),
+        gh<_i447.EmailPolicy>(),
+        gh<_i447.UsernamePolicy>(),
+        gh<_i447.DisplayNamePolicy>(),
       ),
     );
     gh.lazySingleton<_i592.AuthApi>(
