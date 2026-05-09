@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:shelf/shelf.dart';
 
 /// Conveniet wrapper for [Response] with content-type in header
@@ -8,7 +10,7 @@ abstract class JsonResponse {
 
   static Response _build(int statusCode, Object? body) => Response(
     statusCode,
-    body: body,
+    body: body == null ? null : jsonEncode(body),
     headers: {'content-type': 'application/json'},
   );
 }

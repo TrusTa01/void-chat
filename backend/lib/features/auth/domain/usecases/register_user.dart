@@ -1,12 +1,11 @@
 import 'package:backend/core/security/password_hasher.dart';
 import 'package:backend/features/auth/domain/entities/user_entity.dart';
 import 'package:backend/features/auth/domain/repository/i_user_repository.dart';
+import 'package:backend/features/auth/domain/usecases/i_register_user.dart';
 import 'package:backend/features/auth/domain/value_objects/new_user.dart';
 import 'package:injectable/injectable.dart';
 
-abstract interface class IRegisterUser {
-  Future<UserEntity> call(NewUser data);
-}
+export 'i_register_user.dart' show IRegisterUser;
 
 @LazySingleton(as: IRegisterUser)
 class RegisterUser implements IRegisterUser {

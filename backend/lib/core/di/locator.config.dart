@@ -17,6 +17,8 @@ import 'package:backend/features/auth/data/repository/postgres_user_repo.dart'
     as _i175;
 import 'package:backend/features/auth/domain/repository/i_user_repository.dart'
     as _i278;
+import 'package:backend/features/auth/domain/usecases/i_register_user.dart'
+    as _i886;
 import 'package:backend/features/auth/domain/usecases/register_user.dart'
     as _i799;
 import 'package:get_it/get_it.dart' as _i174;
@@ -55,7 +57,7 @@ extension GetItInjectableX on _i174.GetIt {
       ),
     );
     gh.lazySingleton<_i592.AuthApi>(
-      () => _i592.AuthApi(gh<_i799.IRegisterUser>()),
+      () => _i592.AuthApi(gh<_i886.IRegisterUser>()),
     );
     gh.lazySingleton<_i974.AppModule>(
       () => _i974.AppModule(gh<_i278.Router>(), gh<_i592.AuthApi>()),

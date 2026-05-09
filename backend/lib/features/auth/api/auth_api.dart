@@ -1,7 +1,7 @@
 import 'package:backend/core/api/json_response.dart';
 import 'package:backend/features/auth/api/mappers/register_request_mapper.dart';
 import 'package:backend/features/auth/api/mappers/register_response_mapper.dart';
-import 'package:backend/features/auth/domain/usecases/register_user.dart';
+import 'package:backend/features/auth/domain/usecases/i_register_user.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';

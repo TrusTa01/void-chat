@@ -37,7 +37,7 @@ NewUser parseRegisterBody(String body) {
     final dto = RegisterRequestDto.fromJson(decoded);
     return dto.toNewUser();
   } on TypeError catch (e) {
-    throw ValidationException('IVALID_FIELDS', e.toString());
+    throw ValidationException('INVALID_FIELDS', e.toString());
   } on CheckedFromJsonException catch (e) {
     throw ValidationException('INVALID_FIELDS', e.message ?? 'invalide fields');
   }
