@@ -1,0 +1,190 @@
+{
+  "info": {
+    "_postman_id": "94e280db-697b-4c52-a1b9-9890d03c9db6",
+    "name": "Void auth",
+    "description": "Smoke tests for the Void auth API. Requires `baseUrl` to be set (defaults to http://localhost:8082). Run requests in the `register` folder in order; each request's description states the expected status and `error.code`.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "33741513"
+  },
+  "item": [
+    {
+      "name": "register",
+      "item": [
+        {
+          "name": "register - happy path",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"login\": \"john\",\n  \"password\": \"secret123\",\n  \"email\": \"john@example.com\",\n  \"username\": \"johnny\",\n  \"display_name\": \"John\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            },
+            "description": "Expected: 201 Created. Response body contains `id`, `email`, `username`, `display_name`, `created_at` and DOES NOT contain `login` or `password_hash`."
+          },
+          "response": []
+        },
+        {
+          "name": "register - duplicate email",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"login\": \"john2\",\n  \"password\": \"secret123\",\n  \"email\": \"john@example.com\",\n  \"username\": \"johnny2\",\n  \"display_name\": \"John 2\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            },
+            "description": "Expected: 409 Conflict, error.code = EMAIL_TAKEN. Reuses the email from the happy path. Run AFTER `register - happy path`."
+          },
+          "response": []
+        },
+        {
+          "name": "register - duplicate username",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"login\": \"john3\",\n  \"password\": \"secret123\",\n  \"email\": \"john3@example.com\",\n  \"username\": \"johnny\",\n  \"display_name\": \"John 3\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            },
+            "description": "Expected: 409 Conflict, error.code = USERNAME_TAKEN. Reuses the username from the happy path. Run AFTER `register - happy path`."
+          },
+          "response": []
+        },
+        {
+          "name": "register - invalid json",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "not a json",
+              "options": {
+                "raw": {
+                  "language": "text"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            },
+            "description": "Expected: 400 Bad Request, error.code = INVALID_JSON. Body is plain text, not JSON, so jsonDecode fails fast in the middleware."
+          },
+          "response": []
+        },
+        {
+          "name": "register - wrong field types",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"login\": 42,\n  \"password\": \"secret123\",\n  \"email\": \"a@b.co\",\n  \"username\": \"u\",\n  \"display_name\": \"D\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            },
+            "description": "Expected: 400 Bad Request, error.code = INVALID_REQUEST_FIELDS, no error.details. JSON is structurally valid but `login` is a number; this is a structural fail-fast check at the DTO boundary."
+          },
+          "response": []
+        },
+        {
+          "name": "register - aggregated validation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"login\": \"j\",\n  \"password\": \"abc\",\n  \"email\": \"bad\",\n  \"username\": \"jo\",\n  \"display_name\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            },
+            "description": "Expected: 400 Bad Request, error.code = VALIDATION_FAILED, error.details[] contains one entry per failing field (login, password, email, username, display_name) with per-field codes (INVALID_LOGIN, INVALID_PASSWORD, ...)."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

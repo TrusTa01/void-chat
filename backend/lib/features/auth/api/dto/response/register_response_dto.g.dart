@@ -8,7 +8,7 @@ part of 'register_response_dto.dart';
 
 _RegisterResponseDto _$RegisterResponseDtoFromJson(Map<String, dynamic> json) =>
     _RegisterResponseDto(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       email: json['email'] as String,
       username: json['username'] as String,
       displayName: json['display_name'] as String,

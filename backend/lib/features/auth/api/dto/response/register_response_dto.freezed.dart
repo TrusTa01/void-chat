@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RegisterResponseDto {
 
- int get id; String get email; String get username;@JsonKey(name: 'display_name') String get displayName;@JsonKey(name: 'created_at') DateTime get createdAt;
+ String get id; String get email; String get username;@JsonKey(name: 'display_name') String get displayName;@JsonKey(name: 'created_at') DateTime get createdAt;
 /// Create a copy of RegisterResponseDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $RegisterResponseDtoCopyWith<$Res>  {
   factory $RegisterResponseDtoCopyWith(RegisterResponseDto value, $Res Function(RegisterResponseDto) _then) = _$RegisterResponseDtoCopyWithImpl;
 @useResult
 $Res call({
- int id, String email, String username,@JsonKey(name: 'display_name') String displayName,@JsonKey(name: 'created_at') DateTime createdAt
+ String id, String email, String username,@JsonKey(name: 'display_name') String displayName,@JsonKey(name: 'created_at') DateTime createdAt
 });
 
 
@@ -68,7 +68,7 @@ class _$RegisterResponseDtoCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? email = null,Object? username = null,Object? displayName = null,Object? createdAt = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String,displayName: null == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
@@ -157,7 +157,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String email,  String username, @JsonKey(name: 'display_name')  String displayName, @JsonKey(name: 'created_at')  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String email,  String username, @JsonKey(name: 'display_name')  String displayName, @JsonKey(name: 'created_at')  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RegisterResponseDto() when $default != null:
 return $default(_that.id,_that.email,_that.username,_that.displayName,_that.createdAt);case _:
@@ -178,7 +178,7 @@ return $default(_that.id,_that.email,_that.username,_that.displayName,_that.crea
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String email,  String username, @JsonKey(name: 'display_name')  String displayName, @JsonKey(name: 'created_at')  DateTime createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String email,  String username, @JsonKey(name: 'display_name')  String displayName, @JsonKey(name: 'created_at')  DateTime createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _RegisterResponseDto():
 return $default(_that.id,_that.email,_that.username,_that.displayName,_that.createdAt);case _:
@@ -198,7 +198,7 @@ return $default(_that.id,_that.email,_that.username,_that.displayName,_that.crea
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String email,  String username, @JsonKey(name: 'display_name')  String displayName, @JsonKey(name: 'created_at')  DateTime createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String email,  String username, @JsonKey(name: 'display_name')  String displayName, @JsonKey(name: 'created_at')  DateTime createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _RegisterResponseDto() when $default != null:
 return $default(_that.id,_that.email,_that.username,_that.displayName,_that.createdAt);case _:
@@ -216,7 +216,7 @@ class _RegisterResponseDto implements RegisterResponseDto {
   const _RegisterResponseDto({required this.id, required this.email, required this.username, @JsonKey(name: 'display_name') required this.displayName, @JsonKey(name: 'created_at') required this.createdAt});
   factory _RegisterResponseDto.fromJson(Map<String, dynamic> json) => _$RegisterResponseDtoFromJson(json);
 
-@override final  int id;
+@override final  String id;
 @override final  String email;
 @override final  String username;
 @override@JsonKey(name: 'display_name') final  String displayName;
@@ -255,7 +255,7 @@ abstract mixin class _$RegisterResponseDtoCopyWith<$Res> implements $RegisterRes
   factory _$RegisterResponseDtoCopyWith(_RegisterResponseDto value, $Res Function(_RegisterResponseDto) _then) = __$RegisterResponseDtoCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String email, String username,@JsonKey(name: 'display_name') String displayName,@JsonKey(name: 'created_at') DateTime createdAt
+ String id, String email, String username,@JsonKey(name: 'display_name') String displayName,@JsonKey(name: 'created_at') DateTime createdAt
 });
 
 
@@ -275,7 +275,7 @@ class __$RegisterResponseDtoCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? email = null,Object? username = null,Object? displayName = null,Object? createdAt = null,}) {
   return _then(_RegisterResponseDto(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String,displayName: null == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable

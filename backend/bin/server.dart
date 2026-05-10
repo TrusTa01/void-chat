@@ -11,6 +11,7 @@ import 'package:postgres/postgres.dart';
 Future<void> main() async {
   HttpServer? server;
   Pool<Connection>? dbPool;
+  final port = int.tryParse(Platform.environment['PORT'] ?? '') ?? 8082;
 
   try {
     // di
@@ -29,13 +30,19 @@ Future<void> main() async {
     // server
     server = await shelf_io.serve(
       handler,
-      InternetAddress.anyIPv6,
-      8081,
-      shared: true,
+      InternetAddress.anyIPv4,
+      port,
+      shared: false,
     );
     server.autoCompress = true;
+    final bindHost = server.address.host;
+    final publicHost =
+        (bindHost == InternetAddress.anyIPv4.host ||
+            bindHost == InternetAddress.anyIPv6.host)
+        ? 'localhost'
+        : bindHost;
     talker.info(
-      'Server started at http://${server.address.host}:${server.port}',
+      'Server started successfuly! \npublic host: http://$publicHost:${server.port}\nserver host: http://${server.address.host}:${server.port}',
     );
 
     // graceful shutdown
@@ -50,7 +57,11 @@ Future<void> main() async {
     }
 
     ProcessSignal.sigint.watch().listen((_) => shutDown('SIGINT'));
-    ProcessSignal.sigterm.watch().listen((_) => shutDown('SIGTERM'));
+    if (!Platform.isWindows) {
+      ProcessSignal.sigterm.watch().listen((_) => shutDown('SIGTERM'));
+    } else {
+      talker.warning('SIGTERM is not supported on Windows, SIGINT only');
+    }
 
     await stop.future;
     talker.info('Shutdown complete');

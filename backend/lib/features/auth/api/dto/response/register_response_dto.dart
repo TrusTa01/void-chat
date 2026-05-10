@@ -6,7 +6,7 @@ part 'register_response_dto.freezed.dart';
 @freezed
 abstract class RegisterResponseDto with _$RegisterResponseDto {
   const factory RegisterResponseDto({
-    required int id,
+    required String id,
     required String email,
     required String username,
     @JsonKey(name: 'display_name') required String displayName,

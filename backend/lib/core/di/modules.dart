@@ -26,6 +26,6 @@ abstract class RegisterModule {
 
     return Pool.withEndpoints([
       endpoint,
-    ], settings: PoolSettings(maxConnectionCount: 5));
+    ], settings: PoolSettings(maxConnectionCount: 5, sslMode: SslMode.disable));
   }
 }

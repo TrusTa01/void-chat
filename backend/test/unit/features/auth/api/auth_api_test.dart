@@ -16,7 +16,7 @@ class FakeRegisterUser implements IRegisterUser {
     capturedInput = data;
 
     return UserEntity(
-      id: 1,
+      id: '1',
       email: data.email,
       username: data.username,
       displayName: data.displayName,
@@ -65,7 +65,8 @@ void main() {
       expect(fakeUseCase.capturedInput!.displayName, 'John');
 
       // Assert: response body shape
-      expect(json['id'], 1);
+      expect(json['id'], isA<String>());
+      expect(json['id'], '1');
       expect(json['email'], 'john@email.com');
       expect(json['username'], 'johnny');
       expect(json['display_name'], 'John');
