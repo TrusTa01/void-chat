@@ -4,6 +4,7 @@ import 'package:backend/features/auth/auth_error_codes.dart';
 import 'package:backend/features/auth/domain/entities/user_entity.dart';
 import 'package:backend/features/auth/domain/repository/i_user_repository.dart';
 import 'package:backend/features/auth/domain/value_objects/new_user.dart';
+import 'package:backend/features/auth/domain/value_objects/user_credentials.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
 
@@ -60,20 +61,78 @@ class PostgresUserRepository with PgErrorHandling implements IUserRepository {
 
   @override
   Future<UserEntity?> findByEmail(String email) async {
-    // TODO: implement finalByEmail
-    throw UnimplementedError();
+    return guarded(() async {
+      final result = await _pool.execute(
+        Sql.named(
+          '''
+        SELECT id, email, username, display_name, created_at
+        FROM auth.users 
+        WHERE email = @email
+        '''
+              .trim(),
+        ),
+        parameters: {'email': email},
+      );
+      if (result.isEmpty) return null;
+      return _mapRow(result.first);
+    });
   }
 
   @override
-  Future<UserEntity?> findById(int id) async {
-    // TODO: implement findById
-    throw UnimplementedError();
+  Future<UserEntity?> findById(String id) async {
+    return guarded(() async {
+      final result = await _pool.execute(
+        Sql.named(
+          '''
+        SELECT id, email, username, display_name, created_at
+        FROM auth.users 
+        WHERE id = @id
+        '''
+              .trim(),
+        ),
+        parameters: {'id': id},
+      );
+      if (result.isEmpty) return null;
+      return _mapRow(result.first);
+    });
   }
 
   @override
   Future<UserEntity?> findByLogin(String login) async {
-    // TODO: implement findByLogin
-    throw UnimplementedError();
+    return guarded(() async {
+      final result = await _pool.execute(
+        Sql.named(
+          '''
+        SELECT id, email, username, display_name, created_at
+        FROM auth.users 
+        WHERE login = @login
+        '''
+              .trim(),
+        ),
+        parameters: {'login': login},
+      );
+      if (result.isEmpty) return null;
+      return _mapRow(result.first);
+    });
+  }
+
+  @override
+  Future<UserCredentials?> findCredentialsByIdentifier(String identifier) {
+    return guarded(() async {
+      final isEmail = identifier.contains('@');
+      final sql = isEmail
+          ? Sql.named(
+              'SELECT id, password_hash FROM auth.users WHERE email = @id LIMIT 1'
+                  .trim(),
+            )
+          : Sql.named(
+              'SELECT id, password_hash FROM auth.users WHERE login = @id LIMIT 1'
+                  .trim(),
+            );
+      final result = await _pool.execute(sql, parameters: {'id': identifier});
+      if (result.isEmpty) return null;
+      return _mapCredentialsRow(result.first);
+    });
   }
 
   UserEntity _mapRow(ResultRow row) {
@@ -88,6 +147,15 @@ class PostgresUserRepository with PgErrorHandling implements IUserRepository {
       username: m['username'] as String,
       displayName: m['display_name'] as String,
       createdAt: m['created_at'] as DateTime,
+    );
+  }
+
+  UserCredentials? _mapCredentialsRow(ResultRow row) {
+    final m = row.toColumnMap();
+    final id = (m['id']! as Object).toString();
+    return UserCredentials(
+      userId: id,
+      passwordHash: m['password_hash'] as String,
     );
   }
 }

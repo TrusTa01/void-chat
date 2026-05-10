@@ -13,10 +13,14 @@ import 'package:backend/app_module.dart' as _i974;
 import 'package:backend/core/di/modules.dart' as _i837;
 import 'package:backend/core/security/password_hasher.dart' as _i701;
 import 'package:backend/features/auth/api/auth_api.dart' as _i592;
+import 'package:backend/features/auth/data/repository/postgres_session_repository.dart'
+    as _i865;
 import 'package:backend/features/auth/data/repository/postgres_user_repo.dart'
     as _i175;
 import 'package:backend/features/auth/domain/policies/registration_policies.dart'
     as _i447;
+import 'package:backend/features/auth/domain/repository/i_session_repository.dart'
+    as _i534;
 import 'package:backend/features/auth/domain/repository/i_user_repository.dart'
     as _i278;
 import 'package:backend/features/auth/domain/usecases/i_register_user.dart'
@@ -54,6 +58,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i447.UsernamePolicy>(
       () => const _i447.BlacklistUsernamePolicy(),
+    );
+    gh.lazySingleton<_i534.ISessionRepository>(
+      () => _i865.PostgresSessionRepository(gh<_i103.Pool<_i103.Connection>>()),
     );
     gh.lazySingleton<_i278.IUserRepository>(
       () => _i175.PostgresUserRepository(gh<_i103.Pool<_i103.Connection>>()),
