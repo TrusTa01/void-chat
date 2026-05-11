@@ -134,6 +134,58 @@ Endpoint-specific:
 | `INVALID_USERNAME`     | `username`     |
 | `INVALID_DISPLAY_NAME` | `display_name` |
 
+### POST /auth/login
+
+Authenticates a user by login **or** email and issues a session token.
+
+#### Request
+
+```json
+{
+  "identifier": "john@example.com",
+  "password": "secret123"
+}
+```
+
+`identifier` can be either the `login` or the `email` that was used at registration
+time. The backend does not reveal which one was wrong to avoid leaking which
+identifiers are registered.
+
+#### Response 200
+
+```json
+{
+  "access_token": "opaque-token-string",
+  "user": {
+    "id": "550e8400-e29b-41d4-a716-446655440000",
+    "email": "john@example.com",
+    "username": "johnny",
+    "display_name": "John",
+    "created_at": "2026-05-10T03:10:00.000Z"
+  },
+  "expires_in": 2592000
+}
+```
+
+- `access_token` is an opaque bearer token. Only its SHA‑256 hash is persisted
+  in `auth.sessions.token_hash`, so a database leak does not expose usable
+  session tokens.
+- `expires_in` is the number of seconds until the token expires; the current
+  value corresponds to 30 days.
+- The `user` object is a public profile mirror of the registration response and
+  never contains `login`, `password`, or `password_hash`.
+
+#### Errors
+
+Endpoint-specific:
+
+| Status | code                     | When                                          |
+| ------ | ------------------------ | --------------------------------------------- |
+| 400    | `INVALID_JSON`           | Body is not valid JSON                        |
+| 400    | `INVALID_BODY`           | JSON parses but is not an object              |
+| 400    | `INVALID_REQUEST_FIELDS` | Field is missing or has wrong type            |
+| 401    | `INVALID_CREDENTIALS`    | Identifier not found or password is incorrect |
+
 Platform-wide errors that any endpoint can produce:
 
 | Status | code                | When                                                      |
@@ -151,14 +203,15 @@ Platform-wide errors that any endpoint can produce:
 
 A Postman collection lives in `backend/postman/`.
 
-1. Import `void-auth.postman_collection.json` into Postman.
+1. Import `auth.postman_collection.json` into Postman.
 2. Create a Postman environment with `baseUrl = http://localhost:8082` and
    activate it (or edit the variable in the collection itself).
 3. Make sure the local Postgres is running and the `auth.users` schema from
    the section above is applied.
 4. Start the server: `dart run bin/server.dart`.
-5. Run requests in the `register` folder. Each request's description states
-   the expected status and `error.code`.
+5. Run requests in the `register` and `login` folders. Each request's description
+   states the expected status and `error.code` (or `access_token` payload for
+   login).
 
 ### Smoke checklist — `auth/register`
 
@@ -172,3 +225,14 @@ Last run: 2026-05-10, against local Postgres in Docker.
 | 4   | Invalid JSON          | `not a json`                                | 400 `INVALID_JSON`                            | ✓    |
 | 5   | Wrong field types     | `login: 42`                                 | 400 `INVALID_REQUEST_FIELDS` (no `details`)   | ✓    |
 | 6   | Aggregated validation | short password + empty `display_name` + ... | 400 `VALIDATION_FAILED` with `details[]`      | ✓    |
+
+### Smoke checklist — `auth/login`
+
+Last run: 2026-05-11, against local Postgres in Docker.
+
+| #   | Scenario                       | Body                            | Expected                                  | Pass |
+| --- | ------------------------------ | ------------------------------- | ----------------------------------------- | ---- |
+| 1   | Happy path                     | valid `identifier` + `password` | 200, `access_token`, `user`, `expires_in` | ✓    |
+| 2   | Wrong password or unknown user | bad `identifier` or `password`  | 401 `INVALID_CREDENTIALS`                 | ✓    |
+| 3   | Wrong field types              | `identifier: 42`                | 400 `INVALID_REQUEST_FIELDS`              | ✓    |
+| 4   | Invalid JSON                   | `not a json`                    | 400 `INVALID_JSON`                        | ✓    |

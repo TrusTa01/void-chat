@@ -1,10 +1,12 @@
 import 'dart:convert';
 
-import 'package:backend/core/errors/app_exception.dart';
-import 'package:backend/features/auth/api/auth_api.dart';
-import 'package:backend/features/auth/domain/entities/user_entity.dart';
-import 'package:backend/features/auth/domain/usecases/i_register_user.dart';
-import 'package:backend/features/auth/domain/value_objects/new_user.dart';
+import 'package:backend/src/core/errors/app_exception.dart';
+import 'package:backend/src/features/auth/auth_controller.dart';
+import 'package:backend/src/features/auth/domain/entities/user_entity.dart';
+import 'package:backend/src/features/auth/domain/usecases/i_register_user.dart';
+import 'package:backend/src/features/auth/domain/usecases/login_user.dart';
+import 'package:backend/src/features/auth/domain/value_objects/login_result.dart';
+import 'package:backend/src/features/auth/domain/value_objects/new_user.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 import 'package:test/test.dart';
@@ -12,6 +14,12 @@ import 'package:test/test.dart';
 class ThrowingRegisterUser implements IRegisterUser {
   @override
   Future<UserEntity> call(NewUser data) async => call(data);
+}
+
+class ThrowingLoginUser implements ILoginUser {
+  @override
+  Future<LoginResult> call(String identifier, String password) async =>
+      call(identifier, password);
 }
 
 Middleware testErrorMiddleware() {
@@ -65,9 +73,9 @@ Response _handleTestError(
   );
 }
 
-Handler buildHandler(IRegisterUser useCase) {
+Handler buildHandler(ILoginUser loginUseCase, IRegisterUser registerUseCase) {
   final root = Router();
-  final authApi = AuthApi(useCase);
+  final authApi = AuthApi(loginUseCase, registerUseCase);
   root.mount('/auth/', authApi.router.call);
   return const Pipeline()
       .addMiddleware(testErrorMiddleware())
@@ -86,7 +94,10 @@ void main() {
     'POST /auth/register. Users fault - invalid payload or the data doesnt pass validation',
     () {
       test('invalid payload -> 400 json error', () async {
-        final handler = buildHandler(ThrowingRegisterUser());
+        final handler = buildHandler(
+          ThrowingLoginUser(),
+          ThrowingRegisterUser(),
+        );
 
         final request = buildRequest(
           jsonEncode({
@@ -108,7 +119,10 @@ void main() {
       });
 
       test('valid payload, invalid validation -> aggregated errors', () async {
-        final handler = buildHandler(ThrowingRegisterUser());
+        final handler = buildHandler(
+          ThrowingLoginUser(),
+          ThrowingRegisterUser(),
+        );
 
         final request = buildRequest(
           jsonEncode({

@@ -1,10 +1,12 @@
 import 'dart:convert';
 
-import 'package:backend/core/errors/app_exception.dart';
-import 'package:backend/features/auth/api/auth_api.dart';
-import 'package:backend/features/auth/domain/entities/user_entity.dart';
-import 'package:backend/features/auth/domain/usecases/i_register_user.dart';
-import 'package:backend/features/auth/domain/value_objects/new_user.dart';
+import 'package:backend/src/core/errors/app_exception.dart';
+import 'package:backend/src/features/auth/auth_controller.dart';
+import 'package:backend/src/features/auth/domain/entities/user_entity.dart';
+import 'package:backend/src/features/auth/domain/usecases/i_register_user.dart';
+import 'package:backend/src/features/auth/domain/usecases/login_user.dart';
+import 'package:backend/src/features/auth/domain/value_objects/login_result.dart';
+import 'package:backend/src/features/auth/domain/value_objects/new_user.dart';
 import 'package:shelf/shelf.dart';
 import 'package:test/test.dart';
 
@@ -25,9 +27,16 @@ class FakeRegisterUser implements IRegisterUser {
   }
 }
 
+class FakeLoginUser implements ILoginUser {
+  @override
+  Future<LoginResult> call(String identifier, String password) =>
+      throw UnimplementedError();
+}
+
 void main() {
   group('AuthApi POST /register', () {
-    late FakeRegisterUser fakeUseCase;
+    late FakeLoginUser fakeLoginUseCase;
+    late FakeRegisterUser fakeRegisterUseCase;
     late AuthApi api;
 
     Request buildRequest(String body) => Request(
@@ -38,8 +47,9 @@ void main() {
     );
 
     setUp(() {
-      fakeUseCase = FakeRegisterUser();
-      api = AuthApi(fakeUseCase);
+      fakeLoginUseCase = FakeLoginUser();
+      fakeRegisterUseCase = FakeRegisterUser();
+      api = AuthApi(fakeLoginUseCase, fakeRegisterUseCase);
     });
 
     test('valid payload -> 201', () async {
@@ -60,9 +70,9 @@ void main() {
       expect(response.statusCode, 201);
 
       // Assert: use case got mapped input
-      expect(fakeUseCase.capturedInput, isNotNull);
-      expect(fakeUseCase.capturedInput!.login, 'john_login');
-      expect(fakeUseCase.capturedInput!.displayName, 'John');
+      expect(fakeRegisterUseCase.capturedInput, isNotNull);
+      expect(fakeRegisterUseCase.capturedInput!.login, 'john_login');
+      expect(fakeRegisterUseCase.capturedInput!.displayName, 'John');
 
       // Assert: response body shape
       expect(json['id'], isA<String>());
