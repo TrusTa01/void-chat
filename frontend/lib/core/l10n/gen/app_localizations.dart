@@ -133,6 +133,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Forest'**
   String get paletteForest;
+
+  /// Main text in login screen
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back'**
+  String get greeting;
+
+  /// A text under a greeting in login screen
+  ///
+  /// In en, this message translates to:
+  /// **'Step into the digital silence'**
+  String get greetingDescription;
+
+  /// Continue action
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueAction;
+
+  /// A divider between blocks
+  ///
+  /// In en, this message translates to:
+  /// **'or'**
+  String get or;
+
+  /// A text of a button in login screen to login with password
+  ///
+  /// In en, this message translates to:
+  /// **'Log in with password'**
+  String get loginWithPass;
+
+  /// A text of a button in login screen to login with a login or an email
+  ///
+  /// In en, this message translates to:
+  /// **'Log in with Login/Email'**
+  String get loginWithLogin;
+
+  /// A redirect to a password recovery with a password mode in login screen
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot password?'**
+  String get forgotPassword;
+
+  /// Redirect to sing up screen if user doesnt have an account
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account'**
+  String get dontHaveAcc;
+
+  /// Sing up redirect
+  ///
+  /// In en, this message translates to:
+  /// **'Sing up'**
+  String get singUp;
+
+  /// A text for a button to log in into app
+  ///
+  /// In en, this message translates to:
+  /// **'Log in'**
+  String get logIn;
+
+  /// Label for the login identifier field (POST /auth/login identifier)
+  ///
+  /// In en, this message translates to:
+  /// **'Login or email'**
+  String get loginOrEmailLabel;
+
+  /// Hint for the login identifier field
+  ///
+  /// In en, this message translates to:
+  /// **'Your login or email'**
+  String get loginOrEmailHint;
+
+  /// Label for the password field on login
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get loginPasswordLabel;
+
+  /// Hint for the password field
+  ///
+  /// In en, this message translates to:
+  /// **'Your password'**
+  String get loginPasswordHint;
+
+  /// Validation: empty identifier
+  ///
+  /// In en, this message translates to:
+  /// **'Use your login or email'**
+  String get loginIdentifierRequired;
+
+  /// Validation: identifier exceeds backend max (email)
+  ///
+  /// In en, this message translates to:
+  /// **'Must be at most 254 characters'**
+  String get loginIdentifierTooLong;
+
+  /// Validation: identifier looks like email but format is invalid
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid email address'**
+  String get loginIdentifierInvalidEmail;
+
+  /// Validation: non-email identifier length out of range
+  ///
+  /// In en, this message translates to:
+  /// **'Login must be 3–64 characters'**
+  String get loginIdentifierInvalidLoginLength;
+
+  /// Validation: non-email identifier charset
+  ///
+  /// In en, this message translates to:
+  /// **'Login may only use letters, digits, underscore, and hyphen'**
+  String get loginIdentifierInvalidLoginChars;
+
+  /// Validation: empty password
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your password'**
+  String get loginPasswordRequired;
+
+  /// Validation: password length (matches registration rules)
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be 8–128 characters'**
+  String get loginPasswordLength;
+
+  /// Validation: password complexity (matches registration rules)
+  ///
+  /// In en, this message translates to:
+  /// **'Password must include at least one letter and one number'**
+  String get loginPasswordLetterAndDigit;
 }
 
 class _AppLocalizationsDelegate

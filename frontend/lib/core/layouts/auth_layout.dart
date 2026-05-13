@@ -14,15 +14,12 @@ class AuthLayoutScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             leading: canPop
-                ? BackButton(onPressed: () => context.router.back())
+                ? BackButton(onPressed: () => context.router.maybePop())
                 : null,
+            title: Image.asset('assets/void.png', height: 100, width: 125),
+            centerTitle: true,
           ),
-          body: Column(
-            children: [
-              const Text('Добро пожаловать в Void Chat!'),
-              Expanded(child: content),
-            ],
-          ),
+          body: SafeArea(child: content),
         );
       },
     );

@@ -43,6 +43,22 @@ class AuthLayoutRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [EmailConfirmScreen]
+class EmailConfirmRoute extends PageRouteInfo<void> {
+  const EmailConfirmRoute({List<PageRouteInfo>? children})
+    : super(EmailConfirmRoute.name, initialChildren: children);
+
+  static const String name = 'EmailConfirmRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const EmailConfirmScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [HomeScreen]
 class HomeRoute extends PageRouteInfo<void> {
   const HomeRoute({List<PageRouteInfo>? children})

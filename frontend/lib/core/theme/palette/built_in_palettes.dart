@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:void_chat/core/theme/app_colors.dart';
 import 'package:void_chat/core/theme/palette/palette_data.dart';
 
 // All built-in palettes
@@ -6,9 +7,9 @@ abstract final class BuiltInPalettes {
   // Palette color tokens
 
   // Brand (purple)
-  static const Color _brandSeed = Color(0xFFA855F7);
-  static const Color _brandLight = Color(0xFFFFFFFF);
-  static const Color _brandDark = Color(0xFF1A1A1E);
+  static const Color _brandSeed = AppColors.primary;
+  static const Color _brandLight = AppColors.lightBackground;
+  static const Color _brandDark = AppColors.darkBackground;
 
   // Coffee (warm brown)
   static const Color _coffeeSeed = Color(0xFF795548);

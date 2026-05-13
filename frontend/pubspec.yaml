@@ -25,6 +25,7 @@ dependencies:
   # state management
   flutter_bloc: ^9.1.1
   equatable: ^2.0.8
+  flutter_hooks: ^0.21.3+1
 
   # di
   get_it: ^9.2.1
@@ -33,7 +34,7 @@ dependencies:
   # router
   auto_route: ^11.1.0
 
-  # logging 
+  # logging
   talker_flutter: ^5.1.17
   talker_bloc_logger: ^5.1.17
   talker_dio_logger: ^5.1.17
@@ -63,3 +64,20 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+
+  fonts:
+    - family: SpaceGrotesk
+      fonts:
+        - asset: assets/fonts/SpaceGrotesk/SpaceGrotesk-Light.ttf
+          weight: 300
+        - asset: assets/fonts/SpaceGrotesk/SpaceGrotesk-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/SpaceGrotesk/SpaceGrotesk-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/SpaceGrotesk/SpaceGrotesk-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/SpaceGrotesk/SpaceGrotesk-Bold.ttf
+          weight: 700
+
+  assets:
+    - assets/

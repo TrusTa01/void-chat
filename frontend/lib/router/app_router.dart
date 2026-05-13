@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:injectable/injectable.dart';
 import 'package:void_chat/core/layouts/app_layout.dart';
 import 'package:void_chat/core/layouts/auth_layout.dart';
+import 'package:void_chat/features/auth/presentation/screens/email_confirm_screen.dart';
 import 'package:void_chat/features/auth/presentation/screens/login_screen.dart';
 import 'package:void_chat/features/auth/presentation/screens/register_screen.dart';
 import 'package:void_chat/features/chats/presentation/screens/home_screen.dart';
@@ -24,8 +25,13 @@ class AppRouter extends RootStackRouter {
       path: '/auth',
       page: AuthLayoutRoute.page,
       children: [
-        AutoRoute(path: 'login', page: LoginRoute.page, initial: true),
+        AutoRoute(
+          path: 'login',
+          page: LoginRoute.page,
+          initial: true,
+        ),
         AutoRoute(path: 'register', page: RegisterRoute.page),
+        AutoRoute(path: 'email-confirm', page: EmailConfirmRoute.page),
       ],
     ),
 

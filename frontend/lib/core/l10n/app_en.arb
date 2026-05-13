@@ -23,5 +23,93 @@
   "paletteForest": "Forest",
   "@paletteForest": {
     "description": "Built-in palette name: Forest"
+  },
+  "greeting": "Welcome back",
+  "@greeting": {
+    "description": "Main text in login screen"
+  },
+  "greetingDescription": "Step into the digital silence",
+  "@greetingDescription": {
+    "description": "A text under a greeting in login screen"
+  },
+  "continueAction": "Continue",
+  "@continueAction": {
+    "description": "Continue action"
+  },
+  "or": "or",
+  "@or": {
+    "description": "A divider between blocks"
+  },
+  "loginWithPass": "Log in with password",
+  "@loginWithPass": {
+    "description": "A text of a button in login screen to login with password"
+  },
+  "loginWithLogin": "Log in with Login/Email",
+  "@loginWithLogin": {
+    "description": "A text of a button in login screen to login with a login or an email"
+  },
+  "forgotPassword": "Forgot password?",
+  "@forgotPassword": {
+    "description": "A redirect to a password recovery with a password mode in login screen"
+  },
+  "dontHaveAcc": "Don't have an account",
+  "@dontHaveAcc": {
+    "description": "Redirect to sing up screen if user doesnt have an account"
+  },
+  "singUp": "Sing up",
+  "@singUp": {
+    "description": "Sing up redirect"
+  },
+  "logIn": "Log in",
+  "@logIn": {
+    "description": "A text for a button to log in into app"
+  },
+  "loginOrEmailLabel": "Login or email",
+  "@loginOrEmailLabel": {
+    "description": "Label for the login identifier field (POST /auth/login identifier)"
+  },
+  "loginOrEmailHint": "Your login or email",
+  "@loginOrEmailHint": {
+    "description": "Hint for the login identifier field"
+  },
+  "loginPasswordLabel": "Password",
+  "@loginPasswordLabel": {
+    "description": "Label for the password field on login"
+  },
+  "loginPasswordHint": "Your password",
+  "@loginPasswordHint": {
+    "description": "Hint for the password field"
+  },
+  "loginIdentifierRequired": "Use your login or email",
+  "@loginIdentifierRequired": {
+    "description": "Validation: empty identifier"
+  },
+  "loginIdentifierTooLong": "Must be at most 254 characters",
+  "@loginIdentifierTooLong": {
+    "description": "Validation: identifier exceeds backend max (email)"
+  },
+  "loginIdentifierInvalidEmail": "Enter a valid email address",
+  "@loginIdentifierInvalidEmail": {
+    "description": "Validation: identifier looks like email but format is invalid"
+  },
+  "loginIdentifierInvalidLoginLength": "Login must be 3–64 characters",
+  "@loginIdentifierInvalidLoginLength": {
+    "description": "Validation: non-email identifier length out of range"
+  },
+  "loginIdentifierInvalidLoginChars": "Login may only use letters, digits, underscore, and hyphen",
+  "@loginIdentifierInvalidLoginChars": {
+    "description": "Validation: non-email identifier charset"
+  },
+  "loginPasswordRequired": "Enter your password",
+  "@loginPasswordRequired": {
+    "description": "Validation: empty password"
+  },
+  "loginPasswordLength": "Password must be 8–128 characters",
+  "@loginPasswordLength": {
+    "description": "Validation: password length (matches registration rules)"
+  },
+  "loginPasswordLetterAndDigit": "Password must include at least one letter and one number",
+  "@loginPasswordLetterAndDigit": {
+    "description": "Validation: password complexity (matches registration rules)"
   }
 }

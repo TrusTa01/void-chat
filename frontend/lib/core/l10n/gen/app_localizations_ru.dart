@@ -25,4 +25,71 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get paletteForest => 'Лес';
+
+  @override
+  String get greeting => 'С возвращением';
+
+  @override
+  String get greetingDescription => 'Погрузись в цифровую тишину';
+
+  @override
+  String get continueAction => 'Продолжить';
+
+  @override
+  String get or => 'Или';
+
+  @override
+  String get loginWithPass => 'Войти с паролем';
+
+  @override
+  String get loginWithLogin => 'Войти с Логином/Почтой';
+
+  @override
+  String get forgotPassword => 'Забыли пароль?';
+
+  @override
+  String get dontHaveAcc => 'Нет аккаунта';
+
+  @override
+  String get singUp => 'Зарегистрироваться';
+
+  @override
+  String get logIn => 'Войти';
+
+  @override
+  String get loginOrEmailLabel => 'Логин или почта';
+
+  @override
+  String get loginOrEmailHint => 'Ваш логин или email';
+
+  @override
+  String get loginPasswordLabel => 'Пароль';
+
+  @override
+  String get loginPasswordHint => 'Ваш пароль';
+
+  @override
+  String get loginIdentifierRequired => 'Введите логин или почту';
+
+  @override
+  String get loginIdentifierTooLong => 'Не больше 254 символов';
+
+  @override
+  String get loginIdentifierInvalidEmail => 'Введите корректный email';
+
+  @override
+  String get loginIdentifierInvalidLoginLength => 'Логин: от 3 до 64 символов';
+
+  @override
+  String get loginIdentifierInvalidLoginChars =>
+      'В логине допустимы буквы, цифры, _ и -';
+
+  @override
+  String get loginPasswordRequired => 'Введите пароль';
+
+  @override
+  String get loginPasswordLength => 'Пароль: от 8 до 128 символов';
+
+  @override
+  String get loginPasswordLetterAndDigit => 'В пароле нужны буква и цифра';
 }

@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -28,7 +29,10 @@ class VoidChat extends StatelessWidget {
         locale: locale,
         // router
         routerConfig: appRouter.config(
-          navigatorObservers: () => [TalkerRouteObserver(talker)],
+          navigatorObservers: () => [
+            AutoRouteObserver(),
+            TalkerRouteObserver(talker),
+          ],
         ),
         // theme
         theme: pair.light,
