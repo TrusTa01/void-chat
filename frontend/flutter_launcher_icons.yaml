@@ -2,7 +2,7 @@ flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
 
-  image_path: "assets/logo/logo.png"
+  image_path: "assets/logo/app_icon_logo.png"
   adaptive_icon_background: "assets/logo/logo_background.png"
   adaptive_icon_foreground: "assets/logo/logo_foreground.png"
 
@@ -10,13 +10,13 @@ flutter_launcher_icons:
 
   web:
     generate: true
-    image_path: "assets/logo/logo.png"
+    image_path: "assets/logo/app_icon_logo.png"
 
   windows:
     generate: true
-    image_path: "assets/logo/logo.png"
+    image_path: "assets/logo/app_icon_logo.png"
     icon_size: 48
 
   macos:
     generate: true
-    image_path: "assets/logo/logo.png"
+    image_path: "assets/logo/app_icon_logo.png"

@@ -11,7 +11,7 @@
   "or": "Или",
   "loginWithPass": "Войти с паролем",
   "loginWithLogin": "Войти с Логином/Почтой",
-  "dontHaveAcc": "Нет аккаунта",
+  "dontHaveAcc": "Нет аккаунта?",
   "logIn": "Войти",
   "singUp": "Зарегистрироваться",
   "greetingDescription": "Погрузись в цифровую тишину",
@@ -27,5 +27,26 @@
   "loginIdentifierInvalidLoginChars": "В логине допустимы буквы, цифры, _ и -",
   "loginPasswordRequired": "Введите пароль",
   "loginPasswordLength": "Пароль: от 8 до 128 символов",
-  "loginPasswordLetterAndDigit": "В пароле нужны буква и цифра"
+  "loginPasswordLetterAndDigit": "В пароле нужны буква и цифра",
+  "confirmPasswordLabel": "Подтвердите пароль",
+  "@confirmPasswordLabel": {
+    "description": "Подпись поля подтверждения пароля при регистрации"
+  },
+  "confirmPasswordHint": "Повторите пароль",
+  "@confirmPasswordHint": {
+    "description": "Подсказка для поля подтверждения пароля"
+  },
+  "confirmPasswordRequired": "Подтвердите пароль",
+  "@confirmPasswordRequired": {
+    "description": "Валидация: пустое поле подтверждения пароля"
+  },
+  "confirmPasswordIsNotMatching": "Пароли не совпадают",
+  "@confirmPasswordIsNotMatching": {
+    "description": "Валидация: пароль и подтверждение не совпадают"
+  },
+  "createAccount": "Создать аккаунт",
+  "createAccountDescription": "Окунитесь в безмолвную пустоту защищенной связи",
+  "alreadyHaveAnAccount": "Уже есть аккаунт?",
+  "iAgreeto": "Я согласен с",
+  "policy": "Политика конфиденциальности"
 }

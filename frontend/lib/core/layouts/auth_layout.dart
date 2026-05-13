@@ -9,14 +9,9 @@ class AuthLayoutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AutoRouter(
       builder: (context, content) {
-        final canPop = context.router.canPop();
-
         return Scaffold(
           appBar: AppBar(
-            leading: canPop
-                ? BackButton(onPressed: () => context.router.maybePop())
-                : null,
-            title: Image.asset('assets/void.png', height: 100, width: 125),
+            title: Image.asset('assets/logo/logo.png', height: 100, width: 125),
             centerTitle: true,
           ),
           body: SafeArea(child: content),

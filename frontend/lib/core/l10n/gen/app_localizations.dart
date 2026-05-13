@@ -230,6 +230,30 @@ abstract class AppLocalizations {
   /// **'Must be at most 254 characters'**
   String get loginIdentifierTooLong;
 
+  /// Label for the confirm password field on registration
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm password'**
+  String get confirmPasswordLabel;
+
+  /// Hint for the confirm password field
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the password again'**
+  String get confirmPasswordHint;
+
+  /// Validation: empty confirm password
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm your password'**
+  String get confirmPasswordRequired;
+
+  /// Validation: confirm password differs from the original password
+  ///
+  /// In en, this message translates to:
+  /// **'The passwords don\'t match'**
+  String get confirmPasswordIsNotMatching;
+
   /// Validation: identifier looks like email but format is invalid
   ///
   /// In en, this message translates to:
@@ -265,6 +289,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Password must include at least one letter and one number'**
   String get loginPasswordLetterAndDigit;
+
+  /// Main text in register screen
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get createAccount;
+
+  /// A text under a main text in register screen
+  ///
+  /// In en, this message translates to:
+  /// **'Step into the silent void of secure communication'**
+  String get createAccountDescription;
+
+  /// redirect to a login screen
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account?'**
+  String get alreadyHaveAnAccount;
+
+  ///
+  ///
+  /// In en, this message translates to:
+  /// **'I agree to'**
+  String get iAgreeto;
+
+  /// redirect to terms & conditions page
+  ///
+  /// In en, this message translates to:
+  /// **'Terms & Conditions'**
+  String get policy;
 }
 
 class _AppLocalizationsDelegate

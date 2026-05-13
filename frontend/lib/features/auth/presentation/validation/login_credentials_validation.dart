@@ -72,3 +72,20 @@ String? validateLoginPassword(String? value, AppLocalizations l10n) {
   }
   return null;
 }
+
+String? validateConfirmPassword({
+  required String? value,
+  required String originalPassword,
+  required AppLocalizations l10n,
+}) {
+  final passwordValidation = validateLoginPassword(value, l10n);
+  if (passwordValidation != null) {
+    return value == null || value.isEmpty
+        ? l10n.confirmPasswordRequired
+        : passwordValidation;
+  }
+  if (value != originalPassword) {
+    return l10n.confirmPasswordIsNotMatching;
+  }
+  return null;
+}

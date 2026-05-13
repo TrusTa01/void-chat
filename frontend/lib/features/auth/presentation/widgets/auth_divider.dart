@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:void_chat/core/theme/app_colors.dart';
 
 class AuthDivider extends StatelessWidget {
   final String text;
 
-  const AuthDivider(BuildContext context, {super.key, required this.text});
+  const AuthDivider({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +17,10 @@ class AuthDivider extends StatelessWidget {
             text,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(color: AppColors.lightPrimary),
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+              fontSize: 20,
+            ),
           ),
         ),
 

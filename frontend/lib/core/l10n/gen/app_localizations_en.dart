@@ -75,6 +75,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get loginIdentifierTooLong => 'Must be at most 254 characters';
 
   @override
+  String get confirmPasswordLabel => 'Confirm password';
+
+  @override
+  String get confirmPasswordHint => 'Enter the password again';
+
+  @override
+  String get confirmPasswordRequired => 'Confirm your password';
+
+  @override
+  String get confirmPasswordIsNotMatching => 'The passwords don\'t match';
+
+  @override
   String get loginIdentifierInvalidEmail => 'Enter a valid email address';
 
   @override
@@ -94,4 +106,20 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get loginPasswordLetterAndDigit =>
       'Password must include at least one letter and one number';
+
+  @override
+  String get createAccount => 'Create Account';
+
+  @override
+  String get createAccountDescription =>
+      'Step into the silent void of secure communication';
+
+  @override
+  String get alreadyHaveAnAccount => 'Already have an account?';
+
+  @override
+  String get iAgreeto => 'I agree to';
+
+  @override
+  String get policy => 'Terms & Conditions';
 }

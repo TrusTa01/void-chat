@@ -84,7 +84,6 @@ class LoginFormSection extends HookWidget {
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      const SizedBox(height: 5),
                       TextFormField(
                         controller: passwordController,
                         focusNode: passwordFocus,
@@ -111,10 +110,9 @@ class LoginFormSection extends HookWidget {
                         validator: (value) => exposeValidationErrors.value
                             ? validateLoginPassword(value, l10n)
                             : null,
-                        onFieldSubmitted: (_) => {},
                       ),
 
-                      // Forgot password? text
+                      // 'Forgot password?' text
                       TextButton(
                         onPressed: () {},
                         child: Text(
@@ -128,21 +126,19 @@ class LoginFormSection extends HookWidget {
                 : const SizedBox.shrink(),
           ),
 
+          // Continue button
           FilledButton(
             onPressed: isPasswordMode.value
                 ? () => {}
                 : () => context.router.push(const EmailConfirmRoute()),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 6),
-              child: AnimatedButtonText(
-                text: isPasswordMode.value ? l10n.logIn : l10n.continueAction,
-              ),
+            child: AnimatedButtonText(
+              text: isPasswordMode.value ? l10n.logIn : l10n.continueAction,
             ),
           ),
           const SizedBox(height: 45),
 
           // Divider
-          AuthDivider(context, text: l10n.or),
+          AuthDivider(text: l10n.or),
           const SizedBox(height: 45),
 
           // Change password mode

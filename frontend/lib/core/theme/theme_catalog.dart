@@ -51,6 +51,9 @@ ThemeData _buildTheme(PaletteData palette, Brightness brightness) {
   final scaffoldBg = isLight
       ? (palette.lightBackground ?? colorScheme.surface)
       : (palette.darkBackground ?? colorScheme.surface);
+  final neonGlowColor = colorScheme.primary.withValues(
+    alpha: isLight ? 0.45 : 0.75,
+  );
 
   return ThemeData(
     useMaterial3: true,
@@ -119,12 +122,28 @@ ThemeData _buildTheme(PaletteData palette, Brightness brightness) {
       ),
     ),
     filledButtonTheme: FilledButtonThemeData(
-      style: FilledButton.styleFrom(
-        backgroundColor: colorScheme.primary,
-        foregroundColor: colorScheme.onPrimary,
-        textStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+      style: ButtonStyle(
+        backgroundColor: WidgetStatePropertyAll(colorScheme.primary),
+        foregroundColor: WidgetStatePropertyAll(colorScheme.onPrimary),
+        textStyle: const WidgetStatePropertyAll(
+          TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+        ),
+        shape: WidgetStatePropertyAll(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
+        ),
+        padding: const WidgetStatePropertyAll(
+          EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+        ),
+        shadowColor: WidgetStatePropertyAll(neonGlowColor),
+        elevation: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.disabled)) return 0;
+          if (states.contains(WidgetState.pressed)) return isLight ? 2 : 3;
+          if (states.contains(WidgetState.hovered) ||
+              states.contains(WidgetState.focused)) {
+            return isLight ? 8 : 10;
+          }
+          return isLight ? 5 : 7;
+        }),
       ),
     ),
     textButtonTheme: TextButtonThemeData(
@@ -132,6 +151,34 @@ ThemeData _buildTheme(PaletteData palette, Brightness brightness) {
         foregroundColor: colorScheme.primary,
         textStyle: const TextStyle(fontWeight: FontWeight.w600),
       ),
+    ),
+    checkboxTheme: CheckboxThemeData(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+      side: BorderSide(
+        color: isLight
+            ? colorScheme.outline
+            : colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
+        width: 1.4,
+      ),
+      fillColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return colorScheme.primary;
+        }
+        return Colors.transparent;
+      }),
+      checkColor: WidgetStateProperty.all(colorScheme.onPrimary),
+      overlayColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.pressed)) {
+          return colorScheme.primary.withValues(alpha: 0.12);
+        }
+        if (states.contains(WidgetState.hovered) ||
+            states.contains(WidgetState.focused)) {
+          return colorScheme.primary.withValues(alpha: 0.08);
+        }
+        return Colors.transparent;
+      }),
+      visualDensity: VisualDensity.compact,
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
     ),
     primaryColor: palette.seed,
     textTheme: textTheme,

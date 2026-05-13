@@ -48,7 +48,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get forgotPassword => 'Забыли пароль?';
 
   @override
-  String get dontHaveAcc => 'Нет аккаунта';
+  String get dontHaveAcc => 'Нет аккаунта?';
 
   @override
   String get singUp => 'Зарегистрироваться';
@@ -75,6 +75,18 @@ class AppLocalizationsRu extends AppLocalizations {
   String get loginIdentifierTooLong => 'Не больше 254 символов';
 
   @override
+  String get confirmPasswordLabel => 'Подтвердите пароль';
+
+  @override
+  String get confirmPasswordHint => 'Повторите пароль';
+
+  @override
+  String get confirmPasswordRequired => 'Подтвердите пароль';
+
+  @override
+  String get confirmPasswordIsNotMatching => 'Пароли не совпадают';
+
+  @override
   String get loginIdentifierInvalidEmail => 'Введите корректный email';
 
   @override
@@ -92,4 +104,20 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get loginPasswordLetterAndDigit => 'В пароле нужны буква и цифра';
+
+  @override
+  String get createAccount => 'Создать аккаунт';
+
+  @override
+  String get createAccountDescription =>
+      'Окунитесь в безмолвную пустоту защищенной связи';
+
+  @override
+  String get alreadyHaveAnAccount => 'Уже есть аккаунт?';
+
+  @override
+  String get iAgreeto => 'Я согласен с';
+
+  @override
+  String get policy => 'Политика конфиденциальности';
 }

@@ -88,6 +88,22 @@
   "@loginIdentifierTooLong": {
     "description": "Validation: identifier exceeds backend max (email)"
   },
+  "confirmPasswordLabel": "Confirm password",
+  "@confirmPasswordLabel": {
+    "description": "Label for the confirm password field on registration"
+  },
+  "confirmPasswordHint": "Enter the password again",
+  "@confirmPasswordHint": {
+    "description": "Hint for the confirm password field"
+  },
+  "confirmPasswordRequired": "Confirm your password",
+  "@confirmPasswordRequired": {
+    "description": "Validation: empty confirm password"
+  },
+  "confirmPasswordIsNotMatching": "The passwords don't match",
+  "@confirmPasswordIsNotMatching": {
+    "description": "Validation: confirm password differs from the original password"
+  },
   "loginIdentifierInvalidEmail": "Enter a valid email address",
   "@loginIdentifierInvalidEmail": {
     "description": "Validation: identifier looks like email but format is invalid"
@@ -111,5 +127,25 @@
   "loginPasswordLetterAndDigit": "Password must include at least one letter and one number",
   "@loginPasswordLetterAndDigit": {
     "description": "Validation: password complexity (matches registration rules)"
+  },
+  "createAccount": "Create Account",
+  "@createAccount": {
+    "description": "Main text in register screen"
+  },
+  "createAccountDescription": "Step into the silent void of secure communication",
+  "@createAccountDescription": {
+    "description": "A text under a main text in register screen"
+  },
+  "alreadyHaveAnAccount": "Already have an account?",
+  "@alreadyHaveAnAccount": {
+    "description": "redirect to a login screen"
+  },
+  "iAgreeto": "I agree to",
+  "@iAgreeto": {
+    "description": ""
+  },
+  "policy": "Terms & Conditions",
+  "@policy": {
+    "description": "redirect to terms & conditions page"
   }
 }
