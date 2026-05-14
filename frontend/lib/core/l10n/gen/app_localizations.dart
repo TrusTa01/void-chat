@@ -290,6 +290,54 @@ abstract class AppLocalizations {
   /// **'Password must include at least one letter and one number'**
   String get loginPasswordLetterAndDigit;
 
+  /// Label for the email-only field on registration
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get registerEmailLabel;
+
+  /// Placeholder example for the registration email field
+  ///
+  /// In en, this message translates to:
+  /// **'you@void.com'**
+  String get registerEmailHint;
+
+  /// Label for the login handle on registration
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get registerLoginLabel;
+
+  /// Placeholder example for the registration login field
+  ///
+  /// In en, this message translates to:
+  /// **'void_explorer'**
+  String get registerLoginHint;
+
+  /// Helper under the registration login field
+  ///
+  /// In en, this message translates to:
+  /// **'Used only to sign in. Other users won’t see it.'**
+  String get registerLoginPrivacyHelper;
+
+  /// Placeholder example for password on registration
+  ///
+  /// In en, this message translates to:
+  /// **'NebulaStorm42'**
+  String get registerPasswordHint;
+
+  /// Placeholder example for confirm password on registration
+  ///
+  /// In en, this message translates to:
+  /// **'NebulaStorm42'**
+  String get registerConfirmPasswordHint;
+
+  /// Validation: empty email on registration
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email'**
+  String get registerEmailRequired;
+
   /// Main text in register screen
   ///
   /// In en, this message translates to:
@@ -319,6 +367,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Terms & Conditions'**
   String get policy;
+
+  /// Title on the email verification screen
+  ///
+  /// In en, this message translates to:
+  /// **'Verify your email'**
+  String get verifyEmailTitle;
+
+  /// Line above the recipient email on the verification screen
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the 4-digit code sent to'**
+  String get verifyEmailCodeInstruction;
+
+  /// Primary button on the email verification screen
+  ///
+  /// In en, this message translates to:
+  /// **'Verify'**
+  String get verifyEmailSubmit;
+
+  /// Prompt before the resend action on the email verification screen
+  ///
+  /// In en, this message translates to:
+  /// **'Didn\'t receive the signal?'**
+  String get verifyEmailDidNotReceive;
+
+  /// Tappable action to resend the verification code
+  ///
+  /// In en, this message translates to:
+  /// **'Resend code'**
+  String get verifyEmailResendCode;
 }
 
 class _AppLocalizationsDelegate

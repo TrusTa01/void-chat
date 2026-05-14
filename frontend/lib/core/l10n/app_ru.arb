@@ -44,9 +44,22 @@
   "@confirmPasswordIsNotMatching": {
     "description": "Валидация: пароль и подтверждение не совпадают"
   },
+  "registerEmailLabel": "Почта",
+  "registerEmailHint": "friend@void.net",
+  "registerEmailRequired": "Введите email",
+  "registerLoginLabel": "Логин",
+  "registerLoginHint": "cosmo_wanderer",
+  "registerLoginPrivacyHelper": "Только для входа в аккаунт, другие пользователи его не увидят",
+  "registerPasswordHint": "Туманность42",
+  "registerConfirmPasswordHint": "Туманность42",
   "createAccount": "Создать аккаунт",
   "createAccountDescription": "Окунитесь в безмолвную пустоту защищенной связи",
   "alreadyHaveAnAccount": "Уже есть аккаунт?",
   "iAgreeto": "Я согласен с",
-  "policy": "Политика конфиденциальности"
+  "policy": "Политика конфиденциальности",
+  "verifyEmailTitle": "Подтвердите почту",
+  "verifyEmailCodeInstruction": "Введите 4-значный код, отправленный на",
+  "verifyEmailSubmit": "Подтвердить",
+  "verifyEmailDidNotReceive": "Не получили код?",
+  "verifyEmailResendCode": "ОТПРАВИТЬ КОД СНОВА"
 }

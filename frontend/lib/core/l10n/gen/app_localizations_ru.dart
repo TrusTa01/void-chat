@@ -106,6 +106,31 @@ class AppLocalizationsRu extends AppLocalizations {
   String get loginPasswordLetterAndDigit => 'В пароле нужны буква и цифра';
 
   @override
+  String get registerEmailLabel => 'Почта';
+
+  @override
+  String get registerEmailHint => 'friend@void.net';
+
+  @override
+  String get registerLoginLabel => 'Логин';
+
+  @override
+  String get registerLoginHint => 'cosmo_wanderer';
+
+  @override
+  String get registerLoginPrivacyHelper =>
+      'Только для входа в аккаунт, другие пользователи его не увидят';
+
+  @override
+  String get registerPasswordHint => 'Туманность42';
+
+  @override
+  String get registerConfirmPasswordHint => 'Туманность42';
+
+  @override
+  String get registerEmailRequired => 'Введите email';
+
+  @override
   String get createAccount => 'Создать аккаунт';
 
   @override
@@ -120,4 +145,20 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get policy => 'Политика конфиденциальности';
+
+  @override
+  String get verifyEmailTitle => 'Подтвердите почту';
+
+  @override
+  String get verifyEmailCodeInstruction =>
+      'Введите 4-значный код, отправленный на';
+
+  @override
+  String get verifyEmailSubmit => 'Подтвердить';
+
+  @override
+  String get verifyEmailDidNotReceive => 'Не получили код?';
+
+  @override
+  String get verifyEmailResendCode => 'ОТПРАВИТЬ КОД СНОВА';
 }

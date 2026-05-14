@@ -44,18 +44,49 @@ class AuthLayoutRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [EmailConfirmScreen]
-class EmailConfirmRoute extends PageRouteInfo<void> {
-  const EmailConfirmRoute({List<PageRouteInfo>? children})
-    : super(EmailConfirmRoute.name, initialChildren: children);
+class EmailConfirmRoute extends PageRouteInfo<EmailConfirmRouteArgs> {
+  EmailConfirmRoute({
+    Key? key,
+    required String userEmail,
+    List<PageRouteInfo>? children,
+  }) : super(
+         EmailConfirmRoute.name,
+         args: EmailConfirmRouteArgs(key: key, userEmail: userEmail),
+         initialChildren: children,
+       );
 
   static const String name = 'EmailConfirmRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const EmailConfirmScreen();
+      final args = data.argsAs<EmailConfirmRouteArgs>();
+      return EmailConfirmScreen(key: args.key, userEmail: args.userEmail);
     },
   );
+}
+
+class EmailConfirmRouteArgs {
+  const EmailConfirmRouteArgs({this.key, required this.userEmail});
+
+  final Key? key;
+
+  final String userEmail;
+
+  @override
+  String toString() {
+    return 'EmailConfirmRouteArgs{key: $key, userEmail: $userEmail}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! EmailConfirmRouteArgs) return false;
+    return key == other.key && userEmail == other.userEmail;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ userEmail.hashCode;
 }
 
 /// generated route for

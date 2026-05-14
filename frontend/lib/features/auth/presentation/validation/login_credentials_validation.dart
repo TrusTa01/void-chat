@@ -34,6 +34,21 @@ final List<TextInputFormatter> loginPasswordInputFormatters = [
   FilteringTextInputFormatter.deny(_identifierDeniedChars),
 ];
 
+/// Registration: identifier must be a valid email (no separate login handle).
+String? validateRegisterEmail(String? value, AppLocalizations l10n) {
+  final trimmed = value?.trim() ?? '';
+  if (trimmed.isEmpty) {
+    return l10n.registerEmailRequired;
+  }
+  if (trimmed.length > loginIdentifierMaxLength) {
+    return l10n.loginIdentifierTooLong;
+  }
+  if (!_emailShape.hasMatch(trimmed)) {
+    return l10n.loginIdentifierInvalidEmail;
+  }
+  return null;
+}
+
 String? validateLoginIdentifier(String? value, AppLocalizations l10n) {
   final trimmed = value?.trim() ?? '';
   if (trimmed.isEmpty) {

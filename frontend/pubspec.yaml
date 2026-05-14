@@ -12,6 +12,7 @@ dependencies:
 
   # ui
   flutter_colorpicker: ^1.1.0
+  pinput: ^6.0.2
 
   # localization
   flutter_localizations:
@@ -61,7 +62,6 @@ dev_dependencies:
   freezed: ^3.2.5
   injectable_generator: ^3.0.2
   auto_route_generator: ^10.5.0
-
   flutter_launcher_icons: ^0.14.4
 
 flutter:
@@ -84,4 +84,5 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/logo/logo.png
+    - assets/logo/logo_light.png
+    - assets/logo/logo_dark.png

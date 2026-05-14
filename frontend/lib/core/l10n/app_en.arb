@@ -128,6 +128,38 @@
   "@loginPasswordLetterAndDigit": {
     "description": "Validation: password complexity (matches registration rules)"
   },
+  "registerEmailLabel": "Email",
+  "@registerEmailLabel": {
+    "description": "Label for the email-only field on registration"
+  },
+  "registerEmailHint": "you@void.com",
+  "@registerEmailHint": {
+    "description": "Placeholder example for the registration email field"
+  },
+  "registerLoginLabel": "Login",
+  "@registerLoginLabel": {
+    "description": "Label for the login handle on registration"
+  },
+  "registerLoginHint": "void_explorer",
+  "@registerLoginHint": {
+    "description": "Placeholder example for the registration login field"
+  },
+  "registerLoginPrivacyHelper": "Used only to sign in. Other users won’t see it.",
+  "@registerLoginPrivacyHelper": {
+    "description": "Helper under the registration login field"
+  },
+  "registerPasswordHint": "NebulaStorm42",
+  "@registerPasswordHint": {
+    "description": "Placeholder example for password on registration"
+  },
+  "registerConfirmPasswordHint": "NebulaStorm42",
+  "@registerConfirmPasswordHint": {
+    "description": "Placeholder example for confirm password on registration"
+  },
+  "registerEmailRequired": "Enter your email",
+  "@registerEmailRequired": {
+    "description": "Validation: empty email on registration"
+  },
   "createAccount": "Create Account",
   "@createAccount": {
     "description": "Main text in register screen"
@@ -147,5 +179,25 @@
   "policy": "Terms & Conditions",
   "@policy": {
     "description": "redirect to terms & conditions page"
+  },
+  "verifyEmailTitle": "Verify your email",
+  "@verifyEmailTitle": {
+    "description": "Title on the email verification screen"
+  },
+  "verifyEmailCodeInstruction": "Enter the 4-digit code sent to",
+  "@verifyEmailCodeInstruction": {
+    "description": "Line above the recipient email on the verification screen"
+  },
+  "verifyEmailSubmit": "Verify",
+  "@verifyEmailSubmit": {
+    "description": "Primary button on the email verification screen"
+  },
+  "verifyEmailDidNotReceive": "Didn't receive the signal?",
+  "@verifyEmailDidNotReceive": {
+    "description": "Prompt before the resend action on the email verification screen"
+  },
+  "verifyEmailResendCode": "Resend code",
+  "@verifyEmailResendCode": {
+    "description": "Tappable action to resend the verification code"
   }
 }

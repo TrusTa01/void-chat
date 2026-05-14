@@ -108,6 +108,31 @@ class AppLocalizationsEn extends AppLocalizations {
       'Password must include at least one letter and one number';
 
   @override
+  String get registerEmailLabel => 'Email';
+
+  @override
+  String get registerEmailHint => 'you@void.com';
+
+  @override
+  String get registerLoginLabel => 'Login';
+
+  @override
+  String get registerLoginHint => 'void_explorer';
+
+  @override
+  String get registerLoginPrivacyHelper =>
+      'Used only to sign in. Other users won’t see it.';
+
+  @override
+  String get registerPasswordHint => 'NebulaStorm42';
+
+  @override
+  String get registerConfirmPasswordHint => 'NebulaStorm42';
+
+  @override
+  String get registerEmailRequired => 'Enter your email';
+
+  @override
   String get createAccount => 'Create Account';
 
   @override
@@ -122,4 +147,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get policy => 'Terms & Conditions';
+
+  @override
+  String get verifyEmailTitle => 'Verify your email';
+
+  @override
+  String get verifyEmailCodeInstruction => 'Enter the 4-digit code sent to';
+
+  @override
+  String get verifyEmailSubmit => 'Verify';
+
+  @override
+  String get verifyEmailDidNotReceive => 'Didn\'t receive the signal?';
+
+  @override
+  String get verifyEmailResendCode => 'Resend code';
 }

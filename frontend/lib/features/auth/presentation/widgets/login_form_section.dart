@@ -130,7 +130,7 @@ class LoginFormSection extends HookWidget {
           FilledButton(
             onPressed: isPasswordMode.value
                 ? () => {}
-                : () => context.router.push(const EmailConfirmRoute()),
+                : () => context.router.push(EmailConfirmRoute(userEmail: loginController.text)),
             child: AnimatedButtonText(
               text: isPasswordMode.value ? l10n.logIn : l10n.continueAction,
             ),

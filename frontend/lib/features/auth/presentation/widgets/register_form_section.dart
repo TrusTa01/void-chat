@@ -23,111 +23,113 @@ class RegisterFormSection extends HookWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
+    final emailController = useTextEditingController();
     final loginController = useTextEditingController();
     final passwordController = useTextEditingController();
     final confirmPasswordController = useTextEditingController();
 
+    final emailFocus = useFocusNode();
     final loginFocus = useFocusNode();
     final passwordFocus = useFocusNode();
     final confirmPasswordFocus = useFocusNode();
 
-    final formKey = useMemoized(() => GlobalKey<FormState>());
-
-    /// When false, validators return null so error styling is hidden (e.g. after
-    /// auth stack navigation) without clearing controllers.
-    final exposeValidationErrors = useState(false);
-
     final hidePass = useState(true);
 
-    return Form(
-      key: formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          TextFormField(
-            controller: loginController,
-            focusNode: loginFocus,
-            keyboardType: TextInputType.emailAddress,
-            textInputAction: TextInputAction.next,
-            textCapitalization: TextCapitalization.none,
-            autocorrect: false,
-            autofillHints: const [AutofillHints.username],
-            onFieldSubmitted: (_) =>
-                _fieldFocusChange(context, loginFocus, passwordFocus),
-            decoration: InputDecoration(
-              labelText: l10n.loginOrEmailLabel,
-              hintText: l10n.loginOrEmailHint,
-            ),
-            maxLines: 1,
-            inputFormatters: loginIdentifierInputFormatters,
-            validator: (value) => exposeValidationErrors.value
-                ? validateLoginIdentifier(value, l10n)
-                : null,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        TextFormField(
+          controller: loginController,
+          focusNode: loginFocus,
+          keyboardType: TextInputType.text,
+          textInputAction: TextInputAction.next,
+          textCapitalization: TextCapitalization.none,
+          autocorrect: false,
+          autofillHints: const [AutofillHints.username],
+          onFieldSubmitted: (_) =>
+              _fieldFocusChange(context, loginFocus, passwordFocus),
+          decoration: InputDecoration(
+            labelText: l10n.registerLoginLabel,
+            hintText: l10n.registerLoginHint,
+            helperText: l10n.registerLoginPrivacyHelper,
+            helperMaxLines: 3,
           ),
-          const SizedBox(height: 20),
+          maxLines: 1,
+          inputFormatters: loginIdentifierInputFormatters,
+        ),
+        const SizedBox(height: 20),
 
-          TextFormField(
-            controller: passwordController,
-            focusNode: passwordFocus,
-            obscureText: hidePass.value,
-            textInputAction: TextInputAction.next,
-            autofillHints: const [AutofillHints.password],
-            onFieldSubmitted: (_) =>
-                _fieldFocusChange(context, passwordFocus, confirmPasswordFocus),
-            decoration: InputDecoration(
-              labelText: l10n.loginPasswordLabel,
-              hintText: l10n.loginPasswordHint,
-              suffixIcon: Padding(
-                padding: const EdgeInsets.only(right: 12),
-                child: IconButton(
-                  onPressed: () => hidePass.value = !hidePass.value,
-                  icon: Icon(
-                    hidePass.value ? Icons.visibility : Icons.visibility_off,
-                  ),
+        TextFormField(
+          controller: emailController,
+          focusNode: emailFocus,
+          keyboardType: TextInputType.emailAddress,
+          textInputAction: TextInputAction.next,
+          textCapitalization: TextCapitalization.none,
+          autocorrect: false,
+          autofillHints: const [AutofillHints.email],
+          onFieldSubmitted: (_) =>
+              _fieldFocusChange(context, emailFocus, loginFocus),
+          decoration: InputDecoration(
+            labelText: l10n.registerEmailLabel,
+            hintText: l10n.registerEmailHint,
+          ),
+          maxLines: 1,
+          inputFormatters: loginIdentifierInputFormatters,
+        ),
+        const SizedBox(height: 20),
+
+        TextFormField(
+          controller: passwordController,
+          focusNode: passwordFocus,
+          obscureText: hidePass.value,
+          textInputAction: TextInputAction.next,
+          autofillHints: const [AutofillHints.newPassword],
+          onFieldSubmitted: (_) =>
+              _fieldFocusChange(context, passwordFocus, confirmPasswordFocus),
+          decoration: InputDecoration(
+            labelText: l10n.loginPasswordLabel,
+            hintText: l10n.registerPasswordHint,
+            suffixIcon: Padding(
+              padding: const EdgeInsets.only(right: 12),
+              child: IconButton(
+                onPressed: () => hidePass.value = !hidePass.value,
+                icon: Icon(
+                  hidePass.value ? Icons.visibility : Icons.visibility_off,
                 ),
               ),
             ),
-            maxLines: 1,
-            inputFormatters: loginPasswordInputFormatters,
-            validator: (value) => exposeValidationErrors.value
-                ? validateLoginPassword(value, l10n)
-                : null,
           ),
-          const SizedBox(height: 20),
+          maxLines: 1,
+          inputFormatters: loginPasswordInputFormatters,
+        ),
+        const SizedBox(height: 20),
 
-          TextFormField(
-            controller: confirmPasswordController,
-            focusNode: confirmPasswordFocus,
-            obscureText: hidePass.value,
-            textInputAction: TextInputAction.done,
-            enableInteractiveSelection: false,
-            autofillHints: const [AutofillHints.newPassword],
-            decoration: InputDecoration(
-              labelText: l10n.confirmPasswordLabel,
-              hintText: l10n.confirmPasswordHint,
-            ),
-            maxLines: 1,
-            inputFormatters: loginPasswordInputFormatters,
-            validator: (value) => exposeValidationErrors.value
-                ? validateConfirmPassword(
-                    value: value,
-                    originalPassword: passwordController.text,
-                    l10n: l10n,
-                  )
-                : null,
+        TextFormField(
+          controller: confirmPasswordController,
+          focusNode: confirmPasswordFocus,
+          obscureText: hidePass.value,
+          textInputAction: TextInputAction.done,
+          enableInteractiveSelection: false,
+          autofillHints: const [AutofillHints.newPassword],
+          decoration: InputDecoration(
+            labelText: l10n.confirmPasswordLabel,
+            hintText: l10n.registerConfirmPasswordHint,
           ),
-          const SizedBox(height: 20),
+          maxLines: 1,
+          inputFormatters: loginPasswordInputFormatters,
+        ),
+        const SizedBox(height: 20),
 
-          const PolicyCheckbox(),
-          const SizedBox(height: 50),
+        const PolicyCheckbox(),
+        const SizedBox(height: 50),
 
-          // Continue button
-          FilledButton(
-            onPressed: () => context.router.push(const EmailConfirmRoute()),
-            child: AnimatedButtonText(text: l10n.continueAction),
+        FilledButton(
+          onPressed: () => context.router.push(
+            EmailConfirmRoute(userEmail: emailController.text.trim()),
           ),
-        ],
-      ),
+          child: AnimatedButtonText(text: l10n.continueAction),
+        ),
+      ],
     );
   }
 }
