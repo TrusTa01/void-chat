@@ -28,9 +28,21 @@ class AppRouter extends RootStackRouter {
       page: AuthLayoutRoute.page,
       children: [
         AutoRoute(path: 'login', page: LoginRoute.page, initial: true),
-        AutoRoute(path: 'register', page: RegisterRoute.page),
-        AutoRoute(path: 'email-confirm', page: EmailConfirmRoute.page),
-        AutoRoute(path: 'profile-setup', page: ProfileSetupRoute.page),
+        AutoRoute(
+          path: 'register',
+          meta: {'step': 1},
+          page: RegisterRoute.page,
+        ),
+        AutoRoute(
+          path: 'email-confirm',
+          meta: {'step': 2},
+          page: EmailConfirmRoute.page,
+        ),
+        AutoRoute(
+          path: 'profile-setup',
+          meta: {'step': 3},
+          page: ProfileSetupRoute.page,
+        ),
       ],
     ),
 
