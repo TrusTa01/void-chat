@@ -7,7 +7,7 @@ Future<bool> launchMyUrl(String urlString) async {
     final Uri url = Uri.parse(urlString);
     return await launchUrl(url, mode: LaunchMode.externalApplication);
   } on FormatException catch (e) {
-    debugPrint('launchMyUrl: неверный URL "$urlString": $e');
+    debugPrint('launchMyUrl: INVALID URL "$urlString": $e');
     return false;
   } catch (e, stack) {
     debugPrint('launchMyUrl: $e');
