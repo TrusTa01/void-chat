@@ -48,7 +48,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get forgotPassword => 'Forgot password?';
 
   @override
-  String get dontHaveAcc => 'Don\'t have an account';
+  String get dontHaveAcc => 'Don\'t have an account?';
 
   @override
   String get singUp => 'Sing up';

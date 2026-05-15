@@ -11,7 +11,7 @@ class AuthLayoutScreen extends StatelessWidget {
 
     return AutoRouter(
       builder: (context, content) {
-        final canPop = context.router.canPop();
+        final canPop = context.router.canPop(ignoreParentRoutes: true);
 
         return Scaffold(
           appBar: AppBar(
@@ -33,11 +33,11 @@ class AuthLayoutScreen extends StatelessWidget {
           ),
           body: SafeArea(
             child: LayoutBuilder(
-              builder: (context, constrains) {
+              builder: (context, constraints) {
                 return SingleChildScrollView(
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
-                      minHeight: constrains.maxHeight,
+                      minHeight: constraints.maxHeight,
                     ),
                     child: content,
                   ),

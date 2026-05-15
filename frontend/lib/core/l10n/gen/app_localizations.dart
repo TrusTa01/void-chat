@@ -179,7 +179,7 @@ abstract class AppLocalizations {
   /// Redirect to sing up screen if user doesnt have an account
   ///
   /// In en, this message translates to:
-  /// **'Don\'t have an account'**
+  /// **'Don\'t have an account?'**
   String get dontHaveAcc;
 
   /// Sing up redirect
