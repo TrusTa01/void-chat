@@ -31,9 +31,43 @@ class AuthLayoutScreen extends StatelessWidget {
                   ),
             centerTitle: true,
           ),
-          body: SafeArea(child: content),
+          body: SafeArea(
+            child: LayoutBuilder(
+              builder: (context, constrains) {
+                return SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: constrains.maxHeight,
+                    ),
+                    child: content,
+                  ),
+                );
+              },
+            ),
+          ),
         );
       },
+    );
+  }
+}
+
+class AuthScaffold extends StatelessWidget {
+  final Widget header;
+  final Widget body;
+  final Widget? footer;
+
+  const AuthScaffold({
+    super.key,
+    required this.header,
+    required this.body,
+    this.footer,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [header, body, ?footer],
     );
   }
 }

@@ -40,19 +40,19 @@
   "@or": {
     "description": "A divider between blocks"
   },
-  "loginWithPass": "Log in with password",
-  "@loginWithPass": {
+  "logInWithPass": "Log in with password",
+  "@logInWithPass": {
     "description": "A text of a button in login screen to login with password"
   },
-  "loginWithLogin": "Log in with Login/Email",
-  "@loginWithLogin": {
+  "logInWithLogin": "Log in with Login/Email",
+  "@logInWithLogin": {
     "description": "A text of a button in login screen to login with a login or an email"
   },
   "forgotPassword": "Forgot password?",
   "@forgotPassword": {
     "description": "A redirect to a password recovery with a password mode in login screen"
   },
-  "dontHaveAcc": "Don't have an account",
+  "dontHaveAcc": "Don't have an account?",
   "@dontHaveAcc": {
     "description": "Redirect to sing up screen if user doesnt have an account"
   },
@@ -170,7 +170,7 @@
   },
   "alreadyHaveAnAccount": "Already have an account?",
   "@alreadyHaveAnAccount": {
-    "description": "redirect to a login screen"
+    "description": "A redirect to a login screen"
   },
   "iAgreeto": "I agree to",
   "@iAgreeto": {
@@ -178,7 +178,7 @@
   },
   "policy": "Terms & Conditions",
   "@policy": {
-    "description": "redirect to terms & conditions page"
+    "description": "A redirect to terms & conditions page"
   },
   "verifyEmailTitle": "Verify your email",
   "@verifyEmailTitle": {
@@ -199,5 +199,37 @@
   "verifyEmailResendCode": "Resend code",
   "@verifyEmailResendCode": {
     "description": "Tappable action to resend the verification code"
+  },
+  "profileSetupMainText": "One last step",
+  "@profileSetupMainText": {
+    "description": "Main text in pofile setup screen"
+  },
+  "profileSetupSecondText": "Complete your profile to join the void",
+  "@profileSetupSecondText": {
+    "description": "A text under main text in pofile setup screen"
+  },
+  "profileSetupUsernameLabel": "Username",
+  "@profileSetupUsernameLabel": {
+    "description": "Label for username field on profile setup"
+  },
+  "profileSetupUsernameHint": "username",
+  "@profileSetupUsernameHint": {
+    "description": "Hint for username field on profile setup"
+  },
+  "profileSetupDisplayNameLabel": "Display Name",
+  "@profileSetupDisplayNameLabel": {
+    "description": "Label for display name field on profile setup"
+  },
+  "profileSetupDisplayNameHint": "Arthur Morgan",
+  "@profileSetupDisplayNameHint": {
+    "description": "Hint for display name field on profile setup"
+  },
+  "profileSetupHintText": "Your username and display name are public. You can change them later in settings.",
+  "@profileSetupHintText": {
+    "description": "A note under forms with public users data"
+  },
+  "completeSetup": "Complete setup",
+  "@completeSetup": {
+    "description": "A text on a button to finish registration"
   }
 }

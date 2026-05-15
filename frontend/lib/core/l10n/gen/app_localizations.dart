@@ -162,13 +162,13 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Log in with password'**
-  String get loginWithPass;
+  String get logInWithPass;
 
   /// A text of a button in login screen to login with a login or an email
   ///
   /// In en, this message translates to:
   /// **'Log in with Login/Email'**
-  String get loginWithLogin;
+  String get logInWithLogin;
 
   /// A redirect to a password recovery with a password mode in login screen
   ///
@@ -350,7 +350,7 @@ abstract class AppLocalizations {
   /// **'Step into the silent void of secure communication'**
   String get createAccountDescription;
 
-  /// redirect to a login screen
+  /// A redirect to a login screen
   ///
   /// In en, this message translates to:
   /// **'Already have an account?'**
@@ -362,7 +362,7 @@ abstract class AppLocalizations {
   /// **'I agree to'**
   String get iAgreeto;
 
-  /// redirect to terms & conditions page
+  /// A redirect to terms & conditions page
   ///
   /// In en, this message translates to:
   /// **'Terms & Conditions'**
@@ -397,6 +397,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Resend code'**
   String get verifyEmailResendCode;
+
+  /// Main text in pofile setup screen
+  ///
+  /// In en, this message translates to:
+  /// **'One last step'**
+  String get profileSetupMainText;
+
+  /// A text under main text in pofile setup screen
+  ///
+  /// In en, this message translates to:
+  /// **'Complete your profile to join the void'**
+  String get profileSetupSecondText;
+
+  /// Label for username field on profile setup
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get profileSetupUsernameLabel;
+
+  /// Hint for username field on profile setup
+  ///
+  /// In en, this message translates to:
+  /// **'username'**
+  String get profileSetupUsernameHint;
+
+  /// Label for display name field on profile setup
+  ///
+  /// In en, this message translates to:
+  /// **'Display Name'**
+  String get profileSetupDisplayNameLabel;
+
+  /// Hint for display name field on profile setup
+  ///
+  /// In en, this message translates to:
+  /// **'Arthur Morgan'**
+  String get profileSetupDisplayNameHint;
+
+  /// A note under forms with public users data
+  ///
+  /// In en, this message translates to:
+  /// **'Your username and display name are public. You can change them later in settings.'**
+  String get profileSetupHintText;
+
+  /// A text on a button to finish registration
+  ///
+  /// In en, this message translates to:
+  /// **'Complete setup'**
+  String get completeSetup;
 }
 
 class _AppLocalizationsDelegate

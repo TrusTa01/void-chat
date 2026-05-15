@@ -122,6 +122,22 @@ class LoginRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ProfileSetupScreen]
+class ProfileSetupRoute extends PageRouteInfo<void> {
+  const ProfileSetupRoute({List<PageRouteInfo>? children})
+    : super(ProfileSetupRoute.name, initialChildren: children);
+
+  static const String name = 'ProfileSetupRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ProfileSetupScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [RegisterScreen]
 class RegisterRoute extends PageRouteInfo<void> {
   const RegisterRoute({List<PageRouteInfo>? children})

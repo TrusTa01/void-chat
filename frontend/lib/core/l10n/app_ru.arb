@@ -9,8 +9,8 @@
   "greeting": "С возвращением",
   "continueAction": "Продолжить",
   "or": "Или",
-  "loginWithPass": "Войти с паролем",
-  "loginWithLogin": "Войти с Логином/Почтой",
+  "logInWithPass": "Войти с паролем",
+  "logInWithLogin": "Войти с Логином/Почтой",
   "dontHaveAcc": "Нет аккаунта?",
   "logIn": "Войти",
   "singUp": "Зарегистрироваться",
@@ -61,5 +61,13 @@
   "verifyEmailCodeInstruction": "Введите 4-значный код, отправленный на",
   "verifyEmailSubmit": "Подтвердить",
   "verifyEmailDidNotReceive": "Не получили код?",
-  "verifyEmailResendCode": "ОТПРАВИТЬ КОД СНОВА"
+  "verifyEmailResendCode": "Отправить код снова",
+  "profileSetupMainText": "Последний шаг",
+  "profileSetupSecondText": "Завершите настройку вашего профиля чтобы присоединиться к void",
+  "profileSetupUsernameLabel": "Юзернейм",
+  "profileSetupUsernameHint": "username",
+  "profileSetupDisplayNameLabel": "Отображаемое имя",
+  "profileSetupDisplayNameHint": "Артур Морган",
+  "profileSetupHintText": "Ваш юзернейм и отображаемое имя публичные. Вы можете изменить из позже в настройках",
+  "completeSetup": "Завершить настройку"
 }

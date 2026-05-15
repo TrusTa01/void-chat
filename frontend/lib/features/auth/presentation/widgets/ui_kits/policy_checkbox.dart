@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:void_chat/core/constants/link_constants.dart';
 import 'package:void_chat/core/extensions/l10n_ext.dart';
 import 'package:void_chat/core/utils/launcher.dart';
-import 'package:void_chat/features/auth/presentation/widgets/switch_link.dart';
+import 'package:void_chat/features/auth/presentation/widgets/ui_kits/switch_link.dart';
 
 class PolicyCheckbox extends HookWidget {
   const PolicyCheckbox({super.key});

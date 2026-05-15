@@ -39,10 +39,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get or => 'Или';
 
   @override
-  String get loginWithPass => 'Войти с паролем';
+  String get logInWithPass => 'Войти с паролем';
 
   @override
-  String get loginWithLogin => 'Войти с Логином/Почтой';
+  String get logInWithLogin => 'Войти с Логином/Почтой';
 
   @override
   String get forgotPassword => 'Забыли пароль?';
@@ -160,5 +160,31 @@ class AppLocalizationsRu extends AppLocalizations {
   String get verifyEmailDidNotReceive => 'Не получили код?';
 
   @override
-  String get verifyEmailResendCode => 'ОТПРАВИТЬ КОД СНОВА';
+  String get verifyEmailResendCode => 'Отправить код снова';
+
+  @override
+  String get profileSetupMainText => 'Последний шаг';
+
+  @override
+  String get profileSetupSecondText =>
+      'Завершите настройку вашего профиля чтобы присоединиться к void';
+
+  @override
+  String get profileSetupUsernameLabel => 'Юзернейм';
+
+  @override
+  String get profileSetupUsernameHint => 'username';
+
+  @override
+  String get profileSetupDisplayNameLabel => 'Отображаемое имя';
+
+  @override
+  String get profileSetupDisplayNameHint => 'Артур Морган';
+
+  @override
+  String get profileSetupHintText =>
+      'Ваш юзернейм и отображаемое имя публичные. Вы можете изменить из позже в настройках';
+
+  @override
+  String get completeSetup => 'Завершить настройку';
 }

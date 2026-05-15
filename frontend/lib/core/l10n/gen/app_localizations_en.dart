@@ -39,10 +39,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get or => 'or';
 
   @override
-  String get loginWithPass => 'Log in with password';
+  String get logInWithPass => 'Log in with password';
 
   @override
-  String get loginWithLogin => 'Log in with Login/Email';
+  String get logInWithLogin => 'Log in with Login/Email';
 
   @override
   String get forgotPassword => 'Forgot password?';
@@ -162,4 +162,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get verifyEmailResendCode => 'Resend code';
+
+  @override
+  String get profileSetupMainText => 'One last step';
+
+  @override
+  String get profileSetupSecondText => 'Complete your profile to join the void';
+
+  @override
+  String get profileSetupUsernameLabel => 'Username';
+
+  @override
+  String get profileSetupUsernameHint => 'username';
+
+  @override
+  String get profileSetupDisplayNameLabel => 'Display Name';
+
+  @override
+  String get profileSetupDisplayNameHint => 'Arthur Morgan';
+
+  @override
+  String get profileSetupHintText =>
+      'Your username and display name are public. You can change them later in settings.';
+
+  @override
+  String get completeSetup => 'Complete setup';
 }

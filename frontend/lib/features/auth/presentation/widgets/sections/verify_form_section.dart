@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pinput/pinput.dart';
-import 'package:void_chat/core/extensions/l10n_ext.dart';
 
 class VerifyFormSection extends StatelessWidget {
   const VerifyFormSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final pinFill =
@@ -31,20 +29,15 @@ class VerifyFormSection extends StatelessWidget {
           separatorBuilder: (index) => const SizedBox(width: 15),
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           defaultPinTheme: PinTheme(
-            width: 65,
-            height: 65,
+            width: 70,
+            height: 70,
             textStyle: pinTextStyle,
             decoration: BoxDecoration(
               color: pinFill,
               borderRadius: BorderRadius.circular(12),
             ),
           ),
-          onCompleted: (_) => {},
         ),
-        const SizedBox(height: 25),
-
-        // Verify button
-        FilledButton(onPressed: () {}, child: Text(l10n.verifyEmailSubmit)),
       ],
     );
   }
