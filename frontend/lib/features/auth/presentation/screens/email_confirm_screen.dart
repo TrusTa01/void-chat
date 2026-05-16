@@ -6,13 +6,17 @@ import 'package:void_chat/features/auth/presentation/widgets/components/auth_bod
 import 'package:void_chat/features/auth/presentation/widgets/components/auth_footer_link.dart';
 import 'package:void_chat/features/auth/presentation/widgets/components/auth_header.dart';
 import 'package:void_chat/features/auth/presentation/widgets/sections/verify_form_section.dart';
-import 'package:void_chat/router/app_router.dart';
 
 @RoutePage()
 class EmailConfirmScreen extends StatelessWidget {
   final String userEmail;
+  final VoidCallback onVerifyPressed;
 
-  const EmailConfirmScreen({super.key, required this.userEmail});
+  const EmailConfirmScreen({
+    super.key,
+    required this.userEmail,
+    required this.onVerifyPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,7 @@ class EmailConfirmScreen extends StatelessWidget {
 
         // Verify button
         FilledButton(
-          onPressed: () => context.router.push(const ProfileSetupRoute()),
+          onPressed: onVerifyPressed,
           child: Text(l10n.verifyEmailSubmit),
         ),
       ],

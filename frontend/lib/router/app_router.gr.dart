@@ -48,10 +48,15 @@ class EmailConfirmRoute extends PageRouteInfo<EmailConfirmRouteArgs> {
   EmailConfirmRoute({
     Key? key,
     required String userEmail,
+    required VoidCallback onVerifyPressed,
     List<PageRouteInfo>? children,
   }) : super(
          EmailConfirmRoute.name,
-         args: EmailConfirmRouteArgs(key: key, userEmail: userEmail),
+         args: EmailConfirmRouteArgs(
+           key: key,
+           userEmail: userEmail,
+           onVerifyPressed: onVerifyPressed,
+         ),
          initialChildren: children,
        );
 
@@ -61,32 +66,45 @@ class EmailConfirmRoute extends PageRouteInfo<EmailConfirmRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<EmailConfirmRouteArgs>();
-      return EmailConfirmScreen(key: args.key, userEmail: args.userEmail);
+      return EmailConfirmScreen(
+        key: args.key,
+        userEmail: args.userEmail,
+        onVerifyPressed: args.onVerifyPressed,
+      );
     },
   );
 }
 
 class EmailConfirmRouteArgs {
-  const EmailConfirmRouteArgs({this.key, required this.userEmail});
+  const EmailConfirmRouteArgs({
+    this.key,
+    required this.userEmail,
+    required this.onVerifyPressed,
+  });
 
   final Key? key;
 
   final String userEmail;
 
+  final VoidCallback onVerifyPressed;
+
   @override
   String toString() {
-    return 'EmailConfirmRouteArgs{key: $key, userEmail: $userEmail}';
+    return 'EmailConfirmRouteArgs{key: $key, userEmail: $userEmail, onVerifyPressed: $onVerifyPressed}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! EmailConfirmRouteArgs) return false;
-    return key == other.key && userEmail == other.userEmail;
+    return key == other.key &&
+        userEmail == other.userEmail &&
+        onVerifyPressed == other.onVerifyPressed;
   }
 
   @override
-  int get hashCode => key.hashCode ^ userEmail.hashCode;
+  int get hashCode =>
+      key.hashCode ^ userEmail.hashCode ^ onVerifyPressed.hashCode;
 }
 
 /// generated route for
@@ -138,6 +156,72 @@ class ProfileSetupRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [RegisterEmailConfirmScreen]
+class RegisterEmailConfirmRoute
+    extends PageRouteInfo<RegisterEmailConfirmRouteArgs> {
+  RegisterEmailConfirmRoute({
+    Key? key,
+    required String userEmail,
+    required VoidCallback onVerifyPressed,
+    List<PageRouteInfo>? children,
+  }) : super(
+         RegisterEmailConfirmRoute.name,
+         args: RegisterEmailConfirmRouteArgs(
+           key: key,
+           userEmail: userEmail,
+           onVerifyPressed: onVerifyPressed,
+         ),
+         initialChildren: children,
+       );
+
+  static const String name = 'RegisterEmailConfirmRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<RegisterEmailConfirmRouteArgs>();
+      return RegisterEmailConfirmScreen(
+        key: args.key,
+        userEmail: args.userEmail,
+        onVerifyPressed: args.onVerifyPressed,
+      );
+    },
+  );
+}
+
+class RegisterEmailConfirmRouteArgs {
+  const RegisterEmailConfirmRouteArgs({
+    this.key,
+    required this.userEmail,
+    required this.onVerifyPressed,
+  });
+
+  final Key? key;
+
+  final String userEmail;
+
+  final VoidCallback onVerifyPressed;
+
+  @override
+  String toString() {
+    return 'RegisterEmailConfirmRouteArgs{key: $key, userEmail: $userEmail, onVerifyPressed: $onVerifyPressed}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! RegisterEmailConfirmRouteArgs) return false;
+    return key == other.key &&
+        userEmail == other.userEmail &&
+        onVerifyPressed == other.onVerifyPressed;
+  }
+
+  @override
+  int get hashCode =>
+      key.hashCode ^ userEmail.hashCode ^ onVerifyPressed.hashCode;
+}
+
+/// generated route for
 /// [RegisterScreen]
 class RegisterRoute extends PageRouteInfo<void> {
   const RegisterRoute({List<PageRouteInfo>? children})
@@ -154,17 +238,17 @@ class RegisterRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [SettingsScreen]
-class SettingsRoute extends PageRouteInfo<void> {
-  const SettingsRoute({List<PageRouteInfo>? children})
-    : super(SettingsRoute.name, initialChildren: children);
+/// [WelcomeScreen]
+class WelcomeRoute extends PageRouteInfo<void> {
+  const WelcomeRoute({List<PageRouteInfo>? children})
+    : super(WelcomeRoute.name, initialChildren: children);
 
-  static const String name = 'SettingsRoute';
+  static const String name = 'WelcomeRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const SettingsScreen();
+      return const WelcomeScreen();
     },
   );
 }

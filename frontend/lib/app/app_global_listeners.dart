@@ -16,7 +16,7 @@ class AppGlobalListeners extends StatelessWidget {
         BlocListener<AuthCubit, AuthStatus>(
           listener: (context, state) {
             if (state == AuthStatus.unauthenticated) {
-              getIt<AppRouter>().replaceAll([const LoginRoute()]);
+              getIt<AppRouter>().replaceAll([const WelcomeRoute()]);
             }
           },
         ),

@@ -19,8 +19,6 @@ class AuthGuard extends AutoRouteGuard {
     }
 
     resolver.next(false);
-    router.replaceAll([
-      const AuthLayoutRoute(children: [LoginRoute()]),
-    ]);
+    router.replaceAll([const WelcomeRoute()]);
   }
 }

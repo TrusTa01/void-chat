@@ -23,13 +23,22 @@ class LoginScreen extends StatelessWidget {
     );
 
     // Body (forms)
-    const body = AuthBody(bottomPadding: 50, children: [LoginFormSection()]);
+    final body = AuthBody(
+      bottomPadding: 50,
+      children: [
+        LoginFormSection(
+          onLoginTap: () => context.router.push(
+            RegisterEmailConfirmRoute(userEmail: '', onVerifyPressed: () {}),
+          ),
+        ),
+      ],
+    );
 
     // Footer (to register screen)
     final footer = AuthFooterLink(
       text: l10n.dontHaveAcc,
       linkText: l10n.singUp,
-      onTap: () => context.router.replace(const RegisterRoute()),
+      onTap: () => context.router.push(const RegisterRoute()),
     );
 
     return AuthScaffold(header: header, body: body, footer: footer);

@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:void_chat/core/extensions/theme_context_ext.dart';
 import 'package:void_chat/features/auth/presentation/widgets/ui_kits/registration_step_indicator.dart';
+import 'package:void_chat/router/app_router.dart';
 
 @RoutePage()
 class AuthLayoutScreen extends StatelessWidget {
@@ -13,37 +15,21 @@ class AuthLayoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isLight = Theme.of(context).brightness == Brightness.light;
-
     return AutoRouter(
       builder: (context, content) {
-        final canPop = context.router.canPop(ignoreParentRoutes: true);
         final step = _registrationStep(context.router.topRoute);
-        const int totalSteps = 3;
 
         return Scaffold(
           appBar: AppBar(
-            leading: canPop
-                ? BackButton(onPressed: () => context.router.maybePop())
-                : null,
-            title: isLight
-                ? Image.asset(
-                    'assets/logo/logo_light.png',
-                    height: 100,
-                    width: 125,
-                  )
-                : Image.asset(
-                    'assets/logo/logo_dark.png',
-                    height: 100,
-                    width: 125,
-                  ),
+            leading: const AutoLeadingButton(),
+            title: Image.asset(context.logoPath, height: 100, width: 125),
             centerTitle: true,
             bottom: step != null
                 ? PreferredSize(
                     preferredSize: const Size.fromHeight(12),
                     child: RegistrationStepIndicator(
                       current: step,
-                      total: totalSteps,
+                      total: AppRouter.totalRegisterSteps,
                     ),
                   )
                 : null,

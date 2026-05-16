@@ -45,7 +45,7 @@ ThemeData _buildTheme(PaletteData palette, Brightness brightness) {
   }
 
   final inputFill = palette.id == 'brand'
-      ? (isLight ? AppColors.lightOverlay : AppColors.darkInputFill)
+      ? (isLight ? AppColors.lightInputFill : AppColors.darkInputFill)
       : (isLight ? colorScheme.surfaceContainerLow : colorScheme.surface);
 
   final scaffoldBg = isLight
@@ -111,6 +111,7 @@ ThemeData _buildTheme(PaletteData palette, Brightness brightness) {
         borderSide: BorderSide(color: colorScheme.primary, width: 1.2),
       ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      helperStyle: const TextStyle(fontWeight: FontWeight.w500),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(

@@ -21,6 +21,7 @@ import 'package:void_chat/core/storage/secure_storage/app_secure_storage.dart'
 import 'package:void_chat/core/storage/shared_preferences/app_prefs.dart'
     as _i959;
 import 'package:void_chat/core/theme/cubit/theme_cubit.dart' as _i542;
+import 'package:void_chat/core/theme/theme_controller.dart' as _i644;
 import 'package:void_chat/features/auth/presentation/cubit/auth_cubit.dart'
     as _i790;
 import 'package:void_chat/router/app_router.dart' as _i724;
@@ -42,6 +43,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i558.FlutterSecureStorage>(
       () => registerModule.secureStorage,
     );
+    gh.lazySingleton<_i644.ThemeController>(() => _i644.ThemeController());
     gh.lazySingleton<_i351.AppSecureStorage>(
       () => _i351.AppSecureStorage(gh<_i558.FlutterSecureStorage>()),
     );

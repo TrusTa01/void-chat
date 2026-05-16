@@ -10,13 +10,12 @@ abstract final class AppColors {
   static const Color lightBackground = Color(0xFFFFFFFF);
 
   // form fields
-  static const Color darkInputFill = Color.fromARGB(255, 40, 38, 43);
-  static const Color lightInputFill = Color(0xFFAFA9B6);
+  static const Color darkInputFill = Color(0xFF28262b);
+  static const Color lightInputFill = Color(0xFFD4CDDA);
 
   // layers
   static const Color surface = Color(0xFF0A0A0A);
   static const Color darkOverlay = Color(0xFF000000);
-  static const Color lightOverlay = Color(0xFFCBC4D2);
 
   // text
   static const Color textMain = Color(0xFFFFFFFF);

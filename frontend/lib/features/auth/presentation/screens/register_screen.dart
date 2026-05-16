@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:void_chat/core/extensions/l10n_ext.dart';
 import 'package:void_chat/core/layouts/auth_layout.dart';
 import 'package:void_chat/features/auth/presentation/widgets/components/auth_body.dart';
@@ -10,7 +9,7 @@ import 'package:void_chat/features/auth/presentation/widgets/sections/register_f
 import 'package:void_chat/router/app_router.dart';
 
 @RoutePage()
-class RegisterScreen extends HookWidget {
+class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
 
   @override
@@ -31,8 +30,13 @@ class RegisterScreen extends HookWidget {
         const SizedBox(height: 30),
 
         FilledButton(
-          onPressed: () =>
-              context.router.push(EmailConfirmRoute(userEmail: '')),
+          onPressed: () => context.router.push(
+            EmailConfirmRoute(
+              userEmail: '',
+              onVerifyPressed: () =>
+                  context.router.push(const ProfileSetupRoute()),
+            ),
+          ),
           child: Text(l10n.continueAction),
         ),
       ],
@@ -42,7 +46,7 @@ class RegisterScreen extends HookWidget {
     final footer = AuthFooterLink(
       text: l10n.alreadyHaveAnAccount,
       linkText: l10n.logIn,
-      onTap: () => context.router.replace(const LoginRoute()),
+      onTap: () => context.router.pop(const LoginRoute()),
     );
 
     return AuthScaffold(header: header, body: body, footer: footer);

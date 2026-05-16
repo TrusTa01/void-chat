@@ -6,9 +6,10 @@ import 'package:void_chat/core/layouts/auth_layout.dart';
 import 'package:void_chat/features/auth/presentation/screens/email_confirm_screen.dart';
 import 'package:void_chat/features/auth/presentation/screens/login_screen.dart';
 import 'package:void_chat/features/auth/presentation/screens/profile_setup_screen.dart';
+import 'package:void_chat/features/auth/presentation/screens/register_email_confirm_screen.dart';
 import 'package:void_chat/features/auth/presentation/screens/register_screen.dart';
-import 'package:void_chat/features/chats/presentation/screens/home_screen.dart';
-import 'package:void_chat/features/settings/presentation/screens/settings_screen.dart';
+import 'package:void_chat/features/auth/presentation/screens/welcome_screen.dart';
+import 'package:void_chat/features/home/presentation/screens/home_screen.dart';
 import 'package:void_chat/router/auth_guard.dart';
 
 part 'app_router.gr.dart';
@@ -20,21 +21,33 @@ class AppRouter extends RootStackRouter {
 
   AppRouter(this._authGuard);
 
+  static const int totalRegisterSteps = 3;
+
   @override
   List<AutoRoute> get routes => [
+    // initial screen (welcome)
+    AutoRoute(path: '/welcome', page: WelcomeRoute.page, initial: true),
+
     // auth
     AutoRoute(
       path: '/auth',
       page: AuthLayoutRoute.page,
       children: [
+        // login
         AutoRoute(path: 'login', page: LoginRoute.page, initial: true),
+        AutoRoute(
+          path: 'login-email-confirm',
+          page: RegisterEmailConfirmRoute.page,
+        ),
+
+        // register
         AutoRoute(
           path: 'register',
           meta: {'step': 1},
           page: RegisterRoute.page,
         ),
         AutoRoute(
-          path: 'email-confirm',
+          path: 'register-email-confirm',
           meta: {'step': 2},
           page: EmailConfirmRoute.page,
         ),
@@ -50,12 +63,8 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       path: '/app',
       page: AppLayoutRoute.page,
-      initial: true,
       guards: [_authGuard],
-      children: [
-        AutoRoute(page: HomeRoute.page, initial: true),
-        AutoRoute(page: SettingsRoute.page),
-      ],
+      children: [AutoRoute(page: HomeRoute.page, initial: true)],
     ),
   ];
 }
