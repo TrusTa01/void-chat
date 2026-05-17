@@ -104,6 +104,12 @@ abstract class AppLocalizations {
   /// **'Void'**
   String get appTitle;
 
+  /// Full description on welcome screen
+  ///
+  /// In en, this message translates to:
+  /// **'Your private space for <bold>secure</bold> and <bold>seamless</bold> communication'**
+  String get appDescription;
+
   /// Built-in palette name: Brand
   ///
   /// In en, this message translates to:
@@ -445,6 +451,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Complete setup'**
   String get completeSetup;
+
+  /// The text on a button to continue log in
+  ///
+  /// In en, this message translates to:
+  /// **'Start chatting'**
+  String get startChatting;
 }
 
 class _AppLocalizationsDelegate

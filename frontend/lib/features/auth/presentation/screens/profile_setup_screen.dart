@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:void_chat/core/extensions/l10n_ext.dart';
+import 'package:void_chat/core/extensions/theme_context_ext.dart';
 import 'package:void_chat/core/layouts/auth_layout.dart';
 import 'package:void_chat/features/auth/presentation/widgets/components/auth_body.dart';
 import 'package:void_chat/features/auth/presentation/widgets/components/auth_header.dart';
@@ -18,6 +19,7 @@ class ProfileSetupScreen extends StatelessWidget {
     final header = AuthHeader(
       mainText: l10n.profileSetupMainText,
       description: l10n.profileSetupSecondText,
+      imageAssetPath: context.portalImagePath,
     );
 
     // Body (forms)

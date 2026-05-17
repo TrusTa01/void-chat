@@ -1,6 +1,7 @@
 {
   "@@locale": "ru",
   "appTitle": "Void",
+  "appDescription": "Ваше личное пространство для безопасного и бесперебойного общения",
   "paletteBrand": "Бренд",
   "paletteCoffee": "Кофе",
   "paletteOcean": "Океан",
@@ -69,5 +70,6 @@
   "profileSetupDisplayNameLabel": "Отображаемое имя",
   "profileSetupDisplayNameHint": "Артур Морган",
   "profileSetupHintText": "Ваш юзернейм и отображаемое имя публичные. Вы можете изменить из позже в настройках",
-  "completeSetup": "Завершить настройку"
+  "completeSetup": "Завершить настройку",
+  "startChatting": "Начать общение"
 }

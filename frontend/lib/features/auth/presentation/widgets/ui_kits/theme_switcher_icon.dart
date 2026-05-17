@@ -10,7 +10,7 @@ class ThemeSwitcherIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themePrefs = context.select((ThemeCubit cubit) => cubit.state);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = context.isDark;
 
     return IconButton(
       onPressed: () {
@@ -30,9 +30,10 @@ class ThemeSwitcherIcon extends StatelessWidget {
         transitionBuilder: (child, animation) =>
             FadeTransition(opacity: animation, child: child),
         child: Icon(
-          isDark ? Icons.wb_sunny : Icons.mode_night,
+          isDark ? Icons.wb_sunny : Icons.dark_mode,
           key: ValueKey<bool>(isDark),
           color: context.colorScheme.primary,
+          size: 30,
         ),
       ),
     );

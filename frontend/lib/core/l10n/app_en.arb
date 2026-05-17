@@ -4,6 +4,10 @@
   "@appTitle": {
     "description": "App title in app bar and system"
   },
+  "appDescription": "Your private space for <bold>secure</bold> and <bold>seamless</bold> communication",
+  "@appDescription": {
+    "description": "Full description on welcome screen"
+  },
   "paletteBrand": "Brand",
   "@paletteBrand": {
     "description": "Built-in palette name: Brand"
@@ -231,5 +235,9 @@
   "completeSetup": "Complete setup",
   "@completeSetup": {
     "description": "A text on a button to finish registration"
+  },
+  "startChatting": "Start chatting",
+  "@startChatting": {
+    "description": "The text on a button to continue log in"
   }
 }

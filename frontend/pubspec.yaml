@@ -13,6 +13,7 @@ dependencies:
   # ui
   flutter_colorpicker: ^1.1.0
   pinput: ^6.0.2
+  styled_text: ^9.0.0
 
   # localization
   flutter_localizations:
@@ -84,5 +85,5 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/logo/logo_light.png
-    - assets/logo/logo_dark.png
+    - assets/images/logo/
+    - assets/images/logo/app_icon/

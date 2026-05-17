@@ -12,6 +12,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appTitle => 'Void';
 
   @override
+  String get appDescription =>
+      'Your private space for <bold>secure</bold> and <bold>seamless</bold> communication';
+
+  @override
   String get paletteBrand => 'Brand';
 
   @override
@@ -187,4 +191,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get completeSetup => 'Complete setup';
+
+  @override
+  String get startChatting => 'Start chatting';
 }

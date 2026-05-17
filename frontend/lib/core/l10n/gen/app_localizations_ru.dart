@@ -12,6 +12,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get appTitle => 'Void';
 
   @override
+  String get appDescription =>
+      'Ваше личное пространство для безопасного и бесперебойного общения';
+
+  @override
   String get paletteBrand => 'Бренд';
 
   @override
@@ -187,4 +191,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get completeSetup => 'Завершить настройку';
+
+  @override
+  String get startChatting => 'Начать общение';
 }
