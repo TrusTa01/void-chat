@@ -1,4 +1,4 @@
-import 'package:backend/src/features/auth/register/api/dto/request/register_request_dto.dart';
+import 'package:backend/src/features/auth/register/complete_profile/api/dto/request/register_request_dto.dart';
 import 'package:backend/src/features/auth/domain/value_objects/new_user.dart';
 
 extension RegisterRequestMapper on RegisterRequestDto {

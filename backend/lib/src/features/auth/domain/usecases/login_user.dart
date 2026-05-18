@@ -1,5 +1,5 @@
 import 'package:backend/src/core/errors/app_exception.dart';
-import 'package:backend/src/features/auth/login/session_ttl.dart';
+import 'package:backend/src/features/auth/login/ttl.dart';
 import 'package:backend/src/features/auth/shared/auth_error_codes.dart';
 import 'package:backend/src/features/auth/domain/repository/i_session_repository.dart';
 import 'package:backend/src/features/auth/domain/repository/i_user_repository.dart';
@@ -46,7 +46,7 @@ class LoginUser implements ILoginUser {
     final token = _token.generateSessionToken();
     final tokenHash = _token.hashSessionToken(token);
 
-    final expiresAt = DateTime.now().toUtc().add(SessionTtl.d30);
+    final expiresAt = DateTime.now().toUtc().add(Ttl.sessionTtlD30);
     await _sessionRepo.create(user.userId, tokenHash, expiresAt);
 
     final fullUser = await _userRepo.findById(user.userId);

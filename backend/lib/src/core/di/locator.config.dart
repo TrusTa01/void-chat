@@ -32,6 +32,20 @@ import 'package:backend/src/features/auth/domain/usecases/login_user.dart'
     as _i3;
 import 'package:backend/src/features/auth/domain/usecases/register_user.dart'
     as _i231;
+import 'package:backend/src/features/auth/register/start/data/repository/postgres_pending_registration_repository.dart'
+    as _i214;
+import 'package:backend/src/features/auth/register/start/domain/repository/i_pending_registration_repository.dart'
+    as _i449;
+import 'package:backend/src/features/auth/register/start/domain/services/dev_email_sender.dart'
+    as _i999;
+import 'package:backend/src/features/auth/register/start/domain/services/email_code.dart'
+    as _i469;
+import 'package:backend/src/features/auth/register/start/domain/services/i_email_sender.dart'
+    as _i49;
+import 'package:backend/src/features/auth/register/start/domain/use_cases/start_registration_use_case.dart'
+    as _i517;
+import 'package:backend/src/features/auth/register/start/domain/use_cases/start_registration_validate_use_case.dart'
+    as _i476;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:postgres/postgres.dart' as _i103;
@@ -65,11 +79,28 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i719.DisplayNamePolicy>(
       () => const _i719.ReservedDisplayNamePolicy(),
     );
+    gh.lazySingleton<_i49.EmailCodeSenderService>(
+      () => _i999.DevEmailSender(gh<_i993.Talker>()),
+    );
+    gh.lazySingleton<_i476.IStartRegistrationValidateUseCase>(
+      () => _i476.StartRegistrationValidateUseCase(
+        gh<_i719.LoginPolicy>(),
+        gh<_i719.EmailPolicy>(),
+      ),
+    );
     gh.lazySingleton<_i757.ISessionRepository>(
       () => _i469.PostgresSessionRepository(gh<_i103.Pool<_i103.Connection>>()),
     );
     gh.lazySingleton<_i514.IUserRepository>(
       () => _i253.PostgresUserRepository(gh<_i103.Pool<_i103.Connection>>()),
+    );
+    gh.lazySingleton<_i449.IPendingRegistrationRepository>(
+      () => _i214.PostgresPendingRegistrationRepository(
+        gh<_i103.Pool<_i103.Connection>>(),
+      ),
+    );
+    gh.lazySingleton<_i469.EmailCodeService>(
+      () => _i469.EmailCodeServiceImpl(gh<_i443.PasswordHasher>()),
     );
     gh.lazySingleton<_i231.IRegisterUser>(
       () => _i231.RegisterUser(
@@ -81,6 +112,15 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i719.DisplayNamePolicy>(),
       ),
     );
+    gh.lazySingleton<_i517.IStartRegistrationUseCase>(
+      () => _i517.StartRegistrationUseCase(
+        gh<_i476.IStartRegistrationValidateUseCase>(),
+        gh<_i443.PasswordHasher>(),
+        gh<_i469.EmailCodeService>(),
+        gh<_i449.IPendingRegistrationRepository>(),
+        gh<_i49.EmailCodeSenderService>(),
+      ),
+    );
     gh.lazySingleton<_i3.ILoginUser>(
       () => _i3.LoginUser(
         gh<_i514.IUserRepository>(),
@@ -90,7 +130,11 @@ extension GetItInjectableX on _i174.GetIt {
       ),
     );
     gh.lazySingleton<_i48.AuthApi>(
-      () => _i48.AuthApi(gh<_i3.ILoginUser>(), gh<_i1059.IRegisterUser>()),
+      () => _i48.AuthApi(
+        gh<_i3.ILoginUser>(),
+        gh<_i1059.IRegisterUser>(),
+        gh<_i517.IStartRegistrationUseCase>(),
+      ),
     );
     gh.lazySingleton<_i371.AppModule>(
       () => _i371.AppModule(gh<_i278.Router>(), gh<_i48.AuthApi>()),

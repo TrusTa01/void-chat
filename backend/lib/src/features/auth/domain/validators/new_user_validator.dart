@@ -41,6 +41,19 @@ typedef NewUserValidationResult = ({
   List<FieldError> errors,
 });
 
+/// Trimmed login/email and the raw password (not trimmed).
+typedef NormalizedStartRegistrationFields = ({
+  String login,
+  String email,
+  String password,
+});
+
+/// Result of [validateStartRegistrationInput].
+typedef StartRegistrationValidationResult = ({
+  NormalizedStartRegistrationFields normalized,
+  List<FieldError> errors,
+});
+
 /// Aggregates every validation problem into a single [FieldError] per field.
 ///
 /// Rationale for at-most-one error per field: it keeps the response payload
@@ -94,6 +107,31 @@ NewUserValidationResult validateNewUserInput({
   );
 }
 
+StartRegistrationValidationResult validateStartRegistrationInput({
+  required String login,
+  required String email,
+  required String password,
+}) {
+  final trimmedLogin = login.trim();
+  final trimmedEmail = email.trim();
+
+  final errors = <FieldError>[];
+
+  final loginError = _validateLogin(trimmedLogin);
+  if (loginError != null) errors.add(loginError);
+
+  final emailError = _validateEmail(trimmedEmail);
+  if (emailError != null) errors.add(emailError);
+
+  final passwordError = _validatePassword(password);
+  if (passwordError != null) errors.add(passwordError);
+
+  return (
+    normalized: (login: trimmedLogin, email: trimmedEmail, password: password),
+    errors: errors,
+  );
+}
+
 FieldError? _validateLogin(String trimmedLogin) {
   if (trimmedLogin.length < newUserLoginMinLength ||
       trimmedLogin.length > newUserLoginMaxLength) {
@@ -121,24 +159,16 @@ FieldError? _validatePassword(String password) {
     return const FieldError(
       field: AuthFieldNames.password,
       code: AuthErrorCodes.invalidPassword,
-      message:
-          'Password must be between $newUserPasswordMinLength and '
-          '$newUserPasswordMaxLength characters',
+      message: 'Password must be 8-128 characters',
     );
   }
 
-  final problems = <String>[];
-  if (!_passwordHasLetter.hasMatch(password)) {
-    problems.add('contain at least one letter');
-  }
-  if (!_passwordHasDigit.hasMatch(password)) {
-    problems.add('contain at least one digit');
-  }
-  if (problems.isNotEmpty) {
-    return FieldError(
+  if (!_passwordHasLetter.hasMatch(password) ||
+      !_passwordHasDigit.hasMatch(password)) {
+    return const FieldError(
       field: AuthFieldNames.password,
       code: AuthErrorCodes.invalidPassword,
-      message: 'Password must ${problems.join(' and ')}',
+      message: 'Password must include at least one letter and one number',
     );
   }
   return null;
