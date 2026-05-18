@@ -34,4 +34,10 @@ abstract class AuthErrorCodes {
   static const String usernameTaken = 'USERNAME_TAKEN';
 
   static const String invalidCredentials = 'INVALID_CREDENTIALS';
+
+  static const String invalidRegistration = 'INVALID_REGISTRATION';
+  static const String invalidEmailCode = 'INVALID_EMAIL_CODE';
+  static const String emailCodeExpired = 'EMAIL_CODE_EXPIRED';
+  static const String emailCodeAttemptsExceeded =
+      'EMAIL_CODE_ATTEMPTS_EXCEEDED';
 }

@@ -5,6 +5,9 @@ import 'package:backend/src/features/auth/register/complete_profile/api/mappers/
 import 'package:backend/src/features/auth/register/start/api/dto/request/start_registration_request_dto.dart';
 import 'package:backend/src/features/auth/register/start/api/mappers/start_registration_response_mapper.dart';
 import 'package:backend/src/features/auth/register/start/domain/use_cases/start_registration_use_case.dart';
+import 'package:backend/src/features/auth/register/verify_email/api/dto/request/verify_registration_email_request_dto.dart';
+import 'package:backend/src/features/auth/register/verify_email/api/dto/response/verify_registration_email_response_dto.dart';
+import 'package:backend/src/features/auth/register/verify_email/domain/use_cases/verify_registration_email_use_case.dart';
 import 'package:backend/src/features/auth/shared/mappers/parse_body.dart';
 import 'package:backend/src/features/auth/login/api/mappers/login_response_mapper.dart';
 import 'package:backend/src/features/auth/register/complete_profile/api/mappers/register_response_mapper.dart';
@@ -19,11 +22,13 @@ class AuthApi {
   final ILoginUser _loginUser;
   final IRegisterUser _registerUserUseCase;
   final IStartRegistrationUseCase _startRegistrationUseCase;
+  final IVerifyRegistrationEmailUseCase _emailVerifyUseCase;
 
   AuthApi(
     this._loginUser,
     this._registerUserUseCase,
     this._startRegistrationUseCase,
+    this._emailVerifyUseCase,
   );
 
   late final Router router = _buildRouter();
@@ -41,7 +46,10 @@ class AuthApi {
       '/register/start',
       (Request request) => _startRegistrationHandler(request),
     );
-    r.post('/register/verify-email', (Request request) => Response.ok);
+    r.post(
+      '/register/verify-email',
+      (Request request) => _verifyEmailRegistrationHandler(request),
+    );
     r.post(
       '/register/complete-profile',
       (Request request) => _registerHandler(request),
@@ -64,6 +72,16 @@ class AuthApi {
     final result = await _startRegistrationUseCase.call(dto);
     final response = result.toResponse();
     return JsonResponse.created(response.toJson());
+  }
+
+  Future<Response> _verifyEmailRegistrationHandler(Request request) async {
+    final body = await request.readAsString();
+    final dto = parseBody(body, VerifyRegistrationEmailRequestDto.fromJson);
+    await _emailVerifyUseCase.call(
+      registrationId: dto.registrationId,
+      code: dto.code,
+    );
+    return JsonResponse.ok(VerifyRegistrationEmailResponseDto(verified: true));
   }
 
   Future<Response> _registerHandler(Request request) async {

@@ -10,6 +10,7 @@ import 'package:backend/src/features/auth/domain/value_objects/new_user.dart';
 import 'package:backend/src/features/auth/register/start/api/dto/request/start_registration_request_dto.dart';
 import 'package:backend/src/features/auth/register/start/domain/use_cases/start_registration_use_case.dart';
 import 'package:backend/src/features/auth/register/start/domain/value_objects/pending_registration.dart';
+import 'package:backend/src/features/auth/register/verify_email/domain/use_cases/verify_registration_email_use_case.dart';
 import 'package:backend/src/features/auth/shared/auth_error_codes.dart';
 import 'package:backend/src/middleware/error_middleware.dart';
 import 'package:shelf/shelf.dart';
@@ -29,6 +30,7 @@ void main() {
       _UnusedLoginUser(),
       _UnusedRegisterUser(),
       startRegistrationUseCase,
+      _UnusedVerifyRegistrationEmailUseCase(),
     );
     handler = const Pipeline()
         .addMiddleware(errorMiddleware())
@@ -155,6 +157,16 @@ final class _UnusedRegisterUser implements IRegisterUser {
   Future<UserEntity> call(NewUser data) {
     throw StateError(
       'IRegisterUser should not be called in register/start tests',
+    );
+  }
+}
+
+final class _UnusedVerifyRegistrationEmailUseCase
+    implements IVerifyRegistrationEmailUseCase {
+  @override
+  Future<void> call({required String registrationId, required String code}) {
+    throw StateError(
+      'IVerifyRegistrationEmailUseCase should not be called in register/start tests',
     );
   }
 }

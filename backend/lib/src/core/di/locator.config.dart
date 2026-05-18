@@ -46,6 +46,10 @@ import 'package:backend/src/features/auth/register/start/domain/use_cases/start_
     as _i517;
 import 'package:backend/src/features/auth/register/start/domain/use_cases/start_registration_validate_use_case.dart'
     as _i476;
+import 'package:backend/src/features/auth/register/verify_email/domain/repositories/i_verify_email_registration_repository.dart'
+    as _i359;
+import 'package:backend/src/features/auth/register/verify_email/domain/use_cases/verify_registration_email_use_case.dart'
+    as _i136;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:postgres/postgres.dart' as _i103;
@@ -121,6 +125,12 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i49.EmailCodeSenderService>(),
       ),
     );
+    gh.lazySingleton<_i136.IVerifyRegistrationEmailUseCase>(
+      () => _i136.VerifyRegistrationEmailUseCase(
+        gh<_i359.IVerifyEmailRegistrationRepository>(),
+        gh<_i469.EmailCodeService>(),
+      ),
+    );
     gh.lazySingleton<_i3.ILoginUser>(
       () => _i3.LoginUser(
         gh<_i514.IUserRepository>(),
@@ -134,6 +144,7 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i3.ILoginUser>(),
         gh<_i1059.IRegisterUser>(),
         gh<_i517.IStartRegistrationUseCase>(),
+        gh<_i136.IVerifyRegistrationEmailUseCase>(),
       ),
     );
     gh.lazySingleton<_i371.AppModule>(
