@@ -27,6 +27,7 @@ class EmailConfirmScreen extends StatelessWidget {
       mainText: l10n.verifyEmailTitle,
       description: '${l10n.verifyEmailCodeInstruction} $userEmail',
       imageAssetPath: 'assets/images/black_hole.png',
+      imageBoxShadow: (alpha: 0.6, blurRadius: 20, spreadRadius: 1),
     );
 
     // Body (forms)

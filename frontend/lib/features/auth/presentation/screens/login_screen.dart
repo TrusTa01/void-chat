@@ -27,7 +27,8 @@ class LoginScreen extends StatelessWidget {
       bottomPadding: 50,
       children: [
         LoginFormSection(
-          onLoginTap: () => context.router.push(
+          onLoginTap: () {},
+          onEmailConfirmTap: () => context.router.push(
             RegisterEmailConfirmRoute(userEmail: '', onVerifyPressed: () {}),
           ),
         ),

@@ -52,7 +52,7 @@ ThemeData _buildTheme(PaletteData palette, Brightness brightness) {
       ? (palette.lightBackground ?? colorScheme.surface)
       : (palette.darkBackground ?? colorScheme.surface);
   final neonGlowColor = colorScheme.primary.withValues(
-    alpha: isLight ? 0.45 : 0.75,
+    alpha: isLight ? 0.68 : 0.75,
   );
 
   return ThemeData(
@@ -114,13 +114,31 @@ ThemeData _buildTheme(PaletteData palette, Brightness brightness) {
       helperStyle: const TextStyle(fontWeight: FontWeight.w500),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
-      style: OutlinedButton.styleFrom(
-        foregroundColor: colorScheme.primary,
-        textStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-        side: const BorderSide(color: AppColors.lightPrimary),
-      ),
+      style:
+          OutlinedButton.styleFrom(
+            backgroundColor: scaffoldBg,
+            foregroundColor: colorScheme.primary,
+            textStyle: const TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 16,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(28),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+            side: const BorderSide(color: AppColors.lightPrimary),
+          ).copyWith(
+            shadowColor: WidgetStatePropertyAll(neonGlowColor),
+            elevation: WidgetStateProperty.resolveWith((states) {
+              if (states.contains(WidgetState.disabled)) return 0;
+              if (states.contains(WidgetState.pressed)) return isLight ? 4 : 3;
+              if (states.contains(WidgetState.hovered) ||
+                  states.contains(WidgetState.focused)) {
+                return isLight ? 12 : 10;
+              }
+              return isLight ? 8 : 7;
+            }),
+          ),
     ),
     filledButtonTheme: FilledButtonThemeData(
       style: ButtonStyle(
@@ -138,12 +156,12 @@ ThemeData _buildTheme(PaletteData palette, Brightness brightness) {
         shadowColor: WidgetStatePropertyAll(neonGlowColor),
         elevation: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.disabled)) return 0;
-          if (states.contains(WidgetState.pressed)) return isLight ? 2 : 3;
+          if (states.contains(WidgetState.pressed)) return isLight ? 4 : 3;
           if (states.contains(WidgetState.hovered) ||
               states.contains(WidgetState.focused)) {
-            return isLight ? 8 : 10;
+            return isLight ? 12 : 10;
           }
-          return isLight ? 5 : 7;
+          return isLight ? 8 : 7;
         }),
       ),
     ),

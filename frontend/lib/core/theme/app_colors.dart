@@ -11,7 +11,7 @@ abstract final class AppColors {
 
   // form fields
   static const Color darkInputFill = Color(0xFF28262b);
-  static const Color lightInputFill = Color(0xFFD4CDDA);
+  static const Color lightInputFill = Color.fromARGB(255, 232, 232, 232);
 
   // layers
   static const Color surface = Color(0xFF0A0A0A);

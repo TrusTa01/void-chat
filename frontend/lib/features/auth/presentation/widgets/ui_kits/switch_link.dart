@@ -29,7 +29,7 @@ class SwitchLink extends HookWidget {
             text: linkText,
             style: TextStyle(
               color: Theme.of(context).colorScheme.onSurfaceVariant,
-              fontWeight: FontWeight.w500
+              fontWeight: FontWeight.w500,
             ),
             recognizer: recognizer,
           ),

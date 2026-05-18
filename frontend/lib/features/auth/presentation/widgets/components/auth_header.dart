@@ -4,12 +4,14 @@ class AuthHeader extends StatelessWidget {
   final String mainText;
   final String description;
   final String? imageAssetPath;
+  final ({double alpha, double blurRadius, double spreadRadius}) imageBoxShadow;
 
   const AuthHeader({
     super.key,
     required this.mainText,
     required this.description,
     this.imageAssetPath,
+    this.imageBoxShadow = (alpha: 0.3, blurRadius: 10, spreadRadius: 1),
   });
 
   @override
@@ -26,11 +28,11 @@ class AuthHeader extends StatelessWidget {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.primary.withValues(alpha: 0.4),
-                    blurRadius: 18,
-                    spreadRadius: 2,
+                    color: Theme.of(context).colorScheme.primary.withValues(
+                      alpha: imageBoxShadow.alpha,
+                    ),
+                    blurRadius: imageBoxShadow.blurRadius,
+                    spreadRadius: imageBoxShadow.spreadRadius,
                   ),
                 ],
               ),
@@ -55,13 +57,16 @@ class AuthHeader extends StatelessWidget {
           const SizedBox(height: 5),
 
           // Description under a main text
-          Text(
-            description,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: Theme.of(context).colorScheme.onSurfaceVariant,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 22),
+            child: Text(
+              description,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
             ),
           ),
         ],

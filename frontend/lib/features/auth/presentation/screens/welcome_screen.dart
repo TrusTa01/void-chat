@@ -18,7 +18,7 @@ class WelcomeScreen extends StatelessWidget {
       appBar: AppBar(
         actions: [
           const Padding(
-            padding: EdgeInsets.only(right: 20, top: 20),
+            padding: EdgeInsets.only(right: 16),
             child: ThemeSwitcherIcon(),
           ),
         ],
@@ -45,9 +45,22 @@ class WelcomeScreen extends StatelessWidget {
 
                             Text(
                               l10n.appTitle,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 45,
                                 fontWeight: FontWeight.w500,
+                                color: context.colorScheme.primary,
+                                shadows: [
+                                  Shadow(
+                                    color: context.colorScheme.primary
+                                        .withValues(alpha: 0.65),
+                                    blurRadius: 12,
+                                  ),
+                                  Shadow(
+                                    color: context.colorScheme.primary
+                                        .withValues(alpha: 0.35),
+                                    blurRadius: 28,
+                                  ),
+                                ],
                               ),
                             ),
                             const SizedBox(height: 10),
@@ -55,8 +68,11 @@ class WelcomeScreen extends StatelessWidget {
                             StyledText(
                               text: l10n.appDescription,
                               tags: {
-                                'bold': const StyledTextTag(
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                'bold': StyledTextTag(
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: context.colorScheme.primary,
+                                  ),
                                 ),
                               },
                               textAlign: TextAlign.center,
