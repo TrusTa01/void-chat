@@ -4,8 +4,8 @@ import 'package:backend/src/features/auth/register/complete_profile/domain/repos
 import 'package:backend/src/features/auth/register/complete_profile/domain/use_cases/validate_complete_profile_input_use_case.dart';
 import 'package:backend/src/features/auth/shared/auth_error_codes.dart';
 import 'package:backend/src/features/auth/shared/domain/entities/user_entity.dart';
-import 'package:backend/src/features/auth/shared/domain/repository/i_user_repository.dart';
-import 'package:backend/src/features/auth/shared/domain/value_objects/new_user.dart';
+import 'package:backend/src/features/auth/login/password/domain/repositories/i_user_repository.dart';
+import 'package:backend/src/features/auth/register/complete_profile/domain/value_objects/new_user.dart';
 import 'package:injectable/injectable.dart';
 
 abstract interface class ICompleteRegistrationProfileUseCase {

@@ -1,5 +1,5 @@
 import 'package:backend/src/core/errors/app_exception.dart';
-import 'package:backend/src/features/auth/register/start/domain/services/email_code.dart';
+import 'package:backend/src/features/auth/shared/services/email_code.dart';
 import 'package:backend/src/features/auth/register/verify_email/domain/repositories/i_verify_email_registration_repository.dart';
 import 'package:backend/src/features/auth/shared/auth_error_codes.dart';
 import 'package:injectable/injectable.dart';

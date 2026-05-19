@@ -1,5 +1,5 @@
 import 'package:backend/src/core/data/pg_error_handling_mixin.dart';
-import 'package:backend/src/features/auth/shared/domain/repository/i_session_repository.dart';
+import 'package:backend/src/features/auth/login/password/domain/repositories/i_session_repository.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
 

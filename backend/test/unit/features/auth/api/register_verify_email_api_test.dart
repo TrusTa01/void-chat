@@ -11,8 +11,8 @@ import 'package:backend/src/features/auth/register/start/domain/value_objects/pe
 import 'package:backend/src/features/auth/register/verify_email/domain/use_cases/verify_registration_email_use_case.dart';
 import 'package:backend/src/features/auth/shared/auth_error_codes.dart';
 import 'package:backend/src/features/auth/shared/domain/entities/user_entity.dart';
-import 'package:backend/src/features/auth/shared/domain/usecases/login_user.dart';
-import 'package:backend/src/features/auth/shared/domain/value_objects/login_result.dart';
+import 'package:backend/src/features/auth/login/password/domain/usecases/login_password_use_case.dart';
+import 'package:backend/src/features/auth/login/password/domain/value_objects/login_result.dart';
 import 'package:backend/src/middleware/error_middleware.dart';
 import 'package:shelf/shelf.dart';
 import 'package:talker/talker.dart';

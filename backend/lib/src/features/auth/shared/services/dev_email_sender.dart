@@ -1,4 +1,4 @@
-import 'package:backend/src/features/auth/register/start/domain/services/i_email_sender.dart';
+import 'package:backend/src/features/auth/shared/services/email_code_sender.dart';
 import 'package:injectable/injectable.dart';
 import 'package:talker/talker.dart';
 

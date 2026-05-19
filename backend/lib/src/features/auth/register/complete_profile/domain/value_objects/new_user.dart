@@ -1,5 +1,5 @@
 import 'package:backend/src/core/errors/app_exception.dart';
-import 'package:backend/src/features/auth/shared/domain/validators/new_user_validator.dart';
+import 'package:backend/src/features/auth/register/start/domain/validators/new_user_validator.dart';
 
 /// Raw user with plain pass
 final class NewUser {

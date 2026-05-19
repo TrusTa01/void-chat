@@ -3,7 +3,7 @@ import 'package:backend/src/features/auth/register/complete_profile/api/dto/requ
 import 'package:backend/src/features/auth/register/complete_profile/domain/use_cases/validate_complete_profile_input_use_case.dart';
 import 'package:backend/src/features/auth/shared/auth_error_codes.dart';
 import 'package:backend/src/features/auth/shared/auth_field_names.dart';
-import 'package:backend/src/features/auth/shared/domain/policies/registration_policies.dart';
+import 'package:backend/src/features/auth/register/shared/domain/policies/registration_policies.dart';
 import 'package:test/test.dart';
 
 void main() {

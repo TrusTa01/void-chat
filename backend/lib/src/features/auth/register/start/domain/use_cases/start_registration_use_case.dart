@@ -1,8 +1,8 @@
-import 'package:backend/src/features/auth/login/ttl.dart';
+import 'package:backend/src/features/auth/shared/services/email_code_sender.dart';
+import 'package:backend/src/features/auth/shared/ttl.dart';
 import 'package:backend/src/features/auth/register/start/api/dto/request/start_registration_request_dto.dart';
 import 'package:backend/src/features/auth/register/start/domain/repository/i_pending_registration_repository.dart';
-import 'package:backend/src/features/auth/register/start/domain/services/email_code.dart';
-import 'package:backend/src/features/auth/register/start/domain/services/i_email_sender.dart';
+import 'package:backend/src/features/auth/shared/services/email_code.dart';
 import 'package:backend/src/features/auth/register/start/domain/use_cases/start_registration_validate_use_case.dart';
 import 'package:backend/src/features/auth/register/start/domain/value_objects/pending_registration.dart';
 import 'package:backend/src/features/auth/register/start/domain/value_objects/pending_registration_record.dart';
