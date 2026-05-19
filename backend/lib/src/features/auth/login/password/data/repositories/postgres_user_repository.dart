@@ -136,26 +136,26 @@ class PostgresUserRepository with PgErrorHandling implements IUserRepository {
   }
 
   UserEntity _mapRow(ResultRow row) {
-    final m = row.toColumnMap();
+    final column = row.toColumnMap();
     // The Postgres driver decodes a UUID column to `UuidValue`, but a TEXT
     // column would arrive as `String`. `.toString()` is canonical for both,
     // so the repository stays correct even if the column type is changed.
-    final id = (m['id']! as Object).toString();
+    final id = (column['id']! as Object).toString();
     return UserEntity(
       id: id,
-      email: m['email'] as String,
-      username: m['username'] as String,
-      displayName: m['display_name'] as String,
-      createdAt: m['created_at'] as DateTime,
+      email: column['email'] as String,
+      username: column['username'] as String,
+      displayName: column['display_name'] as String,
+      createdAt: column['created_at'] as DateTime,
     );
   }
 
   UserCredentials? _mapCredentialsRow(ResultRow row) {
-    final m = row.toColumnMap();
-    final id = (m['id']! as Object).toString();
+    final column = row.toColumnMap();
+    final id = (column['id']! as Object).toString();
     return UserCredentials(
       userId: id,
-      passwordHash: m['password_hash'] as String,
+      passwordHash: column['password_hash'] as String,
     );
   }
 }

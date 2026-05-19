@@ -30,6 +30,12 @@ import 'package:backend/src/features/auth/login/request/domain/use_cases/request
     as _i359;
 import 'package:backend/src/features/auth/login/shared/domain/use_cases/create_session_token_use_case.dart'
     as _i1050;
+import 'package:backend/src/features/auth/login/verify/data/repositories/verify_login_email_repository.dart'
+    as _i919;
+import 'package:backend/src/features/auth/login/verify/domain/repositories/i_verify_login_email_repository.dart'
+    as _i672;
+import 'package:backend/src/features/auth/login/verify/domain/use_cases/verify_login_email_use_case.dart'
+    as _i809;
 import 'package:backend/src/features/auth/register/complete_profile/data/repositories/complete_profile_repository.dart'
     as _i994;
 import 'package:backend/src/features/auth/register/complete_profile/domain/repositories/i_complete_profile_repository.dart'
@@ -123,6 +129,10 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i103.Pool<_i103.Connection>>(),
       ),
     );
+    gh.lazySingleton<_i672.IVerifyLoginEmailRepository>(
+      () =>
+          _i919.VerifyLoginEmailRepository(gh<_i103.Pool<_i103.Connection>>()),
+    );
     gh.lazySingleton<_i310.ICompleteProfileRepository>(
       () => _i994.CompleteProfileRepository(gh<_i103.Pool<_i103.Connection>>()),
     );
@@ -181,13 +191,22 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i155.EmailCodeSenderService>(),
       ),
     );
+    gh.lazySingleton<_i809.IVerifyLoginEmailUseCase>(
+      () => _i809.VerifyLoginEmailUseCase(
+        gh<_i361.IUserRepository>(),
+        gh<_i672.IVerifyLoginEmailRepository>(),
+        gh<_i298.EmailCodeService>(),
+        gh<_i1050.ICreateSessionTokenUseCase>(),
+      ),
+    );
     gh.lazySingleton<_i48.AuthApi>(
       () => _i48.AuthApi(
         gh<_i599.ILoginPasswordUseCase>(),
-        gh<_i717.ICompleteRegistrationProfileUseCase>(),
+        gh<_i359.IRequestLoginUseCase>(),
+        gh<_i809.IVerifyLoginEmailUseCase>(),
         gh<_i517.IStartRegistrationUseCase>(),
         gh<_i136.IVerifyRegistrationEmailUseCase>(),
-        gh<_i359.IRequestLoginUseCase>(),
+        gh<_i717.ICompleteRegistrationProfileUseCase>(),
       ),
     );
     gh.lazySingleton<_i371.AppModule>(

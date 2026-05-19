@@ -2,21 +2,15 @@ import 'dart:convert';
 
 import 'package:backend/src/core/di/locator.dart';
 import 'package:backend/src/core/errors/app_exception.dart';
-import 'package:backend/src/features/auth/auth_controller.dart';
 import 'package:backend/src/features/auth/register/complete_profile/api/dto/request/complete_profile_request_dto.dart';
 import 'package:backend/src/features/auth/register/complete_profile/domain/use_cases/register_user_use_case.dart';
-import 'package:backend/src/features/auth/register/start/api/dto/request/start_registration_request_dto.dart';
-import 'package:backend/src/features/auth/register/start/domain/use_cases/start_registration_use_case.dart';
-import 'package:backend/src/features/auth/register/start/domain/value_objects/pending_registration.dart';
-import 'package:backend/src/features/auth/register/verify_email/domain/use_cases/verify_registration_email_use_case.dart';
 import 'package:backend/src/features/auth/shared/auth_error_codes.dart';
 import 'package:backend/src/features/auth/shared/domain/entities/user_entity.dart';
-import 'package:backend/src/features/auth/login/password/domain/usecases/login_password_use_case.dart';
-import 'package:backend/src/features/auth/login/password/domain/value_objects/login_result.dart';
-import 'package:backend/src/middleware/error_middleware.dart';
 import 'package:shelf/shelf.dart';
 import 'package:talker/talker.dart';
 import 'package:test/test.dart';
+
+import 'auth_api_test_support.dart';
 
 void main() {
   late _FakeCompleteRegistrationProfileUseCase completeProfileUseCase;
@@ -27,15 +21,9 @@ void main() {
     getIt.registerSingleton<Talker>(Talker());
 
     completeProfileUseCase = _FakeCompleteRegistrationProfileUseCase();
-    final api = AuthApi(
-      _UnusedLoginUser(),
-      completeProfileUseCase,
-      _UnusedStartRegistrationUseCase(),
-      _UnusedVerifyRegistrationEmailUseCase(),
+    handler = createAuthHandler(
+      buildTestAuthApi(completeProfile: completeProfileUseCase),
     );
-    handler = const Pipeline()
-        .addMiddleware(errorMiddleware())
-        .addHandler(api.router.call);
   });
 
   tearDown(() async {
@@ -45,7 +33,7 @@ void main() {
   group('POST /register/complete-profile', () {
     test('returns 201 with completed user profile', () async {
       final response = await handler(
-        _jsonPost('/register/complete-profile', {
+        jsonPost('/register/complete-profile', {
           'registration_id': 'registration-123',
           'username': 'john_doe',
           'display_name': 'John Doe',
@@ -53,7 +41,7 @@ void main() {
       );
 
       expect(response.statusCode, 201);
-      expect(await _decodeBody(response), {
+      expect(await decodeBody(response), {
         'id': 'user-123',
         'email': 'john@example.com',
         'username': 'john_doe',
@@ -64,7 +52,7 @@ void main() {
 
     test('passes parsed request dto to use case', () async {
       await handler(
-        _jsonPost('/register/complete-profile', {
+        jsonPost('/register/complete-profile', {
           'registration_id': 'registration-123',
           'username': 'john_doe',
           'display_name': 'John Doe',
@@ -83,14 +71,14 @@ void main() {
       'returns INVALID_REQUEST_FIELDS when required field is missing',
       () async {
         final response = await handler(
-          _jsonPost('/register/complete-profile', {
+          jsonPost('/register/complete-profile', {
             'registration_id': 'registration-123',
             'username': 'john_doe',
           }),
         );
 
         expect(response.statusCode, 400);
-        final body = await _decodeBody(response);
+        final body = await decodeBody(response);
         expect(body['success'], false);
         expect(
           (body['error'] as Map<String, dynamic>)['code'],
@@ -107,7 +95,7 @@ void main() {
       );
 
       final response = await handler(
-        _jsonPost('/register/complete-profile', {
+        jsonPost('/register/complete-profile', {
           'registration_id': 'registration-123',
           'username': 'john_doe',
           'display_name': 'John Doe',
@@ -115,7 +103,7 @@ void main() {
       );
 
       expect(response.statusCode, 400);
-      final body = await _decodeBody(response);
+      final body = await decodeBody(response);
       expect(body['success'], false);
       expect(
         (body['error'] as Map<String, dynamic>)['code'],
@@ -135,25 +123,12 @@ void main() {
       );
 
       expect(response.statusCode, 400);
-      final body = await _decodeBody(response);
+      final body = await decodeBody(response);
       expect(body['success'], false);
       expect((body['error'] as Map<String, dynamic>)['code'], 'INVALID_BODY');
       expect(completeProfileUseCase.callCount, 0);
     });
   });
-}
-
-Request _jsonPost(String path, Map<String, Object?> body) {
-  return Request(
-    'POST',
-    Uri.parse('http://localhost$path'),
-    body: jsonEncode(body),
-    headers: {'content-type': 'application/json'},
-  );
-}
-
-Future<Map<String, dynamic>> _decodeBody(Response response) async {
-  return jsonDecode(await response.readAsString()) as Map<String, dynamic>;
 }
 
 final class _FakeCompleteRegistrationProfileUseCase
@@ -184,33 +159,4 @@ final class _FakeCompleteRegistrationProfileUseCase
 
 extension _Let<T extends Object> on T {
   R let<R>(R Function(T value) transform) => transform(this);
-}
-
-final class _UnusedStartRegistrationUseCase
-    implements IStartRegistrationUseCase {
-  @override
-  Future<PendingRegistration> call(StartRegistrationRequestDto data) {
-    throw StateError(
-      'IStartRegistrationUseCase should not be called in register/complete-profile tests',
-    );
-  }
-}
-
-final class _UnusedVerifyRegistrationEmailUseCase
-    implements IVerifyRegistrationEmailUseCase {
-  @override
-  Future<void> call({required String registrationId, required String code}) {
-    throw StateError(
-      'IVerifyRegistrationEmailUseCase should not be called in register/complete-profile tests',
-    );
-  }
-}
-
-final class _UnusedLoginUser implements ILoginUser {
-  @override
-  Future<LoginResult> call(String identifier, String password) {
-    throw StateError(
-      'ILoginUser should not be called in register/complete-profile tests',
-    );
-  }
 }

@@ -3,6 +3,8 @@ import 'package:backend/src/features/auth/login/password/api/dto/request/login_r
 import 'package:backend/src/features/auth/login/password/api/mappers/login_response_mapper.dart';
 import 'package:backend/src/features/auth/login/request/api/dto/login_code_request_dto.dart';
 import 'package:backend/src/features/auth/login/request/domain/use_cases/request_login_use_case.dart';
+import 'package:backend/src/features/auth/login/verify/api/dto/login_code_verify_dto.dart';
+import 'package:backend/src/features/auth/login/verify/domain/use_cases/verify_login_email_use_case.dart';
 import 'package:backend/src/features/auth/register/complete_profile/api/dto/request/complete_profile_request_dto.dart';
 import 'package:backend/src/features/auth/register/complete_profile/domain/use_cases/register_user_use_case.dart';
 import 'package:backend/src/features/auth/register/start/api/dto/request/start_registration_request_dto.dart';
@@ -20,18 +22,23 @@ import 'package:shelf_router/shelf_router.dart';
 
 @lazySingleton
 class AuthApi {
-  final ILoginPasswordUseCase _loginPasswordUseCase;
-  final ICompleteRegistrationProfileUseCase _completeRegisterUseCase;
+  // login
+  final ILoginPasswordUseCase _loginPassUseCase;
+  final IRequestLoginUseCase _requestLoginUseCase;
+  final IVerifyLoginEmailUseCase _verifyLoginEmailUseCase;
+
+  // register
   final IStartRegistrationUseCase _startRegistrationUseCase;
   final IVerifyRegistrationEmailUseCase _emailVerifyUseCase;
-  final IRequestLoginUseCase _requestLoginUseCase;
+  final ICompleteRegistrationProfileUseCase _completeRegisterUseCase;
 
   AuthApi(
-    this._loginPasswordUseCase,
-    this._completeRegisterUseCase,
+    this._loginPassUseCase,
+    this._requestLoginUseCase,
+    this._verifyLoginEmailUseCase,
     this._startRegistrationUseCase,
     this._emailVerifyUseCase,
-    this._requestLoginUseCase,
+    this._completeRegisterUseCase,
   );
 
   late final Router router = _buildRouter();
@@ -48,7 +55,10 @@ class AuthApi {
       '/login/code/request',
       (Request request) => _loginRequestHandler(request),
     );
-    r.post('/login/code/verify', (Request request) => Response.ok);
+    r.post(
+      '/login/code/verify',
+      (Request request) => _loginVerifyHandler(request),
+    );
 
     // register
     r.post(
@@ -71,11 +81,8 @@ class AuthApi {
   Future<Response> _loginPasswordHandler(Request request) async {
     final body = await request.readAsString();
     final dto = parseBody(body, LoginRequestDto.fromJson);
-    final result = await _loginPasswordUseCase.call(
-      dto.identifier,
-      dto.password,
-    );
-    final response = result.toLoginResponse();
+    final result = await _loginPassUseCase.call(dto.identifier, dto.password);
+    final response = result.toResponse();
     return JsonResponse.ok(response.toJson());
   }
 
@@ -84,6 +91,17 @@ class AuthApi {
     final dto = parseBody(body, LoginCodeRequestDto.fromJson);
     await _requestLoginUseCase.send(dto.identifier);
     return JsonResponse.ok({'sent': true});
+  }
+
+  Future<Response> _loginVerifyHandler(Request request) async {
+    final body = await request.readAsString();
+    final dto = parseBody(body, LoginCodeVerifyDto.fromJson);
+    final result = await _verifyLoginEmailUseCase.verify(
+      identifier: dto.identifier,
+      code: dto.code,
+    );
+    final response = result.toResponse();
+    return JsonResponse.ok(response.toJson());
   }
 
   // ------------------------ register ------------------------

@@ -1,21 +1,15 @@
 import 'dart:convert';
 
 import 'package:backend/src/core/di/locator.dart';
-import 'package:backend/src/features/auth/auth_controller.dart';
-import 'package:backend/src/features/auth/register/complete_profile/api/dto/request/complete_profile_request_dto.dart';
-import 'package:backend/src/features/auth/register/complete_profile/domain/use_cases/register_user_use_case.dart';
 import 'package:backend/src/features/auth/register/start/api/dto/request/start_registration_request_dto.dart';
 import 'package:backend/src/features/auth/register/start/domain/use_cases/start_registration_use_case.dart';
 import 'package:backend/src/features/auth/register/start/domain/value_objects/pending_registration.dart';
-import 'package:backend/src/features/auth/register/verify_email/domain/use_cases/verify_registration_email_use_case.dart';
 import 'package:backend/src/features/auth/shared/auth_error_codes.dart';
-import 'package:backend/src/features/auth/shared/domain/entities/user_entity.dart';
-import 'package:backend/src/features/auth/login/password/domain/usecases/login_password_use_case.dart';
-import 'package:backend/src/features/auth/login/password/domain/value_objects/login_result.dart';
-import 'package:backend/src/middleware/error_middleware.dart';
 import 'package:shelf/shelf.dart';
 import 'package:talker/talker.dart';
 import 'package:test/test.dart';
+
+import 'auth_api_test_support.dart';
 
 void main() {
   late _FakeStartRegistrationUseCase startRegistrationUseCase;
@@ -26,15 +20,9 @@ void main() {
     getIt.registerSingleton<Talker>(Talker());
 
     startRegistrationUseCase = _FakeStartRegistrationUseCase();
-    final api = AuthApi(
-      _UnusedLoginUser(),
-      _UnusedCompleteRegistrationProfileUseCase(),
-      startRegistrationUseCase,
-      _UnusedVerifyRegistrationEmailUseCase(),
+    handler = createAuthHandler(
+      buildTestAuthApi(startRegistration: startRegistrationUseCase),
     );
-    handler = const Pipeline()
-        .addMiddleware(errorMiddleware())
-        .addHandler(api.router.call);
   });
 
   tearDown(() async {
@@ -48,7 +36,7 @@ void main() {
       );
 
       final response = await handler(
-        _jsonPost('/register/start', {
+        jsonPost('/register/start', {
           'login': 'john_doe',
           'email': 'john@example.com',
           'password': 'Password123',
@@ -56,14 +44,14 @@ void main() {
       );
 
       expect(response.statusCode, 201);
-      expect(await _decodeBody(response), {
+      expect(await decodeBody(response), {
         'registration_id': 'registration-123',
       });
     });
 
     test('passes parsed request dto to use case', () async {
       await handler(
-        _jsonPost('/register/start', {
+        jsonPost('/register/start', {
           'login': 'john_doe',
           'email': 'john@example.com',
           'password': 'Password123',
@@ -81,14 +69,14 @@ void main() {
       'returns INVALID_REQUEST_FIELDS when required field is missing',
       () async {
         final response = await handler(
-          _jsonPost('/register/start', {
+          jsonPost('/register/start', {
             'login': 'john_doe',
             'password': 'Password123',
           }),
         );
 
         expect(response.statusCode, 400);
-        final body = await _decodeBody(response);
+        final body = await decodeBody(response);
         expect(body['success'], false);
         expect(
           (body['error'] as Map<String, dynamic>)['code'],
@@ -109,25 +97,12 @@ void main() {
       );
 
       expect(response.statusCode, 400);
-      final body = await _decodeBody(response);
+      final body = await decodeBody(response);
       expect(body['success'], false);
       expect((body['error'] as Map<String, dynamic>)['code'], 'INVALID_BODY');
       expect(startRegistrationUseCase.callCount, 0);
     });
   });
-}
-
-Request _jsonPost(String path, Map<String, Object?> body) {
-  return Request(
-    'POST',
-    Uri.parse('http://localhost$path'),
-    body: jsonEncode(body),
-    headers: {'content-type': 'application/json'},
-  );
-}
-
-Future<Map<String, dynamic>> _decodeBody(Response response) async {
-  return jsonDecode(await response.readAsString()) as Map<String, dynamic>;
 }
 
 final class _FakeStartRegistrationUseCase implements IStartRegistrationUseCase {
@@ -142,32 +117,5 @@ final class _FakeStartRegistrationUseCase implements IStartRegistrationUseCase {
     callCount += 1;
     lastRequest = data;
     return result;
-  }
-}
-
-final class _UnusedLoginUser implements ILoginUser {
-  @override
-  Future<LoginResult> call(String identifier, String password) {
-    throw StateError('ILoginUser should not be called in register/start tests');
-  }
-}
-
-final class _UnusedCompleteRegistrationProfileUseCase
-    implements ICompleteRegistrationProfileUseCase {
-  @override
-  Future<UserEntity> call(CompleteProfileRequestDto data) {
-    throw StateError(
-      'ICompleteRegistrationProfileUseCase should not be called in register/start tests',
-    );
-  }
-}
-
-final class _UnusedVerifyRegistrationEmailUseCase
-    implements IVerifyRegistrationEmailUseCase {
-  @override
-  Future<void> call({required String registrationId, required String code}) {
-    throw StateError(
-      'IVerifyRegistrationEmailUseCase should not be called in register/start tests',
-    );
   }
 }
