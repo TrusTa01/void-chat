@@ -66,4 +66,20 @@ class PostgresSessionRepository
       );
     });
   }
+
+  @override
+  Future<void> deleteAllByUserId(String userId) {
+    return guarded(() async {
+      await _pool.execute(
+        Sql.named(
+          '''
+        DELETE FROM auth.sessions
+        WHERE user_id = @user_id
+        '''
+              .trim(),
+        ),
+        parameters: {'user_id': userId},
+      );
+    });
+  }
 }

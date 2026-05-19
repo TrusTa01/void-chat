@@ -6,6 +6,8 @@ import 'package:backend/src/features/auth/login/request/api/dto/login_code_reque
 import 'package:backend/src/features/auth/login/request/domain/use_cases/request_login_use_case.dart';
 import 'package:backend/src/features/auth/login/verify/api/dto/login_code_verify_dto.dart';
 import 'package:backend/src/features/auth/login/verify/domain/use_cases/verify_login_email_use_case.dart';
+import 'package:backend/src/features/auth/logout/domain/use_cases/logout_all_use_case.dart';
+import 'package:backend/src/features/auth/logout/domain/use_cases/logout_use_case.dart';
 import 'package:backend/src/features/auth/me/domain/use_cases/get_current_user_use_case.dart';
 import 'package:backend/src/features/auth/register/complete_profile/api/dto/request/complete_profile_request_dto.dart';
 import 'package:backend/src/features/auth/register/complete_profile/domain/use_cases/register_user_use_case.dart';
@@ -38,6 +40,10 @@ class AuthApi {
   final IVerifyRegistrationEmailUseCase _emailVerifyUseCase;
   final ICompleteRegistrationProfileUseCase _completeRegisterUseCase;
 
+  // logout
+  final ILogoutUseCase _logoutUseCase;
+  final ILogoutAllUseCase _logoutAllUseCase;
+
   AuthApi(
     this._getCurrentUserUseCase,
     this._loginPassUseCase,
@@ -46,6 +52,8 @@ class AuthApi {
     this._startRegistrationUseCase,
     this._emailVerifyUseCase,
     this._completeRegisterUseCase,
+    this._logoutUseCase,
+    this._logoutAllUseCase,
   );
 
   late final Router router = _buildRouter();
@@ -53,9 +61,10 @@ class AuthApi {
   Router _buildRouter() {
     final r = Router();
 
+    // ------------------------ me ------------------------
     r.get('/me', _meHandler);
 
-    // login
+    // ------------------------ login ------------------------
     r.post(
       '/login-password',
       (Request request) => _loginPasswordHandler(request),
@@ -69,7 +78,7 @@ class AuthApi {
       (Request request) => _loginVerifyHandler(request),
     );
 
-    // register
+    // ------------------------ register ------------------------
     r.post(
       '/register/start',
       (Request request) => _startRegistrationHandler(request),
@@ -82,6 +91,10 @@ class AuthApi {
       '/register/complete-profile',
       (Request request) => _registerCompleteProfileHandler(request),
     );
+
+    // ------------------------ logout ------------------------
+    r.post('/logout', (Request request) => _logoutHandler(request));
+    r.post('/logout/all', (Request request) => _logoutAllHandler(request));
 
     return r;
   }
@@ -145,5 +158,18 @@ class AuthApi {
     final user = await _completeRegisterUseCase.call(dto);
     final response = user.toResponse();
     return JsonResponse.created(response.toJson());
+  }
+
+  // ------------------------ logout ------------------------
+  Future<Response> _logoutHandler(Request request) async {
+    final token = extractBearerToken(request)!;
+    await _logoutUseCase.call(token);
+    return JsonResponse.ok({'ok': true});
+  }
+
+  Future<Response> _logoutAllHandler(Request request) async {
+    final userId = request.context[authenticatedUserIdKey] as String;
+    await _logoutAllUseCase.call(userId);
+    return JsonResponse.ok({'ok': true});
   }
 }

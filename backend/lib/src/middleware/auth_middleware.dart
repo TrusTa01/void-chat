@@ -42,13 +42,22 @@ Future<String?> _resolveUserId(Request request) async {
   if (authHeader == null || !authHeader.startsWith('Bearer ')) {
     return null;
   }
-  
-  final token = authHeader.substring('Bearer '.length).trim();
-  if (token.isEmpty) return null;
+
+  final token = extractBearerToken(request);
+  if (token == null) return null;
 
   final sessionToken = getIt<SessionToken>();
   final sessionRepo = getIt<ISessionRepository>();
   final tokenHash = sessionToken.hashSessionToken(token);
 
   return sessionRepo.findUserIdByTokenHash(tokenHash);
+}
+
+String? extractBearerToken(Request request) {
+  final authHeader = request.headers['Authorization'];
+  if (authHeader == null || !authHeader.startsWith('Bearer ')) {
+    return null;
+  }
+  final token = authHeader.substring('Bearer '.length).trim();
+  return token.isEmpty ? null : token;
 }
