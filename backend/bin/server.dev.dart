@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:backend/src/middleware/auth_middleware.dart';
 import 'package:backend/src/middleware/error_middleware.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
@@ -24,6 +25,7 @@ Future<void> main() async {
     // http pipeline
     final handler = const Pipeline()
         .addMiddleware(LoggingMiddleware.talkerMiddleware(talker))
+        .addMiddleware(authMiddleware())
         .addMiddleware(errorMiddleware())
         .addHandler(appModule.handler);
 

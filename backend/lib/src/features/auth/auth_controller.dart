@@ -1,10 +1,12 @@
 import 'package:backend/src/core/api/json_response.dart';
 import 'package:backend/src/features/auth/login/password/api/dto/request/login_request_dto.dart';
+import 'package:backend/src/features/auth/login/password/api/mappers/logged_in_user_dto_mapper.dart';
 import 'package:backend/src/features/auth/login/password/api/mappers/login_response_mapper.dart';
 import 'package:backend/src/features/auth/login/request/api/dto/login_code_request_dto.dart';
 import 'package:backend/src/features/auth/login/request/domain/use_cases/request_login_use_case.dart';
 import 'package:backend/src/features/auth/login/verify/api/dto/login_code_verify_dto.dart';
 import 'package:backend/src/features/auth/login/verify/domain/use_cases/verify_login_email_use_case.dart';
+import 'package:backend/src/features/auth/me/domain/use_cases/get_current_user_use_case.dart';
 import 'package:backend/src/features/auth/register/complete_profile/api/dto/request/complete_profile_request_dto.dart';
 import 'package:backend/src/features/auth/register/complete_profile/domain/use_cases/register_user_use_case.dart';
 import 'package:backend/src/features/auth/register/start/api/dto/request/start_registration_request_dto.dart';
@@ -16,12 +18,16 @@ import 'package:backend/src/features/auth/register/verify_email/domain/use_cases
 import 'package:backend/src/features/auth/shared/api/mappers/parse_body.dart';
 import 'package:backend/src/features/auth/login/password/domain/usecases/login_password_use_case.dart';
 import 'package:backend/src/features/auth/register/complete_profile/api/mappers/register_response_mapper.dart';
+import 'package:backend/src/middleware/auth_middleware.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
 @lazySingleton
 class AuthApi {
+  // me
+  final IGetCurrentUserUseCase _getCurrentUserUseCase;
+
   // login
   final ILoginPasswordUseCase _loginPassUseCase;
   final IRequestLoginUseCase _requestLoginUseCase;
@@ -33,6 +39,7 @@ class AuthApi {
   final ICompleteRegistrationProfileUseCase _completeRegisterUseCase;
 
   AuthApi(
+    this._getCurrentUserUseCase,
     this._loginPassUseCase,
     this._requestLoginUseCase,
     this._verifyLoginEmailUseCase,
@@ -45,6 +52,8 @@ class AuthApi {
 
   Router _buildRouter() {
     final r = Router();
+
+    r.get('/me', _meHandler);
 
     // login
     r.post(
@@ -75,6 +84,13 @@ class AuthApi {
     );
 
     return r;
+  }
+
+  // ------------------------ me ------------------------
+  Future<Response> _meHandler(Request request) async {
+    final userId = request.context[authenticatedUserIdKey] as String;
+    final user = await _getCurrentUserUseCase.call(userId);
+    return JsonResponse.ok(user.toLoggedInUserDto().toJson());
   }
 
   // ------------------------ login ------------------------

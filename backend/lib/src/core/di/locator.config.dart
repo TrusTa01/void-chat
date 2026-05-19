@@ -36,6 +36,8 @@ import 'package:backend/src/features/auth/login/verify/domain/repositories/i_ver
     as _i672;
 import 'package:backend/src/features/auth/login/verify/domain/use_cases/verify_login_email_use_case.dart'
     as _i809;
+import 'package:backend/src/features/auth/me/domain/use_cases/get_current_user_use_case.dart'
+    as _i64;
 import 'package:backend/src/features/auth/register/complete_profile/data/repositories/complete_profile_repository.dart'
     as _i994;
 import 'package:backend/src/features/auth/register/complete_profile/domain/repositories/i_complete_profile_repository.dart'
@@ -154,6 +156,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i361.IUserRepository>(),
       ),
     );
+    gh.lazySingleton<_i64.IGetCurrentUserUseCase>(
+      () => _i64.GetCurrentUserUseCase(gh<_i361.IUserRepository>()),
+    );
     gh.lazySingleton<_i136.IVerifyRegistrationEmailUseCase>(
       () => _i136.VerifyRegistrationEmailUseCase(
         gh<_i359.IVerifyEmailRegistrationRepository>(),
@@ -201,6 +206,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i48.AuthApi>(
       () => _i48.AuthApi(
+        gh<_i64.IGetCurrentUserUseCase>(),
         gh<_i599.ILoginPasswordUseCase>(),
         gh<_i359.IRequestLoginUseCase>(),
         gh<_i809.IVerifyLoginEmailUseCase>(),
