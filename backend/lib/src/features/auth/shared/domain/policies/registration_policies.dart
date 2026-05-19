@@ -1,7 +1,7 @@
 import 'package:backend/src/core/errors/app_exception.dart';
 import 'package:backend/src/features/auth/shared/auth_error_codes.dart';
 import 'package:backend/src/features/auth/shared/auth_field_names.dart';
-import 'package:backend/src/features/auth/domain/policies/auth_registration_blacklists.dart';
+import 'package:backend/src/features/auth/shared/domain/policies/auth_registration_blacklists.dart';
 import 'package:injectable/injectable.dart';
 
 /// Returns `true` if the value passes the policy. Otherwise appends a

@@ -1,8 +1,8 @@
 import 'package:backend/src/core/errors/app_exception.dart';
-import 'package:backend/src/features/auth/domain/policies/registration_policies.dart';
-import 'package:backend/src/features/auth/domain/validators/new_user_validator.dart';
 import 'package:backend/src/features/auth/register/start/api/dto/request/start_registration_request_dto.dart';
 import 'package:backend/src/features/auth/shared/auth_field_names.dart';
+import 'package:backend/src/features/auth/shared/domain/policies/registration_policies.dart';
+import 'package:backend/src/features/auth/shared/domain/validators/new_user_validator.dart';
 import 'package:injectable/injectable.dart';
 
 abstract interface class IStartRegistrationValidateUseCase {

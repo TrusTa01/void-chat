@@ -1,8 +1,10 @@
 import 'package:backend/src/core/data/pg_error_handling_mixin.dart';
 import 'package:backend/src/features/auth/register/verify_email/domain/repositories/i_verify_email_registration_repository.dart';
 import 'package:backend/src/features/auth/register/verify_email/domain/value_objects/pending_registration_verification.dart';
+import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
 
+@LazySingleton(as: IVerifyEmailRegistrationRepository)
 class VerifyEmailRegistrationRepository
     with PgErrorHandling
     implements IVerifyEmailRegistrationRepository {
@@ -63,7 +65,7 @@ class VerifyEmailRegistrationRepository
           '''
             .trim(),
       ),
-      parameters: {id: 'id'},
+      parameters: {'id': id},
     );
   });
 }

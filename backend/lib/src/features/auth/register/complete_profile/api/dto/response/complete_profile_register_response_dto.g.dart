@@ -1,13 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'register_response_dto.dart';
+part of 'complete_profile_register_response_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_RegisterResponseDto _$RegisterResponseDtoFromJson(Map<String, dynamic> json) =>
-    _RegisterResponseDto(
+_CompleteProfileRegisterResponseDto
+_$CompleteProfileRegisterResponseDtoFromJson(Map<String, dynamic> json) =>
+    _CompleteProfileRegisterResponseDto(
       id: json['id'] as String,
       email: json['email'] as String,
       username: json['username'] as String,
@@ -15,8 +16,8 @@ _RegisterResponseDto _$RegisterResponseDtoFromJson(Map<String, dynamic> json) =>
       createdAt: DateTime.parse(json['created_at'] as String),
     );
 
-Map<String, dynamic> _$RegisterResponseDtoToJson(
-  _RegisterResponseDto instance,
+Map<String, dynamic> _$CompleteProfileRegisterResponseDtoToJson(
+  _CompleteProfileRegisterResponseDto instance,
 ) => <String, dynamic>{
   'id': instance.id,
   'email': instance.email,

@@ -1,11 +1,11 @@
 import 'package:backend/src/core/errors/app_exception.dart';
 import 'package:backend/src/features/auth/login/ttl.dart';
 import 'package:backend/src/features/auth/shared/auth_error_codes.dart';
-import 'package:backend/src/features/auth/domain/repository/i_session_repository.dart';
-import 'package:backend/src/features/auth/domain/repository/i_user_repository.dart';
-import 'package:backend/src/features/auth/domain/services/password_hasher.dart';
-import 'package:backend/src/features/auth/domain/services/session_token.dart';
-import 'package:backend/src/features/auth/domain/value_objects/login_result.dart';
+import 'package:backend/src/features/auth/shared/domain/repository/i_session_repository.dart';
+import 'package:backend/src/features/auth/shared/domain/repository/i_user_repository.dart';
+import 'package:backend/src/features/auth/shared/domain/services/password_hasher.dart';
+import 'package:backend/src/features/auth/shared/domain/services/session_token.dart';
+import 'package:backend/src/features/auth/shared/domain/value_objects/login_result.dart';
 import 'package:injectable/injectable.dart';
 
 abstract interface class ILoginUser {

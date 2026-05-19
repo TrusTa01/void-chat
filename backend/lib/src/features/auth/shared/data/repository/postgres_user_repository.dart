@@ -1,10 +1,10 @@
 import 'package:backend/src/core/data/pg_error_handling_mixin.dart';
 import 'package:backend/src/core/errors/app_exception.dart';
 import 'package:backend/src/features/auth/shared/auth_error_codes.dart';
-import 'package:backend/src/features/auth/domain/entities/user_entity.dart';
-import 'package:backend/src/features/auth/domain/repository/i_user_repository.dart';
-import 'package:backend/src/features/auth/domain/value_objects/new_user.dart';
-import 'package:backend/src/features/auth/domain/value_objects/user_credentials.dart';
+import 'package:backend/src/features/auth/shared/domain/entities/user_entity.dart';
+import 'package:backend/src/features/auth/shared/domain/repository/i_user_repository.dart';
+import 'package:backend/src/features/auth/shared/domain/value_objects/new_user.dart';
+import 'package:backend/src/features/auth/shared/domain/value_objects/user_credentials.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
 
@@ -41,8 +41,8 @@ class PostgresUserRepository with PgErrorHandling implements IUserRepository {
       final result = await _pool.execute(
         Sql.named(
           '''
-        INSERT INTO auth.users (login, password_hash, email, username, display_name)
-        VALUES (@login, @password_hash, @email, @username, @display_name)
+        INSERT INTO auth.users (login, password_hash, email, email_confirmed_at, username, display_name, status)
+        VALUES (@login, @password_hash, @email, NOW(), @username, @display_name, 'active')
         RETURNING id, email, username, display_name, created_at
         '''
               .trim(),

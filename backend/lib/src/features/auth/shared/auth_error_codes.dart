@@ -40,4 +40,5 @@ abstract class AuthErrorCodes {
   static const String emailCodeExpired = 'EMAIL_CODE_EXPIRED';
   static const String emailCodeAttemptsExceeded =
       'EMAIL_CODE_ATTEMPTS_EXCEEDED';
+  static const String emailNotVerified = 'EMAIL_NOT_VERIFIED';
 }

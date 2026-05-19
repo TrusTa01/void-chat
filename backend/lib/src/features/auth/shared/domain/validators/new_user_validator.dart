@@ -54,6 +54,18 @@ typedef StartRegistrationValidationResult = ({
   List<FieldError> errors,
 });
 
+/// Trimmed username/display name fields for completing a pending registration.
+typedef NormalizedCompleteProfileFields = ({
+  String username,
+  String displayName,
+});
+
+/// Result of [validateCompleteProfileInput].
+typedef CompleteProfileValidationResult = ({
+  NormalizedCompleteProfileFields normalized,
+  List<FieldError> errors,
+});
+
 /// Aggregates every validation problem into a single [FieldError] per field.
 ///
 /// Rationale for at-most-one error per field: it keeps the response payload
@@ -128,6 +140,27 @@ StartRegistrationValidationResult validateStartRegistrationInput({
 
   return (
     normalized: (login: trimmedLogin, email: trimmedEmail, password: password),
+    errors: errors,
+  );
+}
+
+CompleteProfileValidationResult validateCompleteProfileInput({
+  required String username,
+  required String displayName,
+}) {
+  final trimmedUsername = username.trim();
+  final trimmedDisplayName = displayName.trim();
+
+  final errors = <FieldError>[];
+
+  final usernameError = _validateUsername(trimmedUsername);
+  if (usernameError != null) errors.add(usernameError);
+
+  final displayNameError = _validateDisplayName(trimmedDisplayName);
+  if (displayNameError != null) errors.add(displayNameError);
+
+  return (
+    normalized: (username: trimmedUsername, displayName: trimmedDisplayName),
     errors: errors,
   );
 }
