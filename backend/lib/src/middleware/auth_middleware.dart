@@ -10,7 +10,7 @@ const authenticatedUserIdKey = 'authenticatedUserId';
 Middleware authMiddleware() {
   return (Handler inner) {
     return (Request request) async {
-      if (!_requiresAuth(request.url.path)) return inner(request);
+      if (!_requiresAuth(request.requestedUri.path)) return inner(request);
 
       final userId = await _resolveUserId(request);
       if (userId == null) {
@@ -26,7 +26,11 @@ Middleware authMiddleware() {
 }
 
 bool _requiresAuth(String path) {
+  final normalized = _normalizePath(path);
   const publicPaths = {
+    '/',
+    '/health',
+    '/favicon.ico',
     '/auth/register/start',
     '/auth/register/verify-email',
     '/auth/register/complete-profile',
@@ -34,7 +38,16 @@ bool _requiresAuth(String path) {
     '/auth/login/code/request',
     '/auth/login/code/verify',
   };
-  return !publicPaths.contains(path);
+  return !publicPaths.contains(normalized);
+}
+
+String _normalizePath(String path) {
+  if (path.isEmpty) return '/';
+  var normalized = path.startsWith('/') ? path : '/$path';
+  if (normalized.length > 1 && normalized.endsWith('/')) {
+    normalized = normalized.substring(0, normalized.length - 1);
+  }
+  return normalized;
 }
 
 Future<String?> _resolveUserId(Request request) async {

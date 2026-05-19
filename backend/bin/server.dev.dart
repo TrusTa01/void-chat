@@ -25,8 +25,8 @@ Future<void> main() async {
     // http pipeline
     final handler = const Pipeline()
         .addMiddleware(LoggingMiddleware.talkerMiddleware(talker))
-        .addMiddleware(authMiddleware())
         .addMiddleware(errorMiddleware())
+        .addMiddleware(authMiddleware())
         .addHandler(appModule.handler);
 
     // server
@@ -49,24 +49,35 @@ Future<void> main() async {
 
     // graceful shutdown
     final stop = Completer<void>();
+    var shuttingDown = false;
+    late final StreamSubscription<ProcessSignal> sigintSub;
+    StreamSubscription<ProcessSignal>? sigtermSub;
 
     Future<void> shutDown(String signal) async {
-      if (stop.isCompleted) return;
+      if (shuttingDown) return;
+      shuttingDown = true;
       talker.warning('Received $signal, shutting down...');
-      await server?.close(force: false);
+      await sigintSub.cancel();
+      await sigtermSub?.cancel();
+      await server?.close(force: true);
       await dbPool?.close();
-      stop.complete();
+      if (!stop.isCompleted) stop.complete();
     }
 
-    ProcessSignal.sigint.watch().listen((_) => shutDown('SIGINT'));
+    sigintSub = ProcessSignal.sigint.watch().listen((_) {
+      unawaited(shutDown('SIGINT'));
+    });
     if (!Platform.isWindows) {
-      ProcessSignal.sigterm.watch().listen((_) => shutDown('SIGTERM'));
+      sigtermSub = ProcessSignal.sigterm.watch().listen((_) {
+        unawaited(shutDown('SIGTERM'));
+      });
     } else {
       talker.warning('SIGTERM is not supported on Windows, SIGINT only');
     }
 
     await stop.future;
     talker.info('Shutdown complete');
+    exit(0);
   } catch (e, st) {
     talker.handle(e, st, 'Fatal startup error');
     await server?.close(force: true);
