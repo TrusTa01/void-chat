@@ -34,7 +34,7 @@ bool _requiresAuth(String path) {
     '/auth/register/start',
     '/auth/register/verify-email',
     '/auth/register/complete-profile',
-    '/auth/login-password',
+    '/auth/login/password',
     '/auth/login/code/request',
     '/auth/login/code/verify',
   };

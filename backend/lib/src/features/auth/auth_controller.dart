@@ -66,7 +66,7 @@ class AuthApi {
 
     // ------------------------ login ------------------------
     r.post(
-      '/login-password',
+      '/login/password',
       (Request request) => _loginPasswordHandler(request),
     );
     r.post(
