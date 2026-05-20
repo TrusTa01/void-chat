@@ -1,0 +1,43 @@
+{
+  "info": {
+    "_postman_id": "bed8b3f2-60e6-4dba-b2e7-43e9e3158c3f",
+    "name": "app",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "33741513",
+    "_collection_link": "https://go.postman.co/collection/33741513-bed8b3f2-60e6-4dba-b2e7-43e9e3158c3f?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "health",
+      "item": [
+        {
+          "name": "health",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
