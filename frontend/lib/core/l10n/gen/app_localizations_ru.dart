@@ -110,6 +110,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get loginPasswordLetterAndDigit => 'В пароле нужны буква и цифра';
 
   @override
+  String get loginInvalidCredential => 'Неверный логин или пароль';
+
+  @override
+  String get networkError =>
+      'Не удалось подключиться. Проверьте интернет и повторите попытку.';
+
+  @override
   String get registerEmailLabel => 'Почта';
 
   @override

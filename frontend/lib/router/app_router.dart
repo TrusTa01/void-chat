@@ -3,12 +3,12 @@ import 'package:flutter/widgets.dart';
 import 'package:injectable/injectable.dart';
 import 'package:void_chat/core/layouts/app_layout.dart';
 import 'package:void_chat/core/layouts/auth_layout.dart';
-import 'package:void_chat/features/auth/presentation/screens/email_confirm_screen.dart';
-import 'package:void_chat/features/auth/presentation/screens/login_screen.dart';
-import 'package:void_chat/features/auth/presentation/screens/profile_setup_screen.dart';
-import 'package:void_chat/features/auth/presentation/screens/register_email_confirm_screen.dart';
-import 'package:void_chat/features/auth/presentation/screens/register_screen.dart';
-import 'package:void_chat/features/auth/presentation/screens/welcome_screen.dart';
+import 'package:void_chat/features/auth/login/presentation/screens/email_confirm_screen.dart';
+import 'package:void_chat/features/auth/login/presentation/screens/login_screen.dart';
+import 'package:void_chat/features/auth/register/presentation/screens/profile_setup_screen.dart';
+import 'package:void_chat/features/auth/register/presentation/screens/register_email_confirm_screen.dart';
+import 'package:void_chat/features/auth/register/presentation/screens/register_screen.dart';
+import 'package:void_chat/features/auth/shared/presentation/screens/welcome_screen.dart';
 import 'package:void_chat/features/home/presentation/screens/home_screen.dart';
 import 'package:void_chat/router/auth_guard.dart';
 

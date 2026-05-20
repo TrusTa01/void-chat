@@ -296,6 +296,18 @@ abstract class AppLocalizations {
   /// **'Password must include at least one letter and one number'**
   String get loginPasswordLetterAndDigit;
 
+  /// Login failure: wrong identifier or password (INVALID_CREDENTIALS)
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid login or password'**
+  String get loginInvalidCredential;
+
+  /// Login failure: network or transport error
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t connect. Check your connection and try again.'**
+  String get networkError;
+
   /// Label for the email-only field on registration
   ///
   /// In en, this message translates to:

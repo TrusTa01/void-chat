@@ -112,6 +112,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Password must include at least one letter and one number';
 
   @override
+  String get loginInvalidCredential => 'Invalid login or password';
+
+  @override
+  String get networkError =>
+      'Couldn\'t connect. Check your connection and try again.';
+
+  @override
   String get registerEmailLabel => 'Email';
 
   @override

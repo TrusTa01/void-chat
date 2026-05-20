@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:void_chat/core/extensions/theme_context_ext.dart';
-import 'package:void_chat/features/auth/presentation/widgets/ui_kits/registration_step_indicator.dart';
+import 'package:void_chat/features/auth/shared/presentation/widgets/ui_kits/registration_step_indicator.dart';
 import 'package:void_chat/router/app_router.dart';
 
 @RoutePage()

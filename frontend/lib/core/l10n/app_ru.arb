@@ -29,6 +29,8 @@
   "loginPasswordRequired": "Введите пароль",
   "loginPasswordLength": "Пароль: от 8 до 128 символов",
   "loginPasswordLetterAndDigit": "В пароле нужны буква и цифра",
+  "loginInvalidCredential": "Неверный логин или пароль",
+  "networkError": "Не удалось подключиться. Проверьте интернет и повторите попытку.",
   "confirmPasswordLabel": "Подтвердите пароль",
   "@confirmPasswordLabel": {
     "description": "Подпись поля подтверждения пароля при регистрации"

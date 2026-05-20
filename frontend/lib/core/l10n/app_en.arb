@@ -132,6 +132,14 @@
   "@loginPasswordLetterAndDigit": {
     "description": "Validation: password complexity (matches registration rules)"
   },
+  "loginInvalidCredential": "Invalid login or password",
+  "@loginInvalidCredential": {
+    "description": "Login failure: wrong identifier or password (INVALID_CREDENTIALS)"
+  },
+  "networkError": "Couldn't connect. Check your connection and try again.",
+  "@networkError": {
+    "description": "Login failure: network or transport error"
+  },
   "registerEmailLabel": "Email",
   "@registerEmailLabel": {
     "description": "Label for the email-only field on registration"
