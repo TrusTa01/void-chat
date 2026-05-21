@@ -18,6 +18,11 @@ final class LoginSuccess extends LoginState {
   const LoginSuccess(this.user);
 }
 
+final class LoginCodeSent extends LoginState {
+  final String identifier;
+  const LoginCodeSent(this.identifier);
+}
+
 final class LoginError extends LoginState {
   final LoginFailure failure;
   const LoginError(this.failure);

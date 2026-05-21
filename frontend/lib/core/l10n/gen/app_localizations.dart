@@ -308,6 +308,24 @@ abstract class AppLocalizations {
   /// **'Couldn\'t connect. Check your connection and try again.'**
   String get networkError;
 
+  /// Login failure: wrong email login code (INVALID_EMAIL_CODE)
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid code. Check the digits and try again.'**
+  String get loginEmailCodeInvalid;
+
+  /// Login failure: email login code TTL exceeded (EMAIL_CODE_EXPIRED)
+  ///
+  /// In en, this message translates to:
+  /// **'This code has expired. Request a new one.'**
+  String get loginEmailCodeExpired;
+
+  /// Login failure: email login code attempts exceeded (EMAIL_CODE_ATTEMPTS_EXCEEDED)
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Request a new code.'**
+  String get loginEmailCodeAttemptsExceeded;
+
   /// Label for the email-only field on registration
   ///
   /// In en, this message translates to:
@@ -416,6 +434,24 @@ abstract class AppLocalizations {
   /// **'Resend code'**
   String get verifyEmailResendCode;
 
+  /// Shown when the verification code field is empty on submit
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the verification code'**
+  String get verifyEmailCodeRequired;
+
+  /// Shown when fewer than 4 digits were entered
+  ///
+  /// In en, this message translates to:
+  /// **'Enter all 4 digits'**
+  String get verifyEmailCodeIncomplete;
+
+  /// Shown when the verification code contains non-digit characters
+  ///
+  /// In en, this message translates to:
+  /// **'Code must contain digits only'**
+  String get verifyEmailCodeInvalid;
+
   /// Main text in pofile setup screen
   ///
   /// In en, this message translates to:
@@ -469,6 +505,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start chatting'**
   String get startChatting;
+
+  /// A snack bar message that appears when user request the code
+  ///
+  /// In en, this message translates to:
+  /// **'Code sent!'**
+  String get codeSent;
 }
 
 class _AppLocalizationsDelegate

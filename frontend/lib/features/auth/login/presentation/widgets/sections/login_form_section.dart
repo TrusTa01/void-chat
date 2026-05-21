@@ -8,12 +8,12 @@ import 'package:void_chat/features/auth/shared/presentation/widgets/ui_kits/auth
 import 'package:void_chat/features/auth/shared/presentation/widgets/ui_kits/loading_button.dart';
 import 'package:void_chat/features/auth/shared/presentation/widgets/ui_kits/password_text_form_field.dart';
 
-typedef LoginSubmitCallback =
+typedef LoginSubmitPassCallback =
     Future<void> Function(String identifier, String password);
 
 class LoginFormSection extends HookWidget {
-  final VoidCallback? onEmailConfirmTap;
-  final LoginSubmitCallback? onLoginTap;
+  final ValueChanged<String>? onEmailConfirmTap;
+  final LoginSubmitPassCallback? onLoginTap;
   final VoidCallback? onRecoverPasswordTap;
   final bool isLoading;
 
@@ -77,16 +77,20 @@ class LoginFormSection extends HookWidget {
           duration: const Duration(milliseconds: 300),
           transitionBuilder: (child, animation) => FadeTransition(
             opacity: animation,
-            child: SizeTransition(
-              sizeFactor: animation,
-              axisAlignment: -1.0,
-              key: const ValueKey('password_form'),
+            child: AnimatedBuilder(
+              animation: animation,
+              builder: (context, child) => Align(
+                alignment: Alignment.topCenter,
+                heightFactor: animation.value.clamp(0.0, 1.0),
+                child: child,
+              ),
               child: child,
             ),
           ),
 
           child: isPasswordMode.value
               ? Column(
+                  key: const ValueKey('password_form'),
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     PasswordTextFormField(
@@ -115,7 +119,7 @@ class LoginFormSection extends HookWidget {
                     const SizedBox(height: 10),
                   ],
                 )
-              : const SizedBox.shrink(),
+              : const SizedBox.shrink(key: ValueKey('password_form_empty')),
         ),
 
         // Continue button
@@ -131,7 +135,7 @@ class LoginFormSection extends HookWidget {
                     passwordController.text,
                   );
                 }
-              : onEmailConfirmTap,
+              : () => onEmailConfirmTap!(loginController.text.trim()),
           child: LoadingButton(
             state: isLoading,
             button: AnimatedButtonText(

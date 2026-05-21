@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:void_chat/core/di/locator.dart';
 import 'package:void_chat/core/extensions/theme_context_ext.dart';
 import 'package:void_chat/features/auth/shared/presentation/widgets/ui_kits/registration_step_indicator.dart';
 import 'package:void_chat/router/app_router.dart';
@@ -15,41 +17,44 @@ class AuthLayoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AutoRouter(
-      builder: (context, content) {
-        final step = _registrationStep(context.router.topRoute);
+    return BlocProvider(
+      create: (_) => loginCubit,
+      child: AutoRouter(
+        builder: (context, content) {
+          final step = _registrationStep(context.router.topRoute);
 
-        return Scaffold(
-          appBar: AppBar(
-            leading: const AutoLeadingButton(),
-            title: Image.asset(context.logoPath, height: 100, width: 125),
-            centerTitle: true,
-            bottom: step != null
-                ? PreferredSize(
-                    preferredSize: const Size.fromHeight(12),
-                    child: RegistrationStepIndicator(
-                      current: step,
-                      total: AppRouter.totalRegisterSteps,
-                    ),
-                  )
-                : null,
-          ),
-          body: SafeArea(
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                return SingleChildScrollView(
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      minHeight: constraints.maxHeight,
-                    ),
-                    child: content,
-                  ),
-                );
-              },
+          return Scaffold(
+            appBar: AppBar(
+              leading: const AutoLeadingButton(),
+              title: Image.asset(context.logoPath, height: 100, width: 125),
+              centerTitle: true,
+              bottom: step != null
+                  ? PreferredSize(
+                      preferredSize: const Size.fromHeight(12),
+                      child: RegistrationStepIndicator(
+                        current: step,
+                        total: AppRouter.totalRegisterSteps,
+                      ),
+                    )
+                  : null,
             ),
-          ),
-        );
-      },
+            body: SafeArea(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return SingleChildScrollView(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: constraints.maxHeight,
+                      ),
+                      child: content,
+                    ),
+                  );
+                },
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

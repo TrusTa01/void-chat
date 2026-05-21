@@ -7,7 +7,7 @@ import 'package:void_chat/core/network/api_config.dart';
 import 'package:void_chat/core/network/interceptors/auth_interceptor.dart';
 import 'package:void_chat/core/network/interceptors/error_interceptor.dart';
 import 'package:void_chat/core/storage/secure_storage/app_secure_storage.dart';
-import 'package:void_chat/features/auth/shared/presentation/cubit/auth_cubit.dart';
+import 'package:void_chat/features/auth/shared/presentation/cubit/auth_cubit.dart'; // TODO: remove
 
 @lazySingleton
 class DioClient extends DioMixin implements Dio {

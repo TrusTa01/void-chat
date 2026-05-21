@@ -30,13 +30,8 @@ class RegisterScreen extends StatelessWidget {
         const SizedBox(height: 30),
 
         FilledButton(
-          onPressed: () => context.router.push(
-            EmailConfirmRoute(
-              userEmail: '',
-              onVerifyPressed: () =>
-                  context.router.push(const ProfileSetupRoute()),
-            ),
-          ),
+          onPressed: () =>
+              context.router.push(RegisterEmailConfirmRoute(identifier: '')),
           child: Text(l10n.continueAction),
         ),
       ],

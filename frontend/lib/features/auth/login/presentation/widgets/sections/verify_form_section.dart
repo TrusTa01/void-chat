@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:pinput/pinput.dart';
+import 'package:void_chat/core/extensions/l10n_ext.dart';
+import 'package:void_chat/features/auth/shared/presentation/validation/verification_code_validation.dart';
 
-class VerifyFormSection extends StatelessWidget {
-  const VerifyFormSection({super.key});
+class VerifyFormSection extends HookWidget {
+  final ValueChanged<String>? onCodeCompleted;
+  final GlobalKey<FormState>? formKey;
+  final ValueNotifier<bool>? exposeValidationErrors;
+
+  const VerifyFormSection({
+    super.key,
+    this.onCodeCompleted,
+    this.formKey,
+    this.exposeValidationErrors,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final pinFill =
@@ -18,27 +31,57 @@ class VerifyFormSection extends StatelessWidget {
         ) ??
         TextStyle(fontSize: 20, color: colorScheme.onSurface);
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        // Code fields
-        Pinput(
-          length: 4,
-          keyboardType: TextInputType.number,
-          separatorBuilder: (index) => const SizedBox(width: 15),
-          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          defaultPinTheme: PinTheme(
-            width: 70,
-            height: 70,
-            textStyle: pinTextStyle,
-            decoration: BoxDecoration(
-              color: pinFill,
-              borderRadius: BorderRadius.circular(12),
-            ),
+    final internalFormKey = useMemoized(GlobalKey<FormState>.new);
+    final formKey = this.formKey ?? internalFormKey;
+    final internalExposeErrors = useState(false);
+    final exposeErrors = exposeValidationErrors ?? internalExposeErrors;
+
+    final controller = useTextEditingController();
+
+    final defaultPinTheme = PinTheme(
+      width: 70,
+      height: 70,
+      textStyle: pinTextStyle,
+      decoration: BoxDecoration(
+        color: pinFill,
+        borderRadius: BorderRadius.circular(12),
+      ),
+    );
+
+    final errorPinTheme = defaultPinTheme.copyWith(
+      decoration: defaultPinTheme.decoration?.copyWith(
+        border: Border.all(color: colorScheme.error),
+      ),
+    );
+
+    return Form(
+      key: formKey,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Pinput(
+            length: verificationCodeLength,
+            keyboardType: TextInputType.number,
+            controller: controller,
+            separatorBuilder: (index) => const SizedBox(width: 15),
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            defaultPinTheme: defaultPinTheme,
+            errorPinTheme: errorPinTheme,
+            validator: (value) => exposeErrors.value
+                ? validateVerificationCode(value, l10n)
+                : null,
+            onCompleted: (code) {
+              exposeErrors.value = true;
+              if (validateVerificationCode(code, l10n) == null) {
+                onCodeCompleted?.call(code);
+              } else {
+                formKey.currentState?.validate();
+              }
+            },
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

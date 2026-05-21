@@ -2,7 +2,7 @@ enum AuthApiPathEnum {
   me('/auth/me'),
 
   loginPass('/auth/login/password'),
-  loginCodeReq('/auth/login/code'),
+  loginCodeReq('/auth/login/code/request'),
   loginCodeVerify('/auth/login/code/verify'),
 
   registerStart('/auth/register/start'),

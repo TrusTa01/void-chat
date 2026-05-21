@@ -31,6 +31,9 @@
   "loginPasswordLetterAndDigit": "В пароле нужны буква и цифра",
   "loginInvalidCredential": "Неверный логин или пароль",
   "networkError": "Не удалось подключиться. Проверьте интернет и повторите попытку.",
+  "loginEmailCodeInvalid": "Неверный код. Проверьте цифры и попробуйте снова.",
+  "loginEmailCodeExpired": "Срок действия кода истёк. Запросите новый.",
+  "loginEmailCodeAttemptsExceeded": "Слишком много попыток. Запросите новый код.",
   "confirmPasswordLabel": "Подтвердите пароль",
   "@confirmPasswordLabel": {
     "description": "Подпись поля подтверждения пароля при регистрации"
@@ -65,6 +68,9 @@
   "verifyEmailSubmit": "Подтвердить",
   "verifyEmailDidNotReceive": "Не получили код?",
   "verifyEmailResendCode": "Отправить код снова",
+  "verifyEmailCodeRequired": "Введите код подтверждения",
+  "verifyEmailCodeIncomplete": "Введите все 4 цифры",
+  "verifyEmailCodeInvalid": "Код должен состоять только из цифр",
   "profileSetupMainText": "Последний шаг",
   "profileSetupSecondText": "Завершите настройку вашего профиля чтобы присоединиться к void",
   "profileSetupUsernameLabel": "Юзернейм",
@@ -73,5 +79,6 @@
   "profileSetupDisplayNameHint": "Артур Морган",
   "profileSetupHintText": "Ваш юзернейм и отображаемое имя публичные. Вы можете изменить из позже в настройках",
   "completeSetup": "Завершить настройку",
-  "startChatting": "Начать общение"
+  "startChatting": "Начать общение",
+  "codeSent": "Письмо отправлено!"
 }

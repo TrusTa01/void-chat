@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:void_chat/core/theme/app_bar_theme.dart';
 import 'package:void_chat/core/theme/app_colors.dart';
+import 'package:void_chat/core/theme/app_snack_bar_theme.dart';
 import 'package:void_chat/core/theme/palette/palette_data.dart';
 import 'package:void_chat/core/theme/text_theme.dart';
 
@@ -198,6 +199,10 @@ ThemeData _buildTheme(PaletteData palette, Brightness brightness) {
       }),
       visualDensity: VisualDensity.compact,
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+    ),
+    snackBarTheme: buildSnackBarTheme(
+      colorScheme: colorScheme,
+      paletteId: palette.id,
     ),
     primaryColor: palette.seed,
     textTheme: textTheme,

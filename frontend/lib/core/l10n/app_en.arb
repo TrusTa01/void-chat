@@ -140,6 +140,18 @@
   "@networkError": {
     "description": "Login failure: network or transport error"
   },
+  "loginEmailCodeInvalid": "Invalid code. Check the digits and try again.",
+  "@loginEmailCodeInvalid": {
+    "description": "Login failure: wrong email login code (INVALID_EMAIL_CODE)"
+  },
+  "loginEmailCodeExpired": "This code has expired. Request a new one.",
+  "@loginEmailCodeExpired": {
+    "description": "Login failure: email login code TTL exceeded (EMAIL_CODE_EXPIRED)"
+  },
+  "loginEmailCodeAttemptsExceeded": "Too many attempts. Request a new code.",
+  "@loginEmailCodeAttemptsExceeded": {
+    "description": "Login failure: email login code attempts exceeded (EMAIL_CODE_ATTEMPTS_EXCEEDED)"
+  },
   "registerEmailLabel": "Email",
   "@registerEmailLabel": {
     "description": "Label for the email-only field on registration"
@@ -212,6 +224,18 @@
   "@verifyEmailResendCode": {
     "description": "Tappable action to resend the verification code"
   },
+  "verifyEmailCodeRequired": "Enter the verification code",
+  "@verifyEmailCodeRequired": {
+    "description": "Shown when the verification code field is empty on submit"
+  },
+  "verifyEmailCodeIncomplete": "Enter all 4 digits",
+  "@verifyEmailCodeIncomplete": {
+    "description": "Shown when fewer than 4 digits were entered"
+  },
+  "verifyEmailCodeInvalid": "Code must contain digits only",
+  "@verifyEmailCodeInvalid": {
+    "description": "Shown when the verification code contains non-digit characters"
+  },
   "profileSetupMainText": "One last step",
   "@profileSetupMainText": {
     "description": "Main text in pofile setup screen"
@@ -247,5 +271,9 @@
   "startChatting": "Start chatting",
   "@startChatting": {
     "description": "The text on a button to continue log in"
+  },
+  "codeSent": "Code sent!",
+  "@codeSent": {
+    "description": "A snack bar message that appears when user request the code"
   }
 }

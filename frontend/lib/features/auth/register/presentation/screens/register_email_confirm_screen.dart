@@ -4,18 +4,11 @@ import 'package:void_chat/features/auth/login/presentation/screens/email_confirm
 
 @RoutePage()
 class RegisterEmailConfirmScreen extends StatelessWidget {
-  final String userEmail;
-  final VoidCallback onVerifyPressed;
+  final String identifier;
 
-  const RegisterEmailConfirmScreen({
-    super.key,
-    required this.userEmail,
-    required this.onVerifyPressed,
-  });
+  const RegisterEmailConfirmScreen({super.key, required this.identifier});
 
   @override
-  Widget build(BuildContext context) => EmailConfirmScreen(
-    userEmail: userEmail,
-    onVerifyPressed: onVerifyPressed,
-  );
+  Widget build(BuildContext context) =>
+      EmailConfirmScreen(identifier: identifier);
 }

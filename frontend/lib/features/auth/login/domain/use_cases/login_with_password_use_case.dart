@@ -7,10 +7,10 @@ abstract interface class ILoginWithPasswordUseCase {
 }
 
 @LazySingleton(as: ILoginWithPasswordUseCase)
-class LoginWithPasswordUseCase implements ILoginWithPasswordUseCase {
+class LoginWithPasswordUseCaseImpl implements ILoginWithPasswordUseCase {
   final ILoginRepository _repository;
 
-  const LoginWithPasswordUseCase(this._repository);
+  const LoginWithPasswordUseCaseImpl(this._repository);
 
   @override
   Future<UserEntity> call(String identifier, String password) =>

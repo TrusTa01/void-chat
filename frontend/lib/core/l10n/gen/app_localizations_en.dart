@@ -119,6 +119,18 @@ class AppLocalizationsEn extends AppLocalizations {
       'Couldn\'t connect. Check your connection and try again.';
 
   @override
+  String get loginEmailCodeInvalid =>
+      'Invalid code. Check the digits and try again.';
+
+  @override
+  String get loginEmailCodeExpired =>
+      'This code has expired. Request a new one.';
+
+  @override
+  String get loginEmailCodeAttemptsExceeded =>
+      'Too many attempts. Request a new code.';
+
+  @override
   String get registerEmailLabel => 'Email';
 
   @override
@@ -175,6 +187,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get verifyEmailResendCode => 'Resend code';
 
   @override
+  String get verifyEmailCodeRequired => 'Enter the verification code';
+
+  @override
+  String get verifyEmailCodeIncomplete => 'Enter all 4 digits';
+
+  @override
+  String get verifyEmailCodeInvalid => 'Code must contain digits only';
+
+  @override
   String get profileSetupMainText => 'One last step';
 
   @override
@@ -201,4 +222,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get startChatting => 'Start chatting';
+
+  @override
+  String get codeSent => 'Code sent!';
 }

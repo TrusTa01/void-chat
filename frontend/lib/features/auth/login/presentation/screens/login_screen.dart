@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:void_chat/core/di/locator.dart';
 import 'package:void_chat/core/extensions/l10n_ext.dart';
 import 'package:void_chat/core/layouts/auth_layout.dart';
 import 'package:void_chat/features/auth/login/presentation/cubit/login_cubit.dart';
@@ -19,14 +18,6 @@ class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
-  Widget build(BuildContext context) =>
-      BlocProvider(create: (_) => loginCubit, child: const _LoginView());
-}
-
-class _LoginView extends StatelessWidget {
-  const _LoginView();
-
-  @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
@@ -37,6 +28,9 @@ class _LoginView extends StatelessWidget {
             context.router.replaceAll([const AppLayoutRoute()]);
           case LoginError(:final failure):
             context.showAppSnackBar(failure.messages(l10n));
+          case LoginCodeSent(:final identifier):
+            context.showAppSnackBar(l10n.codeSent);
+            context.router.push(EmailConfirmRoute(identifier: identifier));
           case LoginInitial():
           case LoginLoading():
             break;
@@ -44,7 +38,9 @@ class _LoginView extends StatelessWidget {
       },
 
       listenWhen: (previous, current) =>
-          current is LoginSuccess || current is LoginError,
+          current is LoginSuccess ||
+          current is LoginError ||
+          current is LoginCodeSent,
 
       builder: (context, state) {
         final isLoading = state is LoginLoading;
@@ -63,10 +59,9 @@ class _LoginView extends StatelessWidget {
             LoginFormSection(
               isLoading: isLoading,
               onLoginTap: (identifier, password) =>
-                  loginCubit.login(identifier, password),
-              onEmailConfirmTap: () => context.router.push(
-                EmailConfirmRoute(userEmail: '', onVerifyPressed: () {}),
-              ),
+                  loginCubit.loginWithPass(identifier, password),
+              onEmailConfirmTap: (email) async =>
+                  loginCubit.loginWithcode(email),
             ),
           ],
         );

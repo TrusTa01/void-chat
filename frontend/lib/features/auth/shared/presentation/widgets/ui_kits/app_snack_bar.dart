@@ -4,8 +4,6 @@ extension AppSnackBar on BuildContext {
   void showAppSnackBar(String message) {
     ScaffoldMessenger.of(this)
       ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(content: Text(message), behavior: SnackBarBehavior.floating),
-      );
+      ..showSnackBar(SnackBar(content: Text(message)));
   }
 }

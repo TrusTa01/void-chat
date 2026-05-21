@@ -6,6 +6,13 @@ final class InvalidCredentialsFailure extends LoginFailure {
   const InvalidCredentialsFailure();
 }
 
+enum EmailCodeError { invalid, expired, attemptsExceeded }
+
+final class EmailCodeFailure extends LoginFailure {
+  final EmailCodeError type;
+  const EmailCodeFailure(this.type);
+}
+
 final class NetworkFailure extends LoginFailure {
   const NetworkFailure();
 }

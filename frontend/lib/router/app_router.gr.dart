@@ -47,16 +47,11 @@ class AuthLayoutRoute extends PageRouteInfo<void> {
 class EmailConfirmRoute extends PageRouteInfo<EmailConfirmRouteArgs> {
   EmailConfirmRoute({
     Key? key,
-    required String userEmail,
-    required VoidCallback onVerifyPressed,
+    required String identifier,
     List<PageRouteInfo>? children,
   }) : super(
          EmailConfirmRoute.name,
-         args: EmailConfirmRouteArgs(
-           key: key,
-           userEmail: userEmail,
-           onVerifyPressed: onVerifyPressed,
-         ),
+         args: EmailConfirmRouteArgs(key: key, identifier: identifier),
          initialChildren: children,
        );
 
@@ -66,45 +61,32 @@ class EmailConfirmRoute extends PageRouteInfo<EmailConfirmRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<EmailConfirmRouteArgs>();
-      return EmailConfirmScreen(
-        key: args.key,
-        userEmail: args.userEmail,
-        onVerifyPressed: args.onVerifyPressed,
-      );
+      return EmailConfirmScreen(key: args.key, identifier: args.identifier);
     },
   );
 }
 
 class EmailConfirmRouteArgs {
-  const EmailConfirmRouteArgs({
-    this.key,
-    required this.userEmail,
-    required this.onVerifyPressed,
-  });
+  const EmailConfirmRouteArgs({this.key, required this.identifier});
 
   final Key? key;
 
-  final String userEmail;
-
-  final VoidCallback onVerifyPressed;
+  final String identifier;
 
   @override
   String toString() {
-    return 'EmailConfirmRouteArgs{key: $key, userEmail: $userEmail, onVerifyPressed: $onVerifyPressed}';
+    return 'EmailConfirmRouteArgs{key: $key, identifier: $identifier}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! EmailConfirmRouteArgs) return false;
-    return key == other.key &&
-        userEmail == other.userEmail &&
-        onVerifyPressed == other.onVerifyPressed;
+    return key == other.key && identifier == other.identifier;
   }
 
   @override
-  int get hashCode =>
-      key.hashCode ^ userEmail.hashCode ^ onVerifyPressed.hashCode;
+  int get hashCode => key.hashCode ^ identifier.hashCode;
 }
 
 /// generated route for
@@ -161,16 +143,11 @@ class RegisterEmailConfirmRoute
     extends PageRouteInfo<RegisterEmailConfirmRouteArgs> {
   RegisterEmailConfirmRoute({
     Key? key,
-    required String userEmail,
-    required VoidCallback onVerifyPressed,
+    required String identifier,
     List<PageRouteInfo>? children,
   }) : super(
          RegisterEmailConfirmRoute.name,
-         args: RegisterEmailConfirmRouteArgs(
-           key: key,
-           userEmail: userEmail,
-           onVerifyPressed: onVerifyPressed,
-         ),
+         args: RegisterEmailConfirmRouteArgs(key: key, identifier: identifier),
          initialChildren: children,
        );
 
@@ -182,43 +159,33 @@ class RegisterEmailConfirmRoute
       final args = data.argsAs<RegisterEmailConfirmRouteArgs>();
       return RegisterEmailConfirmScreen(
         key: args.key,
-        userEmail: args.userEmail,
-        onVerifyPressed: args.onVerifyPressed,
+        identifier: args.identifier,
       );
     },
   );
 }
 
 class RegisterEmailConfirmRouteArgs {
-  const RegisterEmailConfirmRouteArgs({
-    this.key,
-    required this.userEmail,
-    required this.onVerifyPressed,
-  });
+  const RegisterEmailConfirmRouteArgs({this.key, required this.identifier});
 
   final Key? key;
 
-  final String userEmail;
-
-  final VoidCallback onVerifyPressed;
+  final String identifier;
 
   @override
   String toString() {
-    return 'RegisterEmailConfirmRouteArgs{key: $key, userEmail: $userEmail, onVerifyPressed: $onVerifyPressed}';
+    return 'RegisterEmailConfirmRouteArgs{key: $key, identifier: $identifier}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! RegisterEmailConfirmRouteArgs) return false;
-    return key == other.key &&
-        userEmail == other.userEmail &&
-        onVerifyPressed == other.onVerifyPressed;
+    return key == other.key && identifier == other.identifier;
   }
 
   @override
-  int get hashCode =>
-      key.hashCode ^ userEmail.hashCode ^ onVerifyPressed.hashCode;
+  int get hashCode => key.hashCode ^ identifier.hashCode;
 }
 
 /// generated route for

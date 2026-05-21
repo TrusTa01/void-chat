@@ -19,4 +19,20 @@ class LoginRemoteDataSource {
     );
     return LoginResponseDto.fromJson(response.data as Map<String, dynamic>);
   }
+
+  Future<void> loginCodeRequest({required String identifier}) => _dio.post(
+    AuthApiPathEnum.loginCodeReq.path,
+    data: {'identifier': identifier},
+  );
+
+  Future<LoginResponseDto> loginCodeVerify({
+    required String identifier,
+    required String code,
+  }) async {
+    final response = await _dio.post(
+      AuthApiPathEnum.loginCodeVerify.path,
+      data: {'identifier': identifier, 'code': code},
+    );
+    return LoginResponseDto.fromJson(response.data as Map<String, dynamic>);
+  }
 }

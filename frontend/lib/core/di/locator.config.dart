@@ -30,6 +30,10 @@ import 'package:void_chat/features/auth/login/data/repositories/login_repository
     as _i869;
 import 'package:void_chat/features/auth/login/domain/repositories/i_login_repository.dart'
     as _i172;
+import 'package:void_chat/features/auth/login/domain/use_cases/login_verify_code_use_case.dart'
+    as _i1003;
+import 'package:void_chat/features/auth/login/domain/use_cases/login_with_code_use_case.dart'
+    as _i656;
 import 'package:void_chat/features/auth/login/domain/use_cases/login_with_password_use_case.dart'
     as _i483;
 import 'package:void_chat/features/auth/login/presentation/cubit/login_cubit.dart'
@@ -92,12 +96,20 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i351.AppSecureStorage>(),
       ),
     );
+    gh.lazySingleton<_i1003.ILoginVerifyCodeUseCase>(
+      () => _i1003.LoginVerifyCodeUseCaseImpl(gh<_i172.ILoginRepository>()),
+    );
     gh.lazySingleton<_i483.ILoginWithPasswordUseCase>(
-      () => _i483.LoginWithPasswordUseCase(gh<_i172.ILoginRepository>()),
+      () => _i483.LoginWithPasswordUseCaseImpl(gh<_i172.ILoginRepository>()),
+    );
+    gh.lazySingleton<_i656.ILoginWithCodeUseCase>(
+      () => _i656.LoginWithCodeUseCaseImpl(gh<_i172.ILoginRepository>()),
     );
     gh.factory<_i361.LoginCubit>(
       () => _i361.LoginCubit(
         gh<_i483.ILoginWithPasswordUseCase>(),
+        gh<_i656.ILoginWithCodeUseCase>(),
+        gh<_i1003.ILoginVerifyCodeUseCase>(),
         gh<_i265.AuthCubit>(),
       ),
     );

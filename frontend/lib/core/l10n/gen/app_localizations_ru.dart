@@ -117,6 +117,18 @@ class AppLocalizationsRu extends AppLocalizations {
       'Не удалось подключиться. Проверьте интернет и повторите попытку.';
 
   @override
+  String get loginEmailCodeInvalid =>
+      'Неверный код. Проверьте цифры и попробуйте снова.';
+
+  @override
+  String get loginEmailCodeExpired =>
+      'Срок действия кода истёк. Запросите новый.';
+
+  @override
+  String get loginEmailCodeAttemptsExceeded =>
+      'Слишком много попыток. Запросите новый код.';
+
+  @override
   String get registerEmailLabel => 'Почта';
 
   @override
@@ -174,6 +186,15 @@ class AppLocalizationsRu extends AppLocalizations {
   String get verifyEmailResendCode => 'Отправить код снова';
 
   @override
+  String get verifyEmailCodeRequired => 'Введите код подтверждения';
+
+  @override
+  String get verifyEmailCodeIncomplete => 'Введите все 4 цифры';
+
+  @override
+  String get verifyEmailCodeInvalid => 'Код должен состоять только из цифр';
+
+  @override
   String get profileSetupMainText => 'Последний шаг';
 
   @override
@@ -201,4 +222,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get startChatting => 'Начать общение';
+
+  @override
+  String get codeSent => 'Письмо отправлено!';
 }
