@@ -1,15 +1,13 @@
-final class PendingRegistrationVerification {
+class EmailCode {
   final String id;
   final String codeHash;
   final DateTime expiresAt;
-  final DateTime? verifiedAt;
   final int attempts;
 
-  const PendingRegistrationVerification({
+  const EmailCode({
     required this.id,
     required this.codeHash,
     required this.expiresAt,
-    required this.verifiedAt,
     required this.attempts,
   });
 }

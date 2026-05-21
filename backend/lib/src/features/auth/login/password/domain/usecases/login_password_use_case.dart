@@ -2,7 +2,7 @@ import 'package:backend/src/core/errors/app_exception.dart';
 import 'package:backend/src/features/auth/login/shared/domain/use_cases/create_session_token_use_case.dart';
 import 'package:backend/src/features/auth/shared/auth_error_codes.dart';
 import 'package:backend/src/features/auth/login/password/domain/repositories/i_user_repository.dart';
-import 'package:backend/src/features/auth/shared/domain/services/password_hasher.dart';
+import 'package:backend/src/features/auth/login/password/domain/services/password_hasher.dart';
 import 'package:backend/src/features/auth/login/password/domain/value_objects/login_result.dart';
 import 'package:injectable/injectable.dart';
 

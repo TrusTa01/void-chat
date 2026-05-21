@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import 'package:backend/src/core/di/locator.dart';
 import 'package:backend/src/core/errors/app_exception.dart';
-import 'package:backend/src/features/auth/register/verify_email/domain/use_cases/verify_registration_email_use_case.dart';
+import 'package:backend/src/features/auth/login/password/domain/value_objects/login_result.dart';
+import 'package:backend/src/features/auth/shared/verify-email/domain/usecases/verify_email_use_case.dart';
 import 'package:backend/src/features/auth/shared/auth_error_codes.dart';
 import 'package:shelf/shelf.dart';
 import 'package:talker/talker.dart';
@@ -11,16 +12,16 @@ import 'package:test/test.dart';
 import 'auth_api_test_support.dart';
 
 void main() {
-  late _FakeVerifyRegistrationEmailUseCase verifyEmailUseCase;
+  late _FakeVerifyEmailUseCase verifyEmailUseCase;
   late Handler handler;
 
   setUp(() async {
     await getIt.reset();
     getIt.registerSingleton<Talker>(Talker());
 
-    verifyEmailUseCase = _FakeVerifyRegistrationEmailUseCase();
+    verifyEmailUseCase = _FakeVerifyEmailUseCase();
     handler = createAuthHandler(
-      buildTestAuthApi(verifyRegistrationEmail: verifyEmailUseCase),
+      buildTestAuthApi(verifyEmail: verifyEmailUseCase),
     );
   });
 
@@ -49,7 +50,7 @@ void main() {
         }),
       );
 
-      expect(verifyEmailUseCase.lastRegistrationId, 'registration-123');
+      expect(verifyEmailUseCase.lastIdentifier, 'registration-123');
       expect(verifyEmailUseCase.lastCode, '1234');
       expect(verifyEmailUseCase.callCount, 1);
     });
@@ -114,21 +115,24 @@ void main() {
   });
 }
 
-final class _FakeVerifyRegistrationEmailUseCase
-    implements IVerifyRegistrationEmailUseCase {
-  String? lastRegistrationId;
+final class _FakeVerifyEmailUseCase implements IVerifyEmailUseCase {
+  LoginResult result = sampleLoginResult();
+  String? lastIdentifier;
   String? lastCode;
   int callCount = 0;
   AppException? exception;
 
   @override
-  Future<void> call({required String registrationId, required String code}) {
+  Future<LoginResult> verify({
+    required String identifier,
+    required String code,
+  }) async {
     callCount += 1;
-    lastRegistrationId = registrationId;
+    lastIdentifier = identifier;
     lastCode = code;
 
     final e = exception;
     if (e != null) throw e;
-    return Future<void>.value();
+    return result;
   }
 }

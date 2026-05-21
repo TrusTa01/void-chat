@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:backend/src/features/auth/shared/domain/services/password_hasher.dart';
+import 'package:backend/src/features/auth/login/password/domain/services/password_hasher.dart';
 import 'package:injectable/injectable.dart';
 
 abstract interface class EmailCodeService {

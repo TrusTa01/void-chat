@@ -5,7 +5,8 @@ import 'package:backend/src/features/auth/login/password/api/mappers/login_respo
 import 'package:backend/src/features/auth/login/request/api/dto/login_code_request_dto.dart';
 import 'package:backend/src/features/auth/login/request/domain/use_cases/request_login_use_case.dart';
 import 'package:backend/src/features/auth/login/verify/api/dto/login_code_verify_dto.dart';
-import 'package:backend/src/features/auth/login/verify/domain/use_cases/verify_login_email_use_case.dart';
+import 'package:backend/src/features/auth/shared/verify-email/api/dto/request/verify_code_request_dto.dart';
+import 'package:backend/src/features/auth/shared/verify-email/domain/usecases/verify_email_use_case.dart';
 import 'package:backend/src/features/auth/logout/domain/use_cases/logout_all_use_case.dart';
 import 'package:backend/src/features/auth/logout/domain/use_cases/logout_use_case.dart';
 import 'package:backend/src/features/auth/me/domain/use_cases/get_current_user_use_case.dart';
@@ -14,9 +15,7 @@ import 'package:backend/src/features/auth/register/complete_profile/domain/use_c
 import 'package:backend/src/features/auth/register/start/api/dto/request/start_registration_request_dto.dart';
 import 'package:backend/src/features/auth/register/start/api/mappers/start_registration_response_mapper.dart';
 import 'package:backend/src/features/auth/register/start/domain/use_cases/start_registration_use_case.dart';
-import 'package:backend/src/features/auth/register/verify_email/api/dto/request/verify_registration_email_request_dto.dart';
-import 'package:backend/src/features/auth/register/verify_email/api/dto/response/verify_registration_email_response_dto.dart';
-import 'package:backend/src/features/auth/register/verify_email/domain/use_cases/verify_registration_email_use_case.dart';
+import 'package:backend/src/features/auth/shared/verify-email/api/dto/response/verify_email_response_dto.dart';
 import 'package:backend/src/features/auth/shared/api/mappers/parse_body.dart';
 import 'package:backend/src/features/auth/login/password/domain/usecases/login_password_use_case.dart';
 import 'package:backend/src/features/auth/register/complete_profile/api/mappers/register_response_mapper.dart';
@@ -33,12 +32,12 @@ class AuthApi {
   // login
   final ILoginPasswordUseCase _loginPassUseCase;
   final IRequestLoginUseCase _requestLoginUseCase;
-  final IVerifyLoginEmailUseCase _verifyLoginEmailUseCase;
 
   // register
   final IStartRegistrationUseCase _startRegistrationUseCase;
-  final IVerifyRegistrationEmailUseCase _emailVerifyUseCase;
   final ICompleteRegistrationProfileUseCase _completeRegisterUseCase;
+
+  final IVerifyEmailUseCase _verifyEmailUseCase;
 
   // logout
   final ILogoutUseCase _logoutUseCase;
@@ -48,9 +47,8 @@ class AuthApi {
     this._getCurrentUserUseCase,
     this._loginPassUseCase,
     this._requestLoginUseCase,
-    this._verifyLoginEmailUseCase,
+    this._verifyEmailUseCase,
     this._startRegistrationUseCase,
-    this._emailVerifyUseCase,
     this._completeRegisterUseCase,
     this._logoutUseCase,
     this._logoutAllUseCase,
@@ -125,7 +123,7 @@ class AuthApi {
   Future<Response> _loginVerifyHandler(Request request) async {
     final body = await request.readAsString();
     final dto = parseBody(body, LoginCodeVerifyDto.fromJson);
-    final result = await _verifyLoginEmailUseCase.verify(
+    final result = await _verifyEmailUseCase.verify(
       identifier: dto.identifier,
       code: dto.code,
     );
@@ -144,12 +142,12 @@ class AuthApi {
 
   Future<Response> _verifyEmailRegistrationHandler(Request request) async {
     final body = await request.readAsString();
-    final dto = parseBody(body, VerifyRegistrationEmailRequestDto.fromJson);
-    await _emailVerifyUseCase.call(
-      registrationId: dto.registrationId,
+    final dto = parseBody(body, CodeVerifyRequestDto.fromJson);
+    await _verifyEmailUseCase.verify(
+      identifier: dto.registrationId,
       code: dto.code,
     );
-    return JsonResponse.ok(VerifyRegistrationEmailResponseDto(verified: true));
+    return JsonResponse.ok(VerifyEmailResponseDto(verified: true));
   }
 
   Future<Response> _registerCompleteProfileHandler(Request request) async {

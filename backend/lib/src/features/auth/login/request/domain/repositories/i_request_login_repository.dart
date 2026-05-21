@@ -4,4 +4,5 @@ abstract interface class IRequestLoginRepository {
     required String codeHash,
     required DateTime expiresAt,
   });
+  Future<DateTime?> findLastCodeCreatedAt(String userId);
 }

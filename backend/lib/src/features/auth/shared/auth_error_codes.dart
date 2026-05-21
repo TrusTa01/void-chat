@@ -43,4 +43,5 @@ abstract class AuthErrorCodes {
   static const String emailNotVerified = 'EMAIL_NOT_VERIFIED';
 
   static const String unauthorized = 'UNAUTHORIZED';
+  static const String emailCodeResendTooSoon = 'EMAIL_CODE_RESEND_TOO_SOON';
 }

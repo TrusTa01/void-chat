@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:backend/src/core/di/locator.dart';
 import 'package:backend/src/core/errors/app_exception.dart';
 import 'package:backend/src/features/auth/login/password/domain/value_objects/login_result.dart';
-import 'package:backend/src/features/auth/login/verify/domain/use_cases/verify_login_email_use_case.dart';
+import 'package:backend/src/features/auth/shared/verify-email/domain/usecases/verify_email_use_case.dart';
 import 'package:backend/src/features/auth/shared/auth_error_codes.dart';
 import 'package:backend/src/features/auth/shared/ttl.dart';
 import 'package:shelf/shelf.dart';
@@ -13,16 +13,16 @@ import 'package:test/test.dart';
 import 'auth_api_test_support.dart';
 
 void main() {
-  late _FakeVerifyLoginEmailUseCase verifyLoginEmailUseCase;
+  late _FakeVerifyEmailUseCase verifyEmailUseCase;
   late Handler handler;
 
   setUp(() async {
     await getIt.reset();
     getIt.registerSingleton<Talker>(Talker());
 
-    verifyLoginEmailUseCase = _FakeVerifyLoginEmailUseCase();
+    verifyEmailUseCase = _FakeVerifyEmailUseCase();
     handler = createAuthHandler(
-      buildTestAuthApi(verifyLoginEmail: verifyLoginEmailUseCase),
+      buildTestAuthApi(verifyEmail: verifyEmailUseCase),
     );
   });
 
@@ -32,7 +32,7 @@ void main() {
 
   group('POST /login/code/verify', () {
     test('returns 200 with access token and user', () async {
-      verifyLoginEmailUseCase.result = sampleLoginResult();
+      verifyEmailUseCase.result = sampleLoginResult();
 
       final response = await handler(
         jsonPost('/login/code/verify', {
@@ -63,9 +63,9 @@ void main() {
         }),
       );
 
-      expect(verifyLoginEmailUseCase.lastIdentifier, 'john@example.com');
-      expect(verifyLoginEmailUseCase.lastCode, '1234');
-      expect(verifyLoginEmailUseCase.callCount, 1);
+      expect(verifyEmailUseCase.lastIdentifier, 'john@example.com');
+      expect(verifyEmailUseCase.lastCode, '1234');
+      expect(verifyEmailUseCase.callCount, 1);
     });
 
     test(
@@ -82,12 +82,12 @@ void main() {
           (body['error'] as Map<String, dynamic>)['code'],
           AuthErrorCodes.invalidRequestFields,
         );
-        expect(verifyLoginEmailUseCase.callCount, 0);
+        expect(verifyEmailUseCase.callCount, 0);
       },
     );
 
     test('returns INVALID_EMAIL_CODE from use case failure', () async {
-      verifyLoginEmailUseCase.exception = const ValidationException(
+      verifyEmailUseCase.exception = const ValidationException(
         AuthErrorCodes.invalidEmailCode,
         'Email verification code is invalid',
       );
@@ -106,11 +106,11 @@ void main() {
         (body['error'] as Map<String, dynamic>)['code'],
         AuthErrorCodes.invalidEmailCode,
       );
-      expect(verifyLoginEmailUseCase.callCount, 1);
+      expect(verifyEmailUseCase.callCount, 1);
     });
 
     test('returns INVALID_CREDENTIALS from use case failure', () async {
-      verifyLoginEmailUseCase.exception = const UnauthorizedException(
+      verifyEmailUseCase.exception = const UnauthorizedException(
         AuthErrorCodes.invalidCredentials,
         'Email or code is incorrect',
       );
@@ -129,7 +129,7 @@ void main() {
         (body['error'] as Map<String, dynamic>)['code'],
         AuthErrorCodes.invalidCredentials,
       );
-      expect(verifyLoginEmailUseCase.callCount, 1);
+      expect(verifyEmailUseCase.callCount, 1);
     });
 
     test('returns INVALID_BODY when JSON root is not an object', () async {
@@ -146,12 +146,12 @@ void main() {
       final body = await decodeBody(response);
       expect(body['success'], false);
       expect((body['error'] as Map<String, dynamic>)['code'], 'INVALID_BODY');
-      expect(verifyLoginEmailUseCase.callCount, 0);
+      expect(verifyEmailUseCase.callCount, 0);
     });
   });
 }
 
-final class _FakeVerifyLoginEmailUseCase implements IVerifyLoginEmailUseCase {
+final class _FakeVerifyEmailUseCase implements IVerifyEmailUseCase {
   LoginResult result = sampleLoginResult();
   String? lastIdentifier;
   String? lastCode;

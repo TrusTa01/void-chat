@@ -30,12 +30,12 @@ void main() {
     await getIt.reset();
   });
 
-  group('POST /login-password', () {
+  group('POST /login/password', () {
     test('returns 200 with access token and user', () async {
       loginPasswordUseCase.result = sampleLoginResult();
 
       final response = await handler(
-        jsonPost('/login-password', {
+        jsonPost('/login/password', {
           'identifier': 'john@example.com',
           'password': 'Password123',
         }),
@@ -57,7 +57,7 @@ void main() {
 
     test('passes identifier and password to use case', () async {
       await handler(
-        jsonPost('/login-password', {
+        jsonPost('/login/password', {
           'identifier': 'john@example.com',
           'password': 'Password123',
         }),
@@ -72,7 +72,7 @@ void main() {
       'returns INVALID_REQUEST_FIELDS when required field is missing',
       () async {
         final response = await handler(
-          jsonPost('/login-password', {'identifier': 'john@example.com'}),
+          jsonPost('/login/password', {'identifier': 'john@example.com'}),
         );
 
         expect(response.statusCode, 400);
@@ -93,7 +93,7 @@ void main() {
       );
 
       final response = await handler(
-        jsonPost('/login-password', {
+        jsonPost('/login/password', {
           'identifier': 'john@example.com',
           'password': 'wrong',
         }),
@@ -113,7 +113,7 @@ void main() {
       final response = await handler(
         Request(
           'POST',
-          Uri.parse('http://localhost/login-password'),
+          Uri.parse('http://localhost/login/password'),
           body: jsonEncode(['not', 'an', 'object']),
           headers: {'content-type': 'application/json'},
         ),

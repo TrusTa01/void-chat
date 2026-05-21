@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'verify_registration_email_response_dto.dart';
+part of 'verify_email_response_dto.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,22 +13,22 @@ part of 'verify_registration_email_response_dto.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$VerifyRegistrationEmailResponseDto {
+mixin _$VerifyEmailResponseDto {
 
  bool get verified;
-/// Create a copy of VerifyRegistrationEmailResponseDto
+/// Create a copy of VerifyEmailResponseDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$VerifyRegistrationEmailResponseDtoCopyWith<VerifyRegistrationEmailResponseDto> get copyWith => _$VerifyRegistrationEmailResponseDtoCopyWithImpl<VerifyRegistrationEmailResponseDto>(this as VerifyRegistrationEmailResponseDto, _$identity);
+$VerifyEmailResponseDtoCopyWith<VerifyEmailResponseDto> get copyWith => _$VerifyEmailResponseDtoCopyWithImpl<VerifyEmailResponseDto>(this as VerifyEmailResponseDto, _$identity);
 
-  /// Serializes this VerifyRegistrationEmailResponseDto to a JSON map.
+  /// Serializes this VerifyEmailResponseDto to a JSON map.
   Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is VerifyRegistrationEmailResponseDto&&(identical(other.verified, verified) || other.verified == verified));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is VerifyEmailResponseDto&&(identical(other.verified, verified) || other.verified == verified));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -37,15 +37,15 @@ int get hashCode => Object.hash(runtimeType,verified);
 
 @override
 String toString() {
-  return 'VerifyRegistrationEmailResponseDto(verified: $verified)';
+  return 'VerifyEmailResponseDto(verified: $verified)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $VerifyRegistrationEmailResponseDtoCopyWith<$Res>  {
-  factory $VerifyRegistrationEmailResponseDtoCopyWith(VerifyRegistrationEmailResponseDto value, $Res Function(VerifyRegistrationEmailResponseDto) _then) = _$VerifyRegistrationEmailResponseDtoCopyWithImpl;
+abstract mixin class $VerifyEmailResponseDtoCopyWith<$Res>  {
+  factory $VerifyEmailResponseDtoCopyWith(VerifyEmailResponseDto value, $Res Function(VerifyEmailResponseDto) _then) = _$VerifyEmailResponseDtoCopyWithImpl;
 @useResult
 $Res call({
  bool verified
@@ -56,14 +56,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$VerifyRegistrationEmailResponseDtoCopyWithImpl<$Res>
-    implements $VerifyRegistrationEmailResponseDtoCopyWith<$Res> {
-  _$VerifyRegistrationEmailResponseDtoCopyWithImpl(this._self, this._then);
+class _$VerifyEmailResponseDtoCopyWithImpl<$Res>
+    implements $VerifyEmailResponseDtoCopyWith<$Res> {
+  _$VerifyEmailResponseDtoCopyWithImpl(this._self, this._then);
 
-  final VerifyRegistrationEmailResponseDto _self;
-  final $Res Function(VerifyRegistrationEmailResponseDto) _then;
+  final VerifyEmailResponseDto _self;
+  final $Res Function(VerifyEmailResponseDto) _then;
 
-/// Create a copy of VerifyRegistrationEmailResponseDto
+/// Create a copy of VerifyEmailResponseDto
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? verified = null,}) {
   return _then(_self.copyWith(
@@ -75,8 +75,8 @@ as bool,
 }
 
 
-/// Adds pattern-matching-related methods to [VerifyRegistrationEmailResponseDto].
-extension VerifyRegistrationEmailResponseDtoPatterns on VerifyRegistrationEmailResponseDto {
+/// Adds pattern-matching-related methods to [VerifyEmailResponseDto].
+extension VerifyEmailResponseDtoPatterns on VerifyEmailResponseDto {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -89,10 +89,10 @@ extension VerifyRegistrationEmailResponseDtoPatterns on VerifyRegistrationEmailR
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _VerifyRegistrationEmailResponseDto value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _VerifyEmailResponseDto value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _VerifyRegistrationEmailResponseDto() when $default != null:
+case _VerifyEmailResponseDto() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -111,10 +111,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _VerifyRegistrationEmailResponseDto value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _VerifyEmailResponseDto value)  $default,){
 final _that = this;
 switch (_that) {
-case _VerifyRegistrationEmailResponseDto():
+case _VerifyEmailResponseDto():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -132,10 +132,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _VerifyRegistrationEmailResponseDto value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _VerifyEmailResponseDto value)?  $default,){
 final _that = this;
 switch (_that) {
-case _VerifyRegistrationEmailResponseDto() when $default != null:
+case _VerifyEmailResponseDto() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -155,7 +155,7 @@ return $default(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool verified)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _VerifyRegistrationEmailResponseDto() when $default != null:
+case _VerifyEmailResponseDto() when $default != null:
 return $default(_that.verified);case _:
   return orElse();
 
@@ -176,7 +176,7 @@ return $default(_that.verified);case _:
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool verified)  $default,) {final _that = this;
 switch (_that) {
-case _VerifyRegistrationEmailResponseDto():
+case _VerifyEmailResponseDto():
 return $default(_that.verified);case _:
   throw StateError('Unexpected subclass');
 
@@ -196,7 +196,7 @@ return $default(_that.verified);case _:
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool verified)?  $default,) {final _that = this;
 switch (_that) {
-case _VerifyRegistrationEmailResponseDto() when $default != null:
+case _VerifyEmailResponseDto() when $default != null:
 return $default(_that.verified);case _:
   return null;
 
@@ -208,26 +208,26 @@ return $default(_that.verified);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _VerifyRegistrationEmailResponseDto implements VerifyRegistrationEmailResponseDto {
-  const _VerifyRegistrationEmailResponseDto({required this.verified});
-  factory _VerifyRegistrationEmailResponseDto.fromJson(Map<String, dynamic> json) => _$VerifyRegistrationEmailResponseDtoFromJson(json);
+class _VerifyEmailResponseDto implements VerifyEmailResponseDto {
+  const _VerifyEmailResponseDto({required this.verified});
+  factory _VerifyEmailResponseDto.fromJson(Map<String, dynamic> json) => _$VerifyEmailResponseDtoFromJson(json);
 
 @override final  bool verified;
 
-/// Create a copy of VerifyRegistrationEmailResponseDto
+/// Create a copy of VerifyEmailResponseDto
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$VerifyRegistrationEmailResponseDtoCopyWith<_VerifyRegistrationEmailResponseDto> get copyWith => __$VerifyRegistrationEmailResponseDtoCopyWithImpl<_VerifyRegistrationEmailResponseDto>(this, _$identity);
+_$VerifyEmailResponseDtoCopyWith<_VerifyEmailResponseDto> get copyWith => __$VerifyEmailResponseDtoCopyWithImpl<_VerifyEmailResponseDto>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$VerifyRegistrationEmailResponseDtoToJson(this, );
+  return _$VerifyEmailResponseDtoToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _VerifyRegistrationEmailResponseDto&&(identical(other.verified, verified) || other.verified == verified));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _VerifyEmailResponseDto&&(identical(other.verified, verified) || other.verified == verified));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -236,15 +236,15 @@ int get hashCode => Object.hash(runtimeType,verified);
 
 @override
 String toString() {
-  return 'VerifyRegistrationEmailResponseDto(verified: $verified)';
+  return 'VerifyEmailResponseDto(verified: $verified)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$VerifyRegistrationEmailResponseDtoCopyWith<$Res> implements $VerifyRegistrationEmailResponseDtoCopyWith<$Res> {
-  factory _$VerifyRegistrationEmailResponseDtoCopyWith(_VerifyRegistrationEmailResponseDto value, $Res Function(_VerifyRegistrationEmailResponseDto) _then) = __$VerifyRegistrationEmailResponseDtoCopyWithImpl;
+abstract mixin class _$VerifyEmailResponseDtoCopyWith<$Res> implements $VerifyEmailResponseDtoCopyWith<$Res> {
+  factory _$VerifyEmailResponseDtoCopyWith(_VerifyEmailResponseDto value, $Res Function(_VerifyEmailResponseDto) _then) = __$VerifyEmailResponseDtoCopyWithImpl;
 @override @useResult
 $Res call({
  bool verified
@@ -255,17 +255,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$VerifyRegistrationEmailResponseDtoCopyWithImpl<$Res>
-    implements _$VerifyRegistrationEmailResponseDtoCopyWith<$Res> {
-  __$VerifyRegistrationEmailResponseDtoCopyWithImpl(this._self, this._then);
+class __$VerifyEmailResponseDtoCopyWithImpl<$Res>
+    implements _$VerifyEmailResponseDtoCopyWith<$Res> {
+  __$VerifyEmailResponseDtoCopyWithImpl(this._self, this._then);
 
-  final _VerifyRegistrationEmailResponseDto _self;
-  final $Res Function(_VerifyRegistrationEmailResponseDto) _then;
+  final _VerifyEmailResponseDto _self;
+  final $Res Function(_VerifyEmailResponseDto) _then;
 
-/// Create a copy of VerifyRegistrationEmailResponseDto
+/// Create a copy of VerifyEmailResponseDto
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? verified = null,}) {
-  return _then(_VerifyRegistrationEmailResponseDto(
+  return _then(_VerifyEmailResponseDto(
 verified: null == verified ? _self.verified : verified // ignore: cast_nullable_to_non_nullable
 as bool,
   ));

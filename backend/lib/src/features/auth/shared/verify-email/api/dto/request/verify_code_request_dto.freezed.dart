@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'verify_registration_email_request_dto.dart';
+part of 'verify_code_request_dto.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,22 +13,22 @@ part of 'verify_registration_email_request_dto.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$VerifyRegistrationEmailRequestDto {
+mixin _$CodeVerifyRequestDto {
 
 @JsonKey(name: 'registration_id') String get registrationId; String get code;
-/// Create a copy of VerifyRegistrationEmailRequestDto
+/// Create a copy of CodeVerifyRequestDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$VerifyRegistrationEmailRequestDtoCopyWith<VerifyRegistrationEmailRequestDto> get copyWith => _$VerifyRegistrationEmailRequestDtoCopyWithImpl<VerifyRegistrationEmailRequestDto>(this as VerifyRegistrationEmailRequestDto, _$identity);
+$CodeVerifyRequestDtoCopyWith<CodeVerifyRequestDto> get copyWith => _$CodeVerifyRequestDtoCopyWithImpl<CodeVerifyRequestDto>(this as CodeVerifyRequestDto, _$identity);
 
-  /// Serializes this VerifyRegistrationEmailRequestDto to a JSON map.
+  /// Serializes this CodeVerifyRequestDto to a JSON map.
   Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is VerifyRegistrationEmailRequestDto&&(identical(other.registrationId, registrationId) || other.registrationId == registrationId)&&(identical(other.code, code) || other.code == code));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CodeVerifyRequestDto&&(identical(other.registrationId, registrationId) || other.registrationId == registrationId)&&(identical(other.code, code) || other.code == code));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -37,15 +37,15 @@ int get hashCode => Object.hash(runtimeType,registrationId,code);
 
 @override
 String toString() {
-  return 'VerifyRegistrationEmailRequestDto(registrationId: $registrationId, code: $code)';
+  return 'CodeVerifyRequestDto(registrationId: $registrationId, code: $code)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $VerifyRegistrationEmailRequestDtoCopyWith<$Res>  {
-  factory $VerifyRegistrationEmailRequestDtoCopyWith(VerifyRegistrationEmailRequestDto value, $Res Function(VerifyRegistrationEmailRequestDto) _then) = _$VerifyRegistrationEmailRequestDtoCopyWithImpl;
+abstract mixin class $CodeVerifyRequestDtoCopyWith<$Res>  {
+  factory $CodeVerifyRequestDtoCopyWith(CodeVerifyRequestDto value, $Res Function(CodeVerifyRequestDto) _then) = _$CodeVerifyRequestDtoCopyWithImpl;
 @useResult
 $Res call({
 @JsonKey(name: 'registration_id') String registrationId, String code
@@ -56,14 +56,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$VerifyRegistrationEmailRequestDtoCopyWithImpl<$Res>
-    implements $VerifyRegistrationEmailRequestDtoCopyWith<$Res> {
-  _$VerifyRegistrationEmailRequestDtoCopyWithImpl(this._self, this._then);
+class _$CodeVerifyRequestDtoCopyWithImpl<$Res>
+    implements $CodeVerifyRequestDtoCopyWith<$Res> {
+  _$CodeVerifyRequestDtoCopyWithImpl(this._self, this._then);
 
-  final VerifyRegistrationEmailRequestDto _self;
-  final $Res Function(VerifyRegistrationEmailRequestDto) _then;
+  final CodeVerifyRequestDto _self;
+  final $Res Function(CodeVerifyRequestDto) _then;
 
-/// Create a copy of VerifyRegistrationEmailRequestDto
+/// Create a copy of CodeVerifyRequestDto
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? registrationId = null,Object? code = null,}) {
   return _then(_self.copyWith(
@@ -76,8 +76,8 @@ as String,
 }
 
 
-/// Adds pattern-matching-related methods to [VerifyRegistrationEmailRequestDto].
-extension VerifyRegistrationEmailRequestDtoPatterns on VerifyRegistrationEmailRequestDto {
+/// Adds pattern-matching-related methods to [CodeVerifyRequestDto].
+extension CodeVerifyRequestDtoPatterns on CodeVerifyRequestDto {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -90,10 +90,10 @@ extension VerifyRegistrationEmailRequestDtoPatterns on VerifyRegistrationEmailRe
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _VerifyRegistrationEmailRequestDto value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _CodeVerifyRequestDto value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _VerifyRegistrationEmailRequestDto() when $default != null:
+case _CodeVerifyRequestDto() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -112,10 +112,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _VerifyRegistrationEmailRequestDto value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _CodeVerifyRequestDto value)  $default,){
 final _that = this;
 switch (_that) {
-case _VerifyRegistrationEmailRequestDto():
+case _CodeVerifyRequestDto():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -133,10 +133,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _VerifyRegistrationEmailRequestDto value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _CodeVerifyRequestDto value)?  $default,){
 final _that = this;
 switch (_that) {
-case _VerifyRegistrationEmailRequestDto() when $default != null:
+case _CodeVerifyRequestDto() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -156,7 +156,7 @@ return $default(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'registration_id')  String registrationId,  String code)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _VerifyRegistrationEmailRequestDto() when $default != null:
+case _CodeVerifyRequestDto() when $default != null:
 return $default(_that.registrationId,_that.code);case _:
   return orElse();
 
@@ -177,7 +177,7 @@ return $default(_that.registrationId,_that.code);case _:
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'registration_id')  String registrationId,  String code)  $default,) {final _that = this;
 switch (_that) {
-case _VerifyRegistrationEmailRequestDto():
+case _CodeVerifyRequestDto():
 return $default(_that.registrationId,_that.code);case _:
   throw StateError('Unexpected subclass');
 
@@ -197,7 +197,7 @@ return $default(_that.registrationId,_that.code);case _:
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'registration_id')  String registrationId,  String code)?  $default,) {final _that = this;
 switch (_that) {
-case _VerifyRegistrationEmailRequestDto() when $default != null:
+case _CodeVerifyRequestDto() when $default != null:
 return $default(_that.registrationId,_that.code);case _:
   return null;
 
@@ -209,27 +209,27 @@ return $default(_that.registrationId,_that.code);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _VerifyRegistrationEmailRequestDto implements VerifyRegistrationEmailRequestDto {
-  const _VerifyRegistrationEmailRequestDto({@JsonKey(name: 'registration_id') required this.registrationId, required this.code});
-  factory _VerifyRegistrationEmailRequestDto.fromJson(Map<String, dynamic> json) => _$VerifyRegistrationEmailRequestDtoFromJson(json);
+class _CodeVerifyRequestDto implements CodeVerifyRequestDto {
+  const _CodeVerifyRequestDto({@JsonKey(name: 'registration_id') required this.registrationId, required this.code});
+  factory _CodeVerifyRequestDto.fromJson(Map<String, dynamic> json) => _$CodeVerifyRequestDtoFromJson(json);
 
 @override@JsonKey(name: 'registration_id') final  String registrationId;
 @override final  String code;
 
-/// Create a copy of VerifyRegistrationEmailRequestDto
+/// Create a copy of CodeVerifyRequestDto
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$VerifyRegistrationEmailRequestDtoCopyWith<_VerifyRegistrationEmailRequestDto> get copyWith => __$VerifyRegistrationEmailRequestDtoCopyWithImpl<_VerifyRegistrationEmailRequestDto>(this, _$identity);
+_$CodeVerifyRequestDtoCopyWith<_CodeVerifyRequestDto> get copyWith => __$CodeVerifyRequestDtoCopyWithImpl<_CodeVerifyRequestDto>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$VerifyRegistrationEmailRequestDtoToJson(this, );
+  return _$CodeVerifyRequestDtoToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _VerifyRegistrationEmailRequestDto&&(identical(other.registrationId, registrationId) || other.registrationId == registrationId)&&(identical(other.code, code) || other.code == code));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CodeVerifyRequestDto&&(identical(other.registrationId, registrationId) || other.registrationId == registrationId)&&(identical(other.code, code) || other.code == code));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -238,15 +238,15 @@ int get hashCode => Object.hash(runtimeType,registrationId,code);
 
 @override
 String toString() {
-  return 'VerifyRegistrationEmailRequestDto(registrationId: $registrationId, code: $code)';
+  return 'CodeVerifyRequestDto(registrationId: $registrationId, code: $code)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$VerifyRegistrationEmailRequestDtoCopyWith<$Res> implements $VerifyRegistrationEmailRequestDtoCopyWith<$Res> {
-  factory _$VerifyRegistrationEmailRequestDtoCopyWith(_VerifyRegistrationEmailRequestDto value, $Res Function(_VerifyRegistrationEmailRequestDto) _then) = __$VerifyRegistrationEmailRequestDtoCopyWithImpl;
+abstract mixin class _$CodeVerifyRequestDtoCopyWith<$Res> implements $CodeVerifyRequestDtoCopyWith<$Res> {
+  factory _$CodeVerifyRequestDtoCopyWith(_CodeVerifyRequestDto value, $Res Function(_CodeVerifyRequestDto) _then) = __$CodeVerifyRequestDtoCopyWithImpl;
 @override @useResult
 $Res call({
 @JsonKey(name: 'registration_id') String registrationId, String code
@@ -257,17 +257,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$VerifyRegistrationEmailRequestDtoCopyWithImpl<$Res>
-    implements _$VerifyRegistrationEmailRequestDtoCopyWith<$Res> {
-  __$VerifyRegistrationEmailRequestDtoCopyWithImpl(this._self, this._then);
+class __$CodeVerifyRequestDtoCopyWithImpl<$Res>
+    implements _$CodeVerifyRequestDtoCopyWith<$Res> {
+  __$CodeVerifyRequestDtoCopyWithImpl(this._self, this._then);
 
-  final _VerifyRegistrationEmailRequestDto _self;
-  final $Res Function(_VerifyRegistrationEmailRequestDto) _then;
+  final _CodeVerifyRequestDto _self;
+  final $Res Function(_CodeVerifyRequestDto) _then;
 
-/// Create a copy of VerifyRegistrationEmailRequestDto
+/// Create a copy of CodeVerifyRequestDto
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? registrationId = null,Object? code = null,}) {
-  return _then(_VerifyRegistrationEmailRequestDto(
+  return _then(_CodeVerifyRequestDto(
 registrationId: null == registrationId ? _self.registrationId : registrationId // ignore: cast_nullable_to_non_nullable
 as String,code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
 as String,

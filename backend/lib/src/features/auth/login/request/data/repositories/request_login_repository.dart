@@ -32,4 +32,23 @@ class RequestLoginRepository
       },
     ),
   );
+
+  @override
+  Future<DateTime?> findLastCodeCreatedAt(String userId) => guarded(() async {
+    final result = await _pool.execute(
+      Sql.named(
+        '''
+        SELECT created_at
+        FROM auth.login_email_codes
+        WHERE user_id = @user_id
+        ORDER BY created_at DESC
+        LIMIT 1
+        '''
+            .trim(),
+      ),
+      parameters: {'user_id': userId},
+    );
+    final column = result.first.toColumnMap();
+    return column['created_at'] as DateTime;
+  });
 }

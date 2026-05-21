@@ -25,6 +25,11 @@ class UnauthorizedException extends AppException {
     : super(code, message, 401);
 }
 
+class TooManyRequestsException extends AppException {
+  const TooManyRequestsException(String code, String message)
+    : super(code, message, 429);
+}
+
 // 403
 class ForbiddenException extends AppException {
   const ForbiddenException(String code, String message)
