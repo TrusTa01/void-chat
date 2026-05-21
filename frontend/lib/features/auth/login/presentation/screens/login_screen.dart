@@ -31,16 +31,16 @@ class LoginScreen extends StatelessWidget {
           case LoginCodeSent(:final identifier):
             context.showAppSnackBar(l10n.codeSent);
             context.router.push(EmailConfirmRoute(identifier: identifier));
+          case LoginCodeResent():
+            context.showAppSnackBar(l10n.codeResent);
           case LoginInitial():
           case LoginLoading():
             break;
         }
       },
 
-      listenWhen: (previous, current) =>
-          current is LoginSuccess ||
-          current is LoginError ||
-          current is LoginCodeSent,
+      listenWhen: (_, current) =>
+          current is! LoginLoading && current is! LoginInitial,
 
       builder: (context, state) {
         final isLoading = state is LoginLoading;

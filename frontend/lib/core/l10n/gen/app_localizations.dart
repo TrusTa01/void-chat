@@ -511,6 +511,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Code sent!'**
   String get codeSent;
+
+  /// A snack bar message that appears when user request the code again
+  ///
+  /// In en, this message translates to:
+  /// **'Code sent again'**
+  String get codeResent;
+
+  /// The warning when resend request is too early
+  ///
+  /// In en, this message translates to:
+  /// **'Wait until resend'**
+  String get loginEmailCodeResendTooSoon;
 }
 
 class _AppLocalizationsDelegate

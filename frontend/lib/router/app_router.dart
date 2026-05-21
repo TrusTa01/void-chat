@@ -37,7 +37,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(path: 'login', page: LoginRoute.page, initial: true),
         AutoRoute(
           path: 'login-email-confirm',
-          page: RegisterEmailConfirmRoute.page,
+          page: EmailConfirmRoute.page,
         ),
 
         // register
@@ -49,7 +49,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(
           path: 'register-email-confirm',
           meta: {'step': 2},
-          page: EmailConfirmRoute.page,
+          page: RegisterEmailConfirmRoute.page,
         ),
         AutoRoute(
           path: 'profile-setup',

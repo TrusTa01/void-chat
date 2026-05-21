@@ -23,6 +23,10 @@ final class LoginCodeSent extends LoginState {
   const LoginCodeSent(this.identifier);
 }
 
+final class LoginCodeResent extends LoginState {
+  const LoginCodeResent();
+}
+
 final class LoginError extends LoginState {
   final LoginFailure failure;
   const LoginError(this.failure);

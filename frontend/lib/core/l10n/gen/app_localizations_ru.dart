@@ -224,5 +224,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get startChatting => 'Начать общение';
 
   @override
-  String get codeSent => 'Письмо отправлено!';
+  String get codeSent => 'Код отправлен!';
+
+  @override
+  String get codeResent => 'Код отправлен снова!';
+
+  @override
+  String get loginEmailCodeResendTooSoon =>
+      'Подождите перед повторной отправкой';
 }

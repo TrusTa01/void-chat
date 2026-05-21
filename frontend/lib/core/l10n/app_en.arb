@@ -275,5 +275,13 @@
   "codeSent": "Code sent!",
   "@codeSent": {
     "description": "A snack bar message that appears when user request the code"
+  },
+  "codeResent": "Code sent again",
+  "@codeResent": {
+    "description": "A snack bar message that appears when user request the code again"
+  },
+  "loginEmailCodeResendTooSoon": "Wait until resend",
+  "@loginEmailCodeResendTooSoon": {
+    "description": "The warning when resend request is too early"
   }
 }

@@ -52,4 +52,14 @@ class LoginCubit extends Cubit<LoginState> {
       emit(LoginError(f));
     }
   }
+
+  Future<void> resendCode(String identifier) async {
+    emit(const LoginLoading());
+    try {
+      await _codeUseCase.call(identifier);
+      emit(const LoginCodeResent());
+    } on LoginFailure catch (f) {
+      emit(LoginError(f));
+    }
+  }
 }

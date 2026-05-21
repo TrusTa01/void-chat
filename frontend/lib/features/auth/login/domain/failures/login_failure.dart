@@ -13,6 +13,10 @@ final class EmailCodeFailure extends LoginFailure {
   const EmailCodeFailure(this.type);
 }
 
+final class ResendTooSoonFailure extends LoginFailure {
+  const ResendTooSoonFailure();
+}
+
 final class NetworkFailure extends LoginFailure {
   const NetworkFailure();
 }

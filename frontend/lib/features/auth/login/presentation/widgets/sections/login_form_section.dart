@@ -135,10 +135,14 @@ class LoginFormSection extends HookWidget {
                     passwordController.text,
                   );
                 }
-              : () => onEmailConfirmTap!(loginController.text.trim()),
+              : () async {
+                  exposeValidationErrors.value = true;
+                  if (!(formKey.currentState?.validate() ?? false)) return;
+                  onEmailConfirmTap?.call(loginController.text.trim());
+                },
           child: LoadingButton(
             state: isLoading,
-            button: AnimatedButtonText(
+            text: AnimatedButtonText(
               text: isPasswordMode.value ? l10n.logIn : l10n.continueAction,
             ),
           ),

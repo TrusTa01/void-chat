@@ -225,4 +225,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get codeSent => 'Code sent!';
+
+  @override
+  String get codeResent => 'Code sent again';
+
+  @override
+  String get loginEmailCodeResendTooSoon => 'Wait until resend';
 }

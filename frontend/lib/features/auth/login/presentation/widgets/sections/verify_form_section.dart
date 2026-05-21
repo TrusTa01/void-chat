@@ -6,12 +6,14 @@ import 'package:void_chat/core/extensions/l10n_ext.dart';
 import 'package:void_chat/features/auth/shared/presentation/validation/verification_code_validation.dart';
 
 class VerifyFormSection extends HookWidget {
+  final TextEditingController? controller;
   final ValueChanged<String>? onCodeCompleted;
   final GlobalKey<FormState>? formKey;
   final ValueNotifier<bool>? exposeValidationErrors;
 
   const VerifyFormSection({
     super.key,
+    this.controller,
     this.onCodeCompleted,
     this.formKey,
     this.exposeValidationErrors,
@@ -36,7 +38,8 @@ class VerifyFormSection extends HookWidget {
     final internalExposeErrors = useState(false);
     final exposeErrors = exposeValidationErrors ?? internalExposeErrors;
 
-    final controller = useTextEditingController();
+    final internalController = useTextEditingController();
+    final controller = this.controller ?? internalController;
 
     final defaultPinTheme = PinTheme(
       width: 70,

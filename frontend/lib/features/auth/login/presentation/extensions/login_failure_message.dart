@@ -9,6 +9,7 @@ extension LoginFailureMessage on LoginFailure {
       EmailCodeError.expired => l10n.loginEmailCodeExpired,
       EmailCodeError.attemptsExceeded => l10n.loginEmailCodeAttemptsExceeded,
     },
+    ResendTooSoonFailure() => l10n.loginEmailCodeResendTooSoon,
     NetworkFailure() => l10n.networkError,
     UnknownLoginFailure(:final message) => message,
   };
