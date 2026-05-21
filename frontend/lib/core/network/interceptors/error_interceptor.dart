@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:void_chat/core/auth/infrastructure/i_session_expired_handler.dart';
 import 'package:void_chat/core/network/errors/api_exception.dart';
-import 'package:void_chat/features/auth/shared/presentation/cubit/auth_cubit.dart';
 
 class ErrorInterceptor extends Interceptor {
-  final AuthCubit _authCubit;
+  final ISessionExpiredHandler _sessionExpired;
 
-  const ErrorInterceptor(this._authCubit);
+  const ErrorInterceptor(this._sessionExpired);
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
@@ -13,7 +13,7 @@ class ErrorInterceptor extends Interceptor {
 
     if (apiException != null) {
       if (err.response?.statusCode == 401) {
-        _authCubit.logout();
+        _sessionExpired.onSessionExpired();
       }
 
       handler.reject(

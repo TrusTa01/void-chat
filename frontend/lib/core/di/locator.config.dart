@@ -15,6 +15,10 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 import 'package:talker_flutter/talker_flutter.dart' as _i207;
+import 'package:void_chat/core/auth/infrastructure/i_session_expired_handler.dart'
+    as _i1021;
+import 'package:void_chat/core/auth/infrastructure/session_expired_handler.dart'
+    as _i1047;
 import 'package:void_chat/core/di/modules.dart' as _i980;
 import 'package:void_chat/core/l10n/cubit/l10n_cubit.dart' as _i331;
 import 'package:void_chat/core/network/dio_client.dart' as _i139;
@@ -69,13 +73,16 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i265.AuthCubit>(
       () => _i265.AuthCubit(gh<_i351.AppSecureStorage>()),
     );
+    gh.lazySingleton<_i1021.ISessionExpiredHandler>(
+      () => _i1047.SessionExpiredHandlerImpl(gh<_i265.AuthCubit>()),
+    );
     gh.factory<_i331.L10nCubit>(() => _i331.L10nCubit(gh<_i959.AppPrefs>()));
     gh.factory<_i542.ThemeCubit>(() => _i542.ThemeCubit(gh<_i959.AppPrefs>()));
     gh.lazySingleton<_i139.DioClient>(
       () => _i139.DioClient(
         gh<_i207.Talker>(),
         gh<_i351.AppSecureStorage>(),
-        gh<_i265.AuthCubit>(),
+        gh<_i1021.ISessionExpiredHandler>(),
       ),
     );
     gh.lazySingleton<_i361.Dio>(
