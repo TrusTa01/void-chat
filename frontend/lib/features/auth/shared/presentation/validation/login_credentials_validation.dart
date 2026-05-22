@@ -8,6 +8,7 @@ const int loginLoginMinLength = 3;
 const int loginLoginMaxLength = 64;
 const int loginPasswordMinLength = 8;
 const int loginPasswordMaxLength = 128;
+const int displayNameMaxLength = 100;
 
 final RegExp _loginCharset = RegExp(r'^[a-zA-Z0-9_-]+$');
 
@@ -31,6 +32,11 @@ final List<TextInputFormatter> loginIdentifierInputFormatters = [
 
 final List<TextInputFormatter> loginPasswordInputFormatters = [
   LengthLimitingTextInputFormatter(loginPasswordMaxLength),
+  FilteringTextInputFormatter.deny(_identifierDeniedChars),
+];
+
+final List<TextInputFormatter> displayNameInputFormatters = [
+  LengthLimitingTextInputFormatter(displayNameMaxLength),
   FilteringTextInputFormatter.deny(_identifierDeniedChars),
 ];
 
@@ -84,6 +90,18 @@ String? validateLoginPassword(String? value, AppLocalizations l10n) {
   }
   if (!_passwordHasLetter.hasMatch(raw) || !_passwordHasDigit.hasMatch(raw)) {
     return l10n.loginPasswordLetterAndDigit;
+  }
+  return null;
+}
+
+/// Display name: any letters (including Cyrillic), digits, spaces, common punctuation.
+String? validateDisplayName(String? value, AppLocalizations l10n) {
+  final trimmed = value?.trim() ?? '';
+  if (trimmed.isEmpty) {
+    return l10n.profileSetupDisplayNameRequired;
+  }
+  if (trimmed.length > displayNameMaxLength) {
+    return l10n.profileSetupDisplayNameTooLong;
   }
   return null;
 }

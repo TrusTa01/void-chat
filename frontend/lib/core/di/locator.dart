@@ -4,6 +4,7 @@ import 'package:talker_flutter/talker_flutter.dart';
 import 'package:void_chat/core/di/locator.config.dart';
 import 'package:void_chat/core/theme/theme_controller.dart';
 import 'package:void_chat/features/auth/login/presentation/cubit/login_cubit.dart';
+import 'package:void_chat/features/auth/register/presentation/cubit/register_cubit.dart';
 import 'package:void_chat/router/app_router.dart';
 
 final getIt = GetIt.instance;
@@ -15,3 +16,4 @@ AppRouter get appRouter => getIt<AppRouter>();
 Talker get talker => getIt<Talker>();
 ThemeController get themeController => getIt<ThemeController>();
 LoginCubit get loginCubit => getIt<LoginCubit>();
+RegisterCubit get registerCubit => getIt<RegisterCubit>();

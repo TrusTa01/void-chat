@@ -3,15 +3,30 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:void_chat/core/extensions/l10n_ext.dart';
 import 'package:void_chat/features/auth/shared/presentation/validation/login_credentials_validation.dart';
 import 'package:void_chat/features/auth/shared/presentation/widgets/sections/form_section.dart';
+import 'package:void_chat/features/auth/shared/presentation/widgets/ui_kits/loading_button.dart';
 import 'package:void_chat/features/auth/shared/presentation/widgets/ui_kits/password_text_form_field.dart';
 import 'package:void_chat/features/auth/shared/presentation/widgets/ui_kits/policy_checkbox.dart';
 
+typedef RegisterContinueCallback =
+    Future<void> Function(String login, String email, String password);
+
 class RegisterFormSection extends HookWidget {
-  const RegisterFormSection({super.key});
+  final RegisterContinueCallback? onContinueTap;
+  final bool isLoading;
+
+  const RegisterFormSection({
+    super.key,
+    this.onContinueTap,
+    this.isLoading = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+
+    final formKey = useMemoized(GlobalKey<FormState>.new);
+    final exposeValidationErrors = useState(false);
+    final policyAgreed = useState(false);
 
     final emailController = useTextEditingController();
     final loginController = useTextEditingController();
@@ -26,6 +41,7 @@ class RegisterFormSection extends HookWidget {
     final hidePass = useState(true);
 
     return FormSection(
+      formKey: formKey,
       children: [
         TextFormField(
           controller: loginController,
@@ -36,7 +52,7 @@ class RegisterFormSection extends HookWidget {
           autocorrect: false,
           autofillHints: const [AutofillHints.username],
           onFieldSubmitted: (_) =>
-              FormSection.focusNext(context, loginFocus, passwordFocus),
+              FormSection.focusNext(context, loginFocus, emailFocus),
           decoration: InputDecoration(
             labelText: l10n.registerLoginLabel,
             hintText: l10n.registerLoginHint,
@@ -45,7 +61,9 @@ class RegisterFormSection extends HookWidget {
           ),
           maxLines: 1,
           inputFormatters: loginIdentifierInputFormatters,
-          validator: (value) => validateLoginIdentifier(value, l10n),
+          validator: (value) => exposeValidationErrors.value
+              ? validateLoginIdentifier(value, l10n)
+              : null,
         ),
         const SizedBox(height: 20),
 
@@ -58,14 +76,16 @@ class RegisterFormSection extends HookWidget {
           autocorrect: false,
           autofillHints: const [AutofillHints.email],
           onFieldSubmitted: (_) =>
-              FormSection.focusNext(context, emailFocus, loginFocus),
+              FormSection.focusNext(context, emailFocus, passwordFocus),
           decoration: InputDecoration(
             labelText: l10n.registerEmailLabel,
             hintText: l10n.registerEmailHint,
           ),
           maxLines: 1,
           inputFormatters: loginIdentifierInputFormatters,
-          validator: (value) => validateRegisterEmail(value, l10n),
+          validator: (value) => exposeValidationErrors.value
+              ? validateRegisterEmail(value, l10n)
+              : null,
         ),
         const SizedBox(height: 20),
 
@@ -81,7 +101,9 @@ class RegisterFormSection extends HookWidget {
           onSuffixIconTap: () => hidePass.value = !hidePass.value,
           hidePass: hidePass,
           inputFormatters: loginPasswordInputFormatters,
-          validator: (value) => validateLoginPassword(value, l10n),
+          validator: (value) => exposeValidationErrors.value
+              ? validateLoginPassword(value, l10n)
+              : null,
         ),
         const SizedBox(height: 20),
 
@@ -93,15 +115,45 @@ class RegisterFormSection extends HookWidget {
           hintText: l10n.registerConfirmPasswordHint,
           inputFormatters: loginPasswordInputFormatters,
           hidePass: hidePass,
-          validator: (value) => validateConfirmPassword(
-            value: value,
-            originalPassword: passwordController.text,
-            l10n: l10n,
-          ),
+          validator: (value) => exposeValidationErrors.value
+              ? validateConfirmPassword(
+                  value: value,
+                  originalPassword: passwordController.text,
+                  l10n: l10n,
+                )
+              : null,
         ),
         const SizedBox(height: 20),
 
-        const PolicyCheckbox(),
+        PolicyCheckbox(
+          value: policyAgreed.value,
+          onChanged: (value) => policyAgreed.value = value,
+        ),
+        const SizedBox(height: 30),
+
+        FilledButton(
+          onPressed: isLoading
+              ? null
+              : () async {
+                  exposeValidationErrors.value = true;
+                  if (!(formKey.currentState?.validate() ?? false)) return;
+                  if (!policyAgreed.value) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(l10n.registerPolicyRequired)),
+                    );
+                    return;
+                  }
+                  await onContinueTap?.call(
+                    loginController.text.trim(),
+                    emailController.text.trim(),
+                    passwordController.text,
+                  );
+                },
+          child: LoadingButton(
+            state: isLoading,
+            text: Text(l10n.continueAction),
+          ),
+        ),
       ],
     );
   }

@@ -156,6 +156,37 @@ class AppLocalizationsEn extends AppLocalizations {
   String get registerEmailRequired => 'Enter your email';
 
   @override
+  String get registerPolicyRequired =>
+      'Accept the Terms & Conditions to continue';
+
+  @override
+  String get registerEmailTaken => 'This email is already registered';
+
+  @override
+  String get registerUsernameTaken => 'This username is already taken';
+
+  @override
+  String get registerInvalidRegistration =>
+      'Registration session expired. Start again.';
+
+  @override
+  String get registerEmailNotVerified =>
+      'Verify your email before completing setup';
+
+  @override
+  String get registerResetDialogTitle => 'Reset registration?';
+
+  @override
+  String get registerResetDialogMessage =>
+      'Are you sure? Your registration progress will be cleared and you will return to the first step.';
+
+  @override
+  String get registerResetDialogConfirm => 'Reset';
+
+  @override
+  String get registerResetDialogStay => 'Stay';
+
+  @override
   String get createAccount => 'Create Account';
 
   @override
@@ -212,6 +243,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profileSetupDisplayNameHint => 'Arthur Morgan';
+
+  @override
+  String get profileSetupDisplayNameRequired => 'Enter a display name';
+
+  @override
+  String get profileSetupDisplayNameTooLong => 'Display name is too long';
 
   @override
   String get profileSetupHintText =>

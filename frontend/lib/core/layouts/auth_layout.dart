@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:void_chat/core/di/locator.dart';
 import 'package:void_chat/core/extensions/theme_context_ext.dart';
+import 'package:void_chat/features/auth/register/presentation/widgets/register_profile_back_handler.dart';
 import 'package:void_chat/features/auth/shared/presentation/widgets/ui_kits/registration_step_indicator.dart';
 import 'package:void_chat/router/app_router.dart';
 
@@ -17,15 +18,20 @@ class AuthLayoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => loginCubit,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => loginCubit),
+        BlocProvider(create: (_) => registerCubit),
+      ],
       child: AutoRouter(
         builder: (context, content) {
           final step = _registrationStep(context.router.topRoute);
 
           return Scaffold(
             appBar: AppBar(
-              leading: const AutoLeadingButton(),
+              leading: step == AppRouter.totalRegisterSteps
+                  ? const RegisterProfileBackButton()
+                  : const AutoLeadingButton(),
               title: Image.asset(context.logoPath, height: 100, width: 125),
               centerTitle: true,
               bottom: step != null

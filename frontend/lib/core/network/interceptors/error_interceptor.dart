@@ -12,7 +12,8 @@ class ErrorInterceptor extends Interceptor {
     final apiException = _tryParseApiException(err);
 
     if (apiException != null) {
-      if (err.response?.statusCode == 401) {
+      if (err.response?.statusCode == 401 &&
+          !_isAnonymousAuthRequest(err.requestOptions.uri.path)) {
         _sessionExpired.onSessionExpired();
       }
 
@@ -58,4 +59,18 @@ class ErrorInterceptor extends Interceptor {
       details: details,
     );
   }
+}
+
+bool _isAnonymousAuthRequest(String path) {
+  var normalized = path.startsWith('/') ? path : '/$path';
+  if (normalized.length > 1 && normalized.endsWith('/')) {
+    normalized = normalized.substring(0, normalized.length - 1);
+  }
+  if (normalized.startsWith('/auth/register/')) return true;
+  if (normalized == '/auth/login/password' ||
+      normalized == '/auth/login/code/request' ||
+      normalized == '/auth/login/code/verify') {
+    return true;
+  }
+  return false;
 }

@@ -35,6 +35,8 @@ mixin ApiRequestHandler {
           throw const EmailCodeFailure(EmailCodeError.attemptsExceeded);
         case 'EMAIL_CODE_RESEND_TOO_SOON':
           throw const ResendTooSoonFailure();
+        case 'UNAUTHORIZED':
+          throw const InvalidCredentialsFailure();
         default:
           throw UnknownLoginFailure(api.message);
       }

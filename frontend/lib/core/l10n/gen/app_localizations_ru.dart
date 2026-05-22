@@ -154,6 +154,35 @@ class AppLocalizationsRu extends AppLocalizations {
   String get registerEmailRequired => 'Введите email';
 
   @override
+  String get registerPolicyRequired => 'Примите условия, чтобы продолжить';
+
+  @override
+  String get registerEmailTaken => 'Этот email уже зарегистрирован';
+
+  @override
+  String get registerUsernameTaken => 'Этот username уже занят';
+
+  @override
+  String get registerInvalidRegistration =>
+      'Сессия регистрации истекла. Начните заново.';
+
+  @override
+  String get registerEmailNotVerified => 'Сначала подтвердите почту';
+
+  @override
+  String get registerResetDialogTitle => 'Сбросить регистрацию?';
+
+  @override
+  String get registerResetDialogMessage =>
+      'Вы уверены? Прогресс регистрации будет удалён, и вы вернётесь на первый шаг.';
+
+  @override
+  String get registerResetDialogConfirm => 'Сбросить';
+
+  @override
+  String get registerResetDialogStay => 'Остаться';
+
+  @override
   String get createAccount => 'Создать аккаунт';
 
   @override
@@ -212,6 +241,12 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get profileSetupDisplayNameHint => 'Артур Морган';
+
+  @override
+  String get profileSetupDisplayNameRequired => 'Введите отображаемое имя';
+
+  @override
+  String get profileSetupDisplayNameTooLong => 'Слишком длинное имя';
 
   @override
   String get profileSetupHintText =>

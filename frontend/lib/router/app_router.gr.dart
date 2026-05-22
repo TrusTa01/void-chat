@@ -143,11 +143,14 @@ class RegisterEmailConfirmRoute
     extends PageRouteInfo<RegisterEmailConfirmRouteArgs> {
   RegisterEmailConfirmRoute({
     Key? key,
-    required String identifier,
+    required String registrationId,
     List<PageRouteInfo>? children,
   }) : super(
          RegisterEmailConfirmRoute.name,
-         args: RegisterEmailConfirmRouteArgs(key: key, identifier: identifier),
+         args: RegisterEmailConfirmRouteArgs(
+           key: key,
+           registrationId: registrationId,
+         ),
          initialChildren: children,
        );
 
@@ -159,33 +162,33 @@ class RegisterEmailConfirmRoute
       final args = data.argsAs<RegisterEmailConfirmRouteArgs>();
       return RegisterEmailConfirmScreen(
         key: args.key,
-        identifier: args.identifier,
+        registrationId: args.registrationId,
       );
     },
   );
 }
 
 class RegisterEmailConfirmRouteArgs {
-  const RegisterEmailConfirmRouteArgs({this.key, required this.identifier});
+  const RegisterEmailConfirmRouteArgs({this.key, required this.registrationId});
 
   final Key? key;
 
-  final String identifier;
+  final String registrationId;
 
   @override
   String toString() {
-    return 'RegisterEmailConfirmRouteArgs{key: $key, identifier: $identifier}';
+    return 'RegisterEmailConfirmRouteArgs{key: $key, registrationId: $registrationId}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! RegisterEmailConfirmRouteArgs) return false;
-    return key == other.key && identifier == other.identifier;
+    return key == other.key && registrationId == other.registrationId;
   }
 
   @override
-  int get hashCode => key.hashCode ^ identifier.hashCode;
+  int get hashCode => key.hashCode ^ registrationId.hashCode;
 }
 
 /// generated route for

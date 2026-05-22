@@ -42,6 +42,22 @@ import 'package:void_chat/features/auth/login/domain/use_cases/login_with_passwo
     as _i483;
 import 'package:void_chat/features/auth/login/presentation/cubit/login_cubit.dart'
     as _i361;
+import 'package:void_chat/features/auth/register/data/data_sources/register_remote_data_source.dart'
+    as _i795;
+import 'package:void_chat/features/auth/register/data/repositories/register_repository_impl.dart'
+    as _i150;
+import 'package:void_chat/features/auth/register/domain/repositories/i_register_repository.dart'
+    as _i103;
+import 'package:void_chat/features/auth/register/domain/use_cases/cancel_registration_use_case.dart'
+    as _i357;
+import 'package:void_chat/features/auth/register/domain/use_cases/complete_registration_use_case.dart'
+    as _i186;
+import 'package:void_chat/features/auth/register/domain/use_cases/start_registration_use_case.dart'
+    as _i406;
+import 'package:void_chat/features/auth/register/domain/use_cases/verify_registration_email_use_case.dart'
+    as _i201;
+import 'package:void_chat/features/auth/register/presentation/cubit/register_cubit.dart'
+    as _i712;
 import 'package:void_chat/features/auth/shared/presentation/cubit/auth_cubit.dart'
     as _i265;
 import 'package:void_chat/router/app_router.dart' as _i724;
@@ -94,6 +110,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i301.LoginRemoteDataSource>(
       () => _i301.LoginRemoteDataSource(gh<_i361.Dio>()),
     );
+    gh.lazySingleton<_i795.RegisterRemoteDataSource>(
+      () => _i795.RegisterRemoteDataSource(gh<_i361.Dio>()),
+    );
     gh.lazySingleton<_i724.AppRouter>(
       () => _i724.AppRouter(gh<_i374.AuthGuard>()),
     );
@@ -109,14 +128,44 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i483.ILoginWithPasswordUseCase>(
       () => _i483.LoginWithPasswordUseCaseImpl(gh<_i172.ILoginRepository>()),
     );
+    gh.lazySingleton<_i103.IRegisterRepository>(
+      () => _i150.RegisterRepositoryImpl(gh<_i795.RegisterRemoteDataSource>()),
+    );
     gh.lazySingleton<_i656.ILoginWithCodeUseCase>(
       () => _i656.LoginWithCodeUseCaseImpl(gh<_i172.ILoginRepository>()),
+    );
+    gh.lazySingleton<_i357.ICancelRegistrationUseCase>(
+      () =>
+          _i357.CancelRegistrationUseCaseImpl(gh<_i103.IRegisterRepository>()),
+    );
+    gh.lazySingleton<_i201.IVerifyRegistrationEmailUseCase>(
+      () => _i201.VerifyRegistrationEmailUseCaseImpl(
+        gh<_i103.IRegisterRepository>(),
+      ),
+    );
+    gh.lazySingleton<_i186.ICompleteRegistrationUseCase>(
+      () => _i186.CompleteRegistrationUseCaseImpl(
+        gh<_i103.IRegisterRepository>(),
+      ),
+    );
+    gh.lazySingleton<_i406.IStartRegistrationUseCase>(
+      () => _i406.StartRegistrationUseCaseImpl(gh<_i103.IRegisterRepository>()),
     );
     gh.factory<_i361.LoginCubit>(
       () => _i361.LoginCubit(
         gh<_i483.ILoginWithPasswordUseCase>(),
         gh<_i656.ILoginWithCodeUseCase>(),
         gh<_i1003.ILoginVerifyCodeUseCase>(),
+        gh<_i265.AuthCubit>(),
+      ),
+    );
+    gh.factory<_i712.RegisterCubit>(
+      () => _i712.RegisterCubit(
+        gh<_i406.IStartRegistrationUseCase>(),
+        gh<_i201.IVerifyRegistrationEmailUseCase>(),
+        gh<_i186.ICompleteRegistrationUseCase>(),
+        gh<_i357.ICancelRegistrationUseCase>(),
+        gh<_i483.ILoginWithPasswordUseCase>(),
         gh<_i265.AuthCubit>(),
       ),
     );

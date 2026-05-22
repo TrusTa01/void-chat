@@ -184,6 +184,42 @@
   "@registerEmailRequired": {
     "description": "Validation: empty email on registration"
   },
+  "registerPolicyRequired": "Accept the Terms & Conditions to continue",
+  "@registerPolicyRequired": {
+    "description": "Validation: policy checkbox not checked on registration"
+  },
+  "registerEmailTaken": "This email is already registered",
+  "@registerEmailTaken": {
+    "description": "Registration failure: EMAIL_TAKEN"
+  },
+  "registerUsernameTaken": "This username is already taken",
+  "@registerUsernameTaken": {
+    "description": "Registration failure: USERNAME_TAKEN"
+  },
+  "registerInvalidRegistration": "Registration session expired. Start again.",
+  "@registerInvalidRegistration": {
+    "description": "Registration failure: INVALID_REGISTRATION"
+  },
+  "registerEmailNotVerified": "Verify your email before completing setup",
+  "@registerEmailNotVerified": {
+    "description": "Registration failure: EMAIL_NOT_VERIFIED"
+  },
+  "registerResetDialogTitle": "Reset registration?",
+  "@registerResetDialogTitle": {
+    "description": "Title when leaving profile setup via back"
+  },
+  "registerResetDialogMessage": "Are you sure? Your registration progress will be cleared and you will return to the first step.",
+  "@registerResetDialogMessage": {
+    "description": "Body when leaving profile setup via back"
+  },
+  "registerResetDialogConfirm": "Reset",
+  "@registerResetDialogConfirm": {
+    "description": "Confirm reset registration on profile back"
+  },
+  "registerResetDialogStay": "Stay",
+  "@registerResetDialogStay": {
+    "description": "Dismiss reset registration dialog"
+  },
   "createAccount": "Create Account",
   "@createAccount": {
     "description": "Main text in register screen"
@@ -259,6 +295,14 @@
   "profileSetupDisplayNameHint": "Arthur Morgan",
   "@profileSetupDisplayNameHint": {
     "description": "Hint for display name field on profile setup"
+  },
+  "profileSetupDisplayNameRequired": "Enter a display name",
+  "@profileSetupDisplayNameRequired": {
+    "description": "Validation: empty display name on profile setup"
+  },
+  "profileSetupDisplayNameTooLong": "Display name is too long",
+  "@profileSetupDisplayNameTooLong": {
+    "description": "Validation: display name exceeds max length"
   },
   "profileSetupHintText": "Your username and display name are public. You can change them later in settings.",
   "@profileSetupHintText": {

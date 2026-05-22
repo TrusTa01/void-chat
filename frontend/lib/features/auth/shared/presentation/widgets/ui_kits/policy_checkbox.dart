@@ -6,24 +6,35 @@ import 'package:void_chat/core/utils/launcher.dart';
 import 'package:void_chat/features/auth/shared/presentation/widgets/ui_kits/switch_link.dart';
 
 class PolicyCheckbox extends HookWidget {
-  const PolicyCheckbox({super.key});
+  final bool? value;
+  final ValueChanged<bool>? onChanged;
+
+  const PolicyCheckbox({super.key, this.value, this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final isAgreed = useState(false);
+    final internalAgreed = useState(false);
+    final isControlled = onChanged != null;
+    final agreed = value ?? internalAgreed.value;
+
+    void setAgreed(bool newValue) {
+      if (isControlled) {
+        onChanged!(newValue);
+      } else {
+        internalAgreed.value = newValue;
+      }
+    }
 
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // Checkbox
         Checkbox(
-          value: isAgreed.value,
-          onChanged: (bool? newValue) => isAgreed.value = newValue ?? false,
+          value: agreed,
+          onChanged: (bool? newValue) => setAgreed(newValue ?? false),
         ),
         const SizedBox(width: 5),
-
-        // Text
+        
         SwitchLink(
           text: l10n.iAgreeto,
           linkText: l10n.policy,

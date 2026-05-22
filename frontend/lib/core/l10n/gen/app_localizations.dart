@@ -374,6 +374,60 @@ abstract class AppLocalizations {
   /// **'Enter your email'**
   String get registerEmailRequired;
 
+  /// Validation: policy checkbox not checked on registration
+  ///
+  /// In en, this message translates to:
+  /// **'Accept the Terms & Conditions to continue'**
+  String get registerPolicyRequired;
+
+  /// Registration failure: EMAIL_TAKEN
+  ///
+  /// In en, this message translates to:
+  /// **'This email is already registered'**
+  String get registerEmailTaken;
+
+  /// Registration failure: USERNAME_TAKEN
+  ///
+  /// In en, this message translates to:
+  /// **'This username is already taken'**
+  String get registerUsernameTaken;
+
+  /// Registration failure: INVALID_REGISTRATION
+  ///
+  /// In en, this message translates to:
+  /// **'Registration session expired. Start again.'**
+  String get registerInvalidRegistration;
+
+  /// Registration failure: EMAIL_NOT_VERIFIED
+  ///
+  /// In en, this message translates to:
+  /// **'Verify your email before completing setup'**
+  String get registerEmailNotVerified;
+
+  /// Title when leaving profile setup via back
+  ///
+  /// In en, this message translates to:
+  /// **'Reset registration?'**
+  String get registerResetDialogTitle;
+
+  /// Body when leaving profile setup via back
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure? Your registration progress will be cleared and you will return to the first step.'**
+  String get registerResetDialogMessage;
+
+  /// Confirm reset registration on profile back
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get registerResetDialogConfirm;
+
+  /// Dismiss reset registration dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Stay'**
+  String get registerResetDialogStay;
+
   /// Main text in register screen
   ///
   /// In en, this message translates to:
@@ -487,6 +541,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Arthur Morgan'**
   String get profileSetupDisplayNameHint;
+
+  /// Validation: empty display name on profile setup
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a display name'**
+  String get profileSetupDisplayNameRequired;
+
+  /// Validation: display name exceeds max length
+  ///
+  /// In en, this message translates to:
+  /// **'Display name is too long'**
+  String get profileSetupDisplayNameTooLong;
 
   /// A note under forms with public users data
   ///

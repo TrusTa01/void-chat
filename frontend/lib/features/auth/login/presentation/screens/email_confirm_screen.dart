@@ -10,6 +10,7 @@ import 'package:void_chat/features/auth/login/presentation/cubit/login_state.dar
 import 'package:void_chat/features/auth/login/presentation/extensions/login_failure_message.dart';
 import 'package:void_chat/features/auth/login/presentation/widgets/sections/verify_form_section.dart';
 import 'package:void_chat/features/auth/shared/presentation/hooks/use_email_code_resend_cooldown.dart';
+import 'package:void_chat/features/auth/shared/presentation/validation/verification_code_validation.dart';
 import 'package:void_chat/features/auth/shared/presentation/widgets/components/auth_body.dart';
 import 'package:void_chat/features/auth/shared/presentation/widgets/components/auth_footer_link.dart';
 import 'package:void_chat/features/auth/shared/presentation/widgets/components/auth_header.dart';
@@ -28,7 +29,7 @@ class EmailConfirmScreen extends HookWidget {
     final l10n = context.l10n;
 
     final pinController = useTextEditingController();
-    final code = useState('');
+    useListenable(pinController);
     final resendCooldown = useEmailCodeResendCooldown();
 
     return BlocConsumer<LoginCubit, LoginState>(
@@ -43,7 +44,6 @@ class EmailConfirmScreen extends HookWidget {
             context.showAppSnackBar(l10n.codeResent);
             resendCooldown.startCooldown();
             pinController.clear();
-            code.value = '';
           case LoginError(:final failure):
             context.showAppSnackBar(failure.messages(l10n));
             if (failure is ResendTooSoonFailure) {
@@ -72,19 +72,20 @@ class EmailConfirmScreen extends HookWidget {
           bottomPadding: 50,
           children: [
             VerifyFormSection(
-              onCodeCompleted: (pin) => code.value = pin,
               controller: pinController,
             ),
             const SizedBox(height: 30),
 
             // Verify button
             FilledButton(
-              onPressed: isLoading || code.value.length != 4
+              onPressed:
+                  isLoading ||
+                      pinController.text.length != verificationCodeLength
                   ? null
                   : () async {
                       await context.read<LoginCubit>().verifyCode(
                         identifier,
-                        code.value,
+                        pinController.text.trim(),
                       );
                     },
               child: LoadingButton(
