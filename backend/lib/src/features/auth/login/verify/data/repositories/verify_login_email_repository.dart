@@ -1,13 +1,13 @@
 import 'package:backend/src/core/data/pg_error_handling_mixin.dart';
-import 'package:backend/src/features/auth/shared/verify-email/domain/repositories/i_verify_email_repository.dart';
+import 'package:backend/src/features/auth/login/verify/domain/repositories/i_verify_login_email_repository.dart';
 import 'package:backend/src/features/auth/shared/verify-email/domain/value_objects/email_code.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
 
-@LazySingleton(as: IVerifyEmailRepository)
+@LazySingleton(as: IVerifyLoginEmailRepository)
 class VerifyLoginEmailRepository
     with PgErrorHandling
-    implements IVerifyEmailRepository {
+    implements IVerifyLoginEmailRepository {
   final Pool<Connection> _pool;
 
   const VerifyLoginEmailRepository(this._pool);

@@ -25,20 +25,26 @@ Middleware authMiddleware() {
   };
 }
 
-bool _requiresAuth(String path) {
-  final normalized = _normalizePath(path);
-  const publicPaths = {
-    '/',
-    '/health',
-    '/favicon.ico',
-    '/auth/register/start',
-    '/auth/register/verify-email',
-    '/auth/register/complete-profile',
-    '/auth/login/password',
-    '/auth/login/code/request',
-    '/auth/login/code/verify',
-  };
-  return !publicPaths.contains(normalized);
+bool _requiresAuth(String path) => !_isPublicPath(_normalizePath(path));
+
+bool _isPublicPath(String normalized) {
+  if (normalized == '/' ||
+      normalized == '/health' ||
+      normalized == '/favicon.ico') {
+    return true;
+  }
+
+  // Entire registration flow is anonymous until the user signs in.
+  if (normalized.startsWith('/auth/register/')) return true;
+
+  // Login entry points only (not /auth/logout).
+  if (normalized == '/auth/login/password' ||
+      normalized == '/auth/login/code/request' ||
+      normalized == '/auth/login/code/verify') {
+    return true;
+  }
+
+  return false;
 }
 
 String _normalizePath(String path) {

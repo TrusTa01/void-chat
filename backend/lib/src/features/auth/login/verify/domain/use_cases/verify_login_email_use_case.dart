@@ -2,26 +2,26 @@ import 'package:backend/src/core/errors/app_exception.dart';
 import 'package:backend/src/features/auth/login/password/domain/repositories/i_user_repository.dart';
 import 'package:backend/src/features/auth/login/password/domain/value_objects/login_result.dart';
 import 'package:backend/src/features/auth/login/shared/domain/use_cases/create_session_token_use_case.dart';
-import 'package:backend/src/features/auth/shared/verify-email/domain/repositories/i_verify_email_repository.dart';
+import 'package:backend/src/features/auth/login/verify/domain/repositories/i_verify_login_email_repository.dart';
 import 'package:backend/src/features/auth/shared/auth_error_codes.dart';
 import 'package:backend/src/features/auth/shared/verify-email/domain/services/email_code.dart';
 import 'package:injectable/injectable.dart';
 
-abstract interface class IVerifyEmailUseCase {
+abstract interface class IVerifyLoginEmailUseCase {
   Future<LoginResult> verify({
     required String identifier,
     required String code,
   });
 }
 
-@LazySingleton(as: IVerifyEmailUseCase)
-class VerifyEmailUseCase implements IVerifyEmailUseCase {
+@LazySingleton(as: IVerifyLoginEmailUseCase)
+class VerifyLoginEmailUseCase implements IVerifyLoginEmailUseCase {
   final IUserRepository _userRepository;
-  final IVerifyEmailRepository _verifyLoginEmailRepo;
+  final IVerifyLoginEmailRepository _verifyLoginEmailRepo;
   final EmailCodeService _emailService;
   final ICreateSessionTokenUseCase _createSession;
 
-  const VerifyEmailUseCase(
+  const VerifyLoginEmailUseCase(
     this._userRepository,
     this._verifyLoginEmailRepo,
     this._emailService,
@@ -39,7 +39,7 @@ class VerifyEmailUseCase implements IVerifyEmailUseCase {
       identifier,
     );
     if (credentials == null) {
-      throw const UnauthorizedException(
+      throw const ValidationException(
         AuthErrorCodes.invalidCredentials,
         'Email or code is incorrect',
       );

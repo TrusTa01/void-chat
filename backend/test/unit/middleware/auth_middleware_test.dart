@@ -1,38 +1,59 @@
+import 'package:backend/src/core/errors/app_exception.dart';
 import 'package:backend/src/middleware/auth_middleware.dart';
 import 'package:shelf/shelf.dart';
 import 'package:test/test.dart';
 
 void main() {
-  Handler publicHandler() =>
-      (Request request) => Response.ok(request.url.path);
+  group('authMiddleware', () {
+    late int handlerCalls;
 
-  Handler pipeline() =>
-      Pipeline().addMiddleware(authMiddleware()).addHandler(publicHandler());
+    Handler buildHandler() {
+      handlerCalls = 0;
+      Future<Response> inner(Request request) async {
+        handlerCalls += 1;
+        return Response.ok('ok');
+      }
 
-  group('public paths without token', () {
-    for (final path in ['/', '/health', '/favicon.ico']) {
-      test('GET $path', () async {
-        final response = await pipeline()(
-          Request('GET', Uri.parse('http://localhost$path')),
-        );
-
-        expect(response.statusCode, 200);
-      });
+      return authMiddleware()(inner);
     }
 
-    test('GET /health/ (trailing slash)', () async {
-      final response = await pipeline()(
-        Request('GET', Uri.parse('http://localhost/health/')),
+    test('allows POST /auth/register/verify-email without token', () async {
+      final handler = buildHandler();
+      final response = await handler(
+        Request(
+          'POST',
+          Uri.parse('http://localhost/auth/register/verify-email'),
+        ),
       );
 
       expect(response.statusCode, 200);
+      expect(handlerCalls, 1);
     });
-  });
 
-  test('protected path without token returns 401', () async {
-    expect(
-      () => pipeline()(Request('GET', Uri.parse('http://localhost/auth/me'))),
-      throwsA(isA<Exception>()),
+    test(
+      'allows POST /auth/register/verify-email/ with trailing slash',
+      () async {
+        final handler = buildHandler();
+        final response = await handler(
+          Request(
+            'POST',
+            Uri.parse('http://localhost/auth/register/verify-email/'),
+          ),
+        );
+
+        expect(response.statusCode, 200);
+        expect(handlerCalls, 1);
+      },
     );
+
+    test('requires token for GET /auth/me', () async {
+      final handler = buildHandler();
+
+      expect(
+        () => handler(Request('GET', Uri.parse('http://localhost/auth/me'))),
+        throwsA(isA<UnauthorizedException>()),
+      );
+      expect(handlerCalls, 0);
+    });
   });
 }

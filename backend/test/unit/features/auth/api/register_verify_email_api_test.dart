@@ -2,8 +2,7 @@ import 'dart:convert';
 
 import 'package:backend/src/core/di/locator.dart';
 import 'package:backend/src/core/errors/app_exception.dart';
-import 'package:backend/src/features/auth/login/password/domain/value_objects/login_result.dart';
-import 'package:backend/src/features/auth/shared/verify-email/domain/usecases/verify_email_use_case.dart';
+import 'package:backend/src/features/auth/register/verify_email/domain/use_cases/verify_registration_email_use_case.dart';
 import 'package:backend/src/features/auth/shared/auth_error_codes.dart';
 import 'package:shelf/shelf.dart';
 import 'package:talker/talker.dart';
@@ -12,16 +11,16 @@ import 'package:test/test.dart';
 import 'auth_api_test_support.dart';
 
 void main() {
-  late _FakeVerifyEmailUseCase verifyEmailUseCase;
+  late _FakeVerifyRegistrationEmailUseCase verifyRegistrationEmailUseCase;
   late Handler handler;
 
   setUp(() async {
     await getIt.reset();
     getIt.registerSingleton<Talker>(Talker());
 
-    verifyEmailUseCase = _FakeVerifyEmailUseCase();
+    verifyRegistrationEmailUseCase = _FakeVerifyRegistrationEmailUseCase();
     handler = createAuthHandler(
-      buildTestAuthApi(verifyEmail: verifyEmailUseCase),
+      buildTestAuthApi(verifyRegistrationEmail: verifyRegistrationEmailUseCase),
     );
   });
 
@@ -50,9 +49,12 @@ void main() {
         }),
       );
 
-      expect(verifyEmailUseCase.lastIdentifier, 'registration-123');
-      expect(verifyEmailUseCase.lastCode, '1234');
-      expect(verifyEmailUseCase.callCount, 1);
+      expect(
+        verifyRegistrationEmailUseCase.lastRegistrationId,
+        'registration-123',
+      );
+      expect(verifyRegistrationEmailUseCase.lastCode, '1234');
+      expect(verifyRegistrationEmailUseCase.callCount, 1);
     });
 
     test(
@@ -69,12 +71,12 @@ void main() {
           (body['error'] as Map<String, dynamic>)['code'],
           AuthErrorCodes.invalidRequestFields,
         );
-        expect(verifyEmailUseCase.callCount, 0);
+        expect(verifyRegistrationEmailUseCase.callCount, 0);
       },
     );
 
     test('returns INVALID_EMAIL_CODE from use case failure', () async {
-      verifyEmailUseCase.exception = const ValidationException(
+      verifyRegistrationEmailUseCase.exception = const ValidationException(
         AuthErrorCodes.invalidEmailCode,
         'Email verification code is invalid',
       );
@@ -93,7 +95,7 @@ void main() {
         (body['error'] as Map<String, dynamic>)['code'],
         AuthErrorCodes.invalidEmailCode,
       );
-      expect(verifyEmailUseCase.callCount, 1);
+      expect(verifyRegistrationEmailUseCase.callCount, 1);
     });
 
     test('returns INVALID_BODY when JSON root is not an object', () async {
@@ -110,29 +112,26 @@ void main() {
       final body = await decodeBody(response);
       expect(body['success'], false);
       expect((body['error'] as Map<String, dynamic>)['code'], 'INVALID_BODY');
-      expect(verifyEmailUseCase.callCount, 0);
+      expect(verifyRegistrationEmailUseCase.callCount, 0);
     });
   });
 }
 
-final class _FakeVerifyEmailUseCase implements IVerifyEmailUseCase {
-  LoginResult result = sampleLoginResult();
-  String? lastIdentifier;
+final class _FakeVerifyRegistrationEmailUseCase
+    implements IVerifyRegistrationEmailUseCase {
+  String? lastRegistrationId;
   String? lastCode;
   int callCount = 0;
   AppException? exception;
 
   @override
-  Future<LoginResult> verify({
-    required String identifier,
-    required String code,
-  }) async {
+  Future<void> call({required String registrationId, required String code}) {
     callCount += 1;
-    lastIdentifier = identifier;
+    lastRegistrationId = registrationId;
     lastCode = code;
 
     final e = exception;
     if (e != null) throw e;
-    return result;
+    return Future<void>.value();
   }
 }

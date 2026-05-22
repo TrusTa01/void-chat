@@ -5,8 +5,7 @@ import 'package:backend/src/features/auth/login/password/api/mappers/login_respo
 import 'package:backend/src/features/auth/login/request/api/dto/login_code_request_dto.dart';
 import 'package:backend/src/features/auth/login/request/domain/use_cases/request_login_use_case.dart';
 import 'package:backend/src/features/auth/login/verify/api/dto/login_code_verify_dto.dart';
-import 'package:backend/src/features/auth/shared/verify-email/api/dto/request/verify_code_request_dto.dart';
-import 'package:backend/src/features/auth/shared/verify-email/domain/usecases/verify_email_use_case.dart';
+import 'package:backend/src/features/auth/login/verify/domain/use_cases/verify_login_email_use_case.dart';
 import 'package:backend/src/features/auth/logout/domain/use_cases/logout_all_use_case.dart';
 import 'package:backend/src/features/auth/logout/domain/use_cases/logout_use_case.dart';
 import 'package:backend/src/features/auth/me/domain/use_cases/get_current_user_use_case.dart';
@@ -15,6 +14,10 @@ import 'package:backend/src/features/auth/register/complete_profile/domain/use_c
 import 'package:backend/src/features/auth/register/start/api/dto/request/start_registration_request_dto.dart';
 import 'package:backend/src/features/auth/register/start/api/mappers/start_registration_response_mapper.dart';
 import 'package:backend/src/features/auth/register/start/domain/use_cases/start_registration_use_case.dart';
+import 'package:backend/src/features/auth/register/cancel/api/dto/cancel_registration_request_dto.dart';
+import 'package:backend/src/features/auth/register/cancel/domain/use_cases/cancel_registration_use_case.dart';
+import 'package:backend/src/features/auth/register/verify_email/domain/use_cases/verify_registration_email_use_case.dart';
+import 'package:backend/src/features/auth/shared/verify-email/api/dto/request/verify_code_request_dto.dart';
 import 'package:backend/src/features/auth/shared/verify-email/api/dto/response/verify_email_response_dto.dart';
 import 'package:backend/src/features/auth/shared/api/mappers/parse_body.dart';
 import 'package:backend/src/features/auth/login/password/domain/usecases/login_password_use_case.dart';
@@ -32,14 +35,16 @@ class AuthApi {
   // login
   final ILoginPasswordUseCase _loginPassUseCase;
   final IRequestLoginUseCase _requestLoginUseCase;
+  final IVerifyLoginEmailUseCase _verifyLoginEmailUseCase;
 
   // register
   final IStartRegistrationUseCase _startRegistrationUseCase;
+  final IVerifyRegistrationEmailUseCase _verifyRegistrationEmailUseCase;
   final ICompleteRegistrationProfileUseCase _completeRegisterUseCase;
-
-  final IVerifyEmailUseCase _verifyEmailUseCase;
+  final ICancelRegistrationUseCase _cancelRegistrationUseCase;
 
   // logout
+
   final ILogoutUseCase _logoutUseCase;
   final ILogoutAllUseCase _logoutAllUseCase;
 
@@ -47,9 +52,11 @@ class AuthApi {
     this._getCurrentUserUseCase,
     this._loginPassUseCase,
     this._requestLoginUseCase,
-    this._verifyEmailUseCase,
+    this._verifyLoginEmailUseCase,
     this._startRegistrationUseCase,
+    this._verifyRegistrationEmailUseCase,
     this._completeRegisterUseCase,
+    this._cancelRegistrationUseCase,
     this._logoutUseCase,
     this._logoutAllUseCase,
   );
@@ -89,11 +96,14 @@ class AuthApi {
       '/register/complete-profile',
       (Request request) => _registerCompleteProfileHandler(request),
     );
+    r.post(
+      '/register/cancel',
+      (Request request) => _cancelRegistrationHandler(request),
+    );
 
     // ------------------------ logout ------------------------
     r.post('/logout', (Request request) => _logoutHandler(request));
     r.post('/logout/all', (Request request) => _logoutAllHandler(request));
-
     return r;
   }
 
@@ -123,7 +133,7 @@ class AuthApi {
   Future<Response> _loginVerifyHandler(Request request) async {
     final body = await request.readAsString();
     final dto = parseBody(body, LoginCodeVerifyDto.fromJson);
-    final result = await _verifyEmailUseCase.verify(
+    final result = await _verifyLoginEmailUseCase.verify(
       identifier: dto.identifier,
       code: dto.code,
     );
@@ -143,8 +153,9 @@ class AuthApi {
   Future<Response> _verifyEmailRegistrationHandler(Request request) async {
     final body = await request.readAsString();
     final dto = parseBody(body, CodeVerifyRequestDto.fromJson);
-    await _verifyEmailUseCase.verify(
-      identifier: dto.registrationId,
+    await _verifyRegistrationEmailUseCase.call(
+      registrationId: dto.registrationId,
+
       code: dto.code,
     );
     return JsonResponse.ok(VerifyEmailResponseDto(verified: true));
@@ -156,6 +167,13 @@ class AuthApi {
     final user = await _completeRegisterUseCase.call(dto);
     final response = user.toResponse();
     return JsonResponse.created(response.toJson());
+  }
+
+  Future<Response> _cancelRegistrationHandler(Request request) async {
+    final body = await request.readAsString();
+    final dto = parseBody(body, CancelRegistrationRequestDto.fromJson);
+    await _cancelRegistrationUseCase.call(dto.registrationId);
+    return JsonResponse.ok({'cancelled': true});
   }
 
   // ------------------------ logout ------------------------
