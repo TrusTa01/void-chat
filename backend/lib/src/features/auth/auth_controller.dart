@@ -44,7 +44,6 @@ class AuthApi {
   final ICancelRegistrationUseCase _cancelRegistrationUseCase;
 
   // logout
-
   final ILogoutUseCase _logoutUseCase;
   final ILogoutAllUseCase _logoutAllUseCase;
 

@@ -11,6 +11,8 @@ abstract class LoggingMiddleware {
           final response = await innerHandle(request);
           talker.info('Response: ${response.statusCode}');
           return response;
+        } on HijackException {
+          rethrow;
         } catch (e, st) {
           talker.handle(e, st, 'Server error');
           rethrow;

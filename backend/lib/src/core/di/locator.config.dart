@@ -80,6 +80,17 @@ import 'package:backend/src/features/auth/shared/verify-email/domain/services/em
     as _i606;
 import 'package:backend/src/features/auth/shared/verify-email/domain/services/email_code_sender.dart'
     as _i1067;
+import 'package:backend/src/features/chat/chat_controller.dart' as _i657;
+import 'package:backend/src/features/chat/data/repositories/postgres_message_repository.dart'
+    as _i876;
+import 'package:backend/src/features/chat/domain/repositories/i_message_repository.dart'
+    as _i996;
+import 'package:backend/src/features/chat/domain/usecases/send_message_use_case.dart'
+    as _i927;
+import 'package:backend/src/features/chat/domain/usecases/user_id_use_case.dart'
+    as _i843;
+import 'package:backend/src/features/chat/domain/ws/chat_connection_registry.dart'
+    as _i945;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:postgres/postgres.dart' as _i103;
@@ -99,6 +110,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i103.Pool<_i103.Connection>>(() => registerModule.pool);
     gh.lazySingleton<_i1067.EmailCodeResendPolicy>(
       () => _i1067.EmailCodeResendPolicy(),
+    );
+    gh.lazySingleton<_i945.ChatConnectionRegistry>(
+      () => _i945.ChatConnectionRegistry(),
     );
     gh.lazySingleton<_i375.SessionToken>(() => _i375.OpaqueBearerToken());
     gh.lazySingleton<_i443.UsernamePolicy>(
@@ -124,6 +138,14 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i1067.EmailCodeSenderService>(
       () => _i413.DevEmailSender(gh<_i993.Talker>()),
+    );
+    gh.lazySingleton<_i996.IMessageRepository>(
+      () => _i876.PostgresMessageRepositoryImpl(
+        gh<_i103.Pool<_i103.Connection>>(),
+      ),
+    );
+    gh.lazySingleton<_i927.ISendMessageUseCase>(
+      () => _i927.SendMessageUseCaseImpl(gh<_i996.IMessageRepository>()),
     );
     gh.lazySingleton<_i476.IStartRegistrationValidateUseCase>(
       () => _i476.StartRegistrationValidateUseCase(
@@ -187,6 +209,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i64.IGetCurrentUserUseCase>(
       () => _i64.GetCurrentUserUseCase(gh<_i361.IUserRepository>()),
     );
+    gh.lazySingleton<_i843.IUserIdUseCase>(
+      () => _i843.UserIdUseCaseImpl(
+        gh<_i375.SessionToken>(),
+        gh<_i754.ISessionRepository>(),
+      ),
+    );
     gh.lazySingleton<_i151.ILogoutAllUseCase>(
       () => _i151.LogoutAllUseCase(gh<_i754.ISessionRepository>()),
     );
@@ -230,6 +258,14 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i1050.ICreateSessionTokenUseCase>(),
       ),
     );
+    gh.lazySingleton<_i657.ChatApi>(
+      () => _i657.ChatApi(
+        gh<_i843.IUserIdUseCase>(),
+        gh<_i945.ChatConnectionRegistry>(),
+        gh<_i927.ISendMessageUseCase>(),
+        gh<_i996.IMessageRepository>(),
+      ),
+    );
     gh.lazySingleton<_i48.AuthApi>(
       () => _i48.AuthApi(
         gh<_i64.IGetCurrentUserUseCase>(),
@@ -245,7 +281,11 @@ extension GetItInjectableX on _i174.GetIt {
       ),
     );
     gh.lazySingleton<_i371.AppModule>(
-      () => _i371.AppModule(gh<_i278.Router>(), gh<_i48.AuthApi>()),
+      () => _i371.AppModule(
+        gh<_i278.Router>(),
+        gh<_i48.AuthApi>(),
+        gh<_i657.ChatApi>(),
+      ),
     );
     return this;
   }

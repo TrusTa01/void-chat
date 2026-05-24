@@ -30,7 +30,8 @@ bool _requiresAuth(String path) => !_isPublicPath(_normalizePath(path));
 bool _isPublicPath(String normalized) {
   if (normalized == '/' ||
       normalized == '/health' ||
-      normalized == '/favicon.ico') {
+      normalized == '/favicon.ico' ||
+      normalized == '/chat/ws') {
     return true;
   }
 

@@ -35,7 +35,10 @@ Middleware errorMiddleware() {
           'An unexpected error occurred in our database. Please try again later.',
           statusCode: 500,
         );
+      } on HijackException {
+        rethrow;
       } catch (e, st) {
+        if (e.toString().contains('hijacked')) rethrow;
         talker.handle(e, st);
         return _handleCustomError(
           'SERVER_ERROR',
