@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:void_chat/app/app.dart';
+import 'package:void_chat/app/app_providers.dart';
+import 'package:void_chat/core/di/locator.dart';
 
-void main() => runApp(const MyApp());
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(body: Center(child: Text('Hello world'))),
-    );
-  }
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureDependencies();
+  runApp(
+    MultiBlocProvider(
+      providers: AppProviders.providers,
+      child: const VoidChat(),
+    ),
+  );
 }
+ 

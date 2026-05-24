@@ -7,10 +7,35 @@ environment:
   sdk: ^3.11.1
 
 dependencies:
-  path: ^1.9.0
+  # backend
   shelf: ^1.4.2
   shelf_router: ^1.1.4
+
+  # logging
+  talker: ^5.1.17
+
+  # di
+  get_it: ^9.2.1
+  injectable: ^3.0.0
+
+  # data
+  json_annotation: ^4.11.0
+  freezed_annotation: ^3.1.0
+
+  # db
+  postgres: ^3.5.9
+
+  # secrets
+  dotenv: ^4.2.0
+  argon2: ^1.0.1
+  crypto: ^3.0.7
 
 dev_dependencies:
   lints: ^6.0.0
   test: ^1.25.6
+
+  # generators
+  build_runner: ^2.15.0
+  injectable_generator: ^3.0.2
+  json_serializable: ^6.13.2
+  freezed: ^3.2.5

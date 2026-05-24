@@ -1,0 +1,331 @@
+{
+  "@@locale": "en",
+  "appTitle": "Void",
+  "@appTitle": {
+    "description": "App title in app bar and system"
+  },
+  "appDescription": "Your private space for <bold>secure</bold> and <bold>seamless</bold> communication",
+  "@appDescription": {
+    "description": "Full description on welcome screen"
+  },
+  "paletteBrand": "Brand",
+  "@paletteBrand": {
+    "description": "Built-in palette name: Brand"
+  },
+  "paletteCoffee": "Coffee",
+  "@paletteCoffee": {
+    "description": "Built-in palette name: Coffee"
+  },
+  "paletteOcean": "Ocean",
+  "@paletteOcean": {
+    "description": "Built-in palette name: Ocean"
+  },
+  "paletteRose": "Rose",
+  "@paletteRose": {
+    "description": "Built-in palette name: Rose"
+  },
+  "paletteForest": "Forest",
+  "@paletteForest": {
+    "description": "Built-in palette name: Forest"
+  },
+  "greeting": "Welcome back",
+  "@greeting": {
+    "description": "Main text in login screen"
+  },
+  "greetingDescription": "Step into the digital silence",
+  "@greetingDescription": {
+    "description": "A text under a greeting in login screen"
+  },
+  "continueAction": "Continue",
+  "@continueAction": {
+    "description": "Continue action"
+  },
+  "or": "or",
+  "@or": {
+    "description": "A divider between blocks"
+  },
+  "logInWithPass": "Log in with password",
+  "@logInWithPass": {
+    "description": "A text of a button in login screen to login with password"
+  },
+  "logInWithLogin": "Log in with Login/Email",
+  "@logInWithLogin": {
+    "description": "A text of a button in login screen to login with a login or an email"
+  },
+  "forgotPassword": "Forgot password?",
+  "@forgotPassword": {
+    "description": "A redirect to a password recovery with a password mode in login screen"
+  },
+  "dontHaveAcc": "Don't have an account?",
+  "@dontHaveAcc": {
+    "description": "Redirect to sing up screen if user doesnt have an account"
+  },
+  "singUp": "Sing up",
+  "@singUp": {
+    "description": "Sing up redirect"
+  },
+  "logIn": "Log in",
+  "@logIn": {
+    "description": "A text for a button to log in into app"
+  },
+  "loginOrEmailLabel": "Login or email",
+  "@loginOrEmailLabel": {
+    "description": "Label for the login identifier field (POST /auth/login identifier)"
+  },
+  "loginOrEmailHint": "Your login or email",
+  "@loginOrEmailHint": {
+    "description": "Hint for the login identifier field"
+  },
+  "loginPasswordLabel": "Password",
+  "@loginPasswordLabel": {
+    "description": "Label for the password field on login"
+  },
+  "loginPasswordHint": "Your password",
+  "@loginPasswordHint": {
+    "description": "Hint for the password field"
+  },
+  "loginIdentifierRequired": "Use your login or email",
+  "@loginIdentifierRequired": {
+    "description": "Validation: empty identifier"
+  },
+  "loginIdentifierTooLong": "Must be at most 254 characters",
+  "@loginIdentifierTooLong": {
+    "description": "Validation: identifier exceeds backend max (email)"
+  },
+  "confirmPasswordLabel": "Confirm password",
+  "@confirmPasswordLabel": {
+    "description": "Label for the confirm password field on registration"
+  },
+  "confirmPasswordHint": "Enter the password again",
+  "@confirmPasswordHint": {
+    "description": "Hint for the confirm password field"
+  },
+  "confirmPasswordRequired": "Confirm your password",
+  "@confirmPasswordRequired": {
+    "description": "Validation: empty confirm password"
+  },
+  "confirmPasswordIsNotMatching": "The passwords don't match",
+  "@confirmPasswordIsNotMatching": {
+    "description": "Validation: confirm password differs from the original password"
+  },
+  "loginIdentifierInvalidEmail": "Enter a valid email address",
+  "@loginIdentifierInvalidEmail": {
+    "description": "Validation: identifier looks like email but format is invalid"
+  },
+  "loginIdentifierInvalidLoginLength": "Login must be 3–64 characters",
+  "@loginIdentifierInvalidLoginLength": {
+    "description": "Validation: non-email identifier length out of range"
+  },
+  "loginIdentifierInvalidLoginChars": "Login may only use letters, digits, underscore, and hyphen",
+  "@loginIdentifierInvalidLoginChars": {
+    "description": "Validation: non-email identifier charset"
+  },
+  "loginPasswordRequired": "Enter your password",
+  "@loginPasswordRequired": {
+    "description": "Validation: empty password"
+  },
+  "loginPasswordLength": "Password must be 8–128 characters",
+  "@loginPasswordLength": {
+    "description": "Validation: password length (matches registration rules)"
+  },
+  "loginPasswordLetterAndDigit": "Password must include at least one letter and one number",
+  "@loginPasswordLetterAndDigit": {
+    "description": "Validation: password complexity (matches registration rules)"
+  },
+  "loginInvalidCredential": "Invalid login or password",
+  "@loginInvalidCredential": {
+    "description": "Login failure: wrong identifier or password (INVALID_CREDENTIALS)"
+  },
+  "networkError": "Couldn't connect. Check your connection and try again.",
+  "@networkError": {
+    "description": "Login failure: network or transport error"
+  },
+  "loginEmailCodeInvalid": "Invalid code. Check the digits and try again.",
+  "@loginEmailCodeInvalid": {
+    "description": "Login failure: wrong email login code (INVALID_EMAIL_CODE)"
+  },
+  "loginEmailCodeExpired": "This code has expired. Request a new one.",
+  "@loginEmailCodeExpired": {
+    "description": "Login failure: email login code TTL exceeded (EMAIL_CODE_EXPIRED)"
+  },
+  "loginEmailCodeAttemptsExceeded": "Too many attempts. Request a new code.",
+  "@loginEmailCodeAttemptsExceeded": {
+    "description": "Login failure: email login code attempts exceeded (EMAIL_CODE_ATTEMPTS_EXCEEDED)"
+  },
+  "registerEmailLabel": "Email",
+  "@registerEmailLabel": {
+    "description": "Label for the email-only field on registration"
+  },
+  "registerEmailHint": "you@void.com",
+  "@registerEmailHint": {
+    "description": "Placeholder example for the registration email field"
+  },
+  "registerLoginLabel": "Login",
+  "@registerLoginLabel": {
+    "description": "Label for the login handle on registration"
+  },
+  "registerLoginHint": "void_explorer",
+  "@registerLoginHint": {
+    "description": "Placeholder example for the registration login field"
+  },
+  "registerLoginPrivacyHelper": "Used only to sign in. Other users won’t see it.",
+  "@registerLoginPrivacyHelper": {
+    "description": "Helper under the registration login field"
+  },
+  "registerPasswordHint": "NebulaStorm42",
+  "@registerPasswordHint": {
+    "description": "Placeholder example for password on registration"
+  },
+  "registerConfirmPasswordHint": "NebulaStorm42",
+  "@registerConfirmPasswordHint": {
+    "description": "Placeholder example for confirm password on registration"
+  },
+  "registerEmailRequired": "Enter your email",
+  "@registerEmailRequired": {
+    "description": "Validation: empty email on registration"
+  },
+  "registerPolicyRequired": "Accept the Terms & Conditions to continue",
+  "@registerPolicyRequired": {
+    "description": "Validation: policy checkbox not checked on registration"
+  },
+  "registerEmailTaken": "This email is already registered",
+  "@registerEmailTaken": {
+    "description": "Registration failure: EMAIL_TAKEN"
+  },
+  "registerUsernameTaken": "This username is already taken",
+  "@registerUsernameTaken": {
+    "description": "Registration failure: USERNAME_TAKEN"
+  },
+  "registerInvalidRegistration": "Registration session expired. Start again.",
+  "@registerInvalidRegistration": {
+    "description": "Registration failure: INVALID_REGISTRATION"
+  },
+  "registerEmailNotVerified": "Verify your email before completing setup",
+  "@registerEmailNotVerified": {
+    "description": "Registration failure: EMAIL_NOT_VERIFIED"
+  },
+  "registerResetDialogTitle": "Reset registration?",
+  "@registerResetDialogTitle": {
+    "description": "Title when leaving profile setup via back"
+  },
+  "registerResetDialogMessage": "Are you sure? Your registration progress will be cleared and you will return to the first step.",
+  "@registerResetDialogMessage": {
+    "description": "Body when leaving profile setup via back"
+  },
+  "registerResetDialogConfirm": "Reset",
+  "@registerResetDialogConfirm": {
+    "description": "Confirm reset registration on profile back"
+  },
+  "registerResetDialogStay": "Stay",
+  "@registerResetDialogStay": {
+    "description": "Dismiss reset registration dialog"
+  },
+  "createAccount": "Create Account",
+  "@createAccount": {
+    "description": "Main text in register screen"
+  },
+  "createAccountDescription": "Step into the silent void of secure communication",
+  "@createAccountDescription": {
+    "description": "A text under a main text in register screen"
+  },
+  "alreadyHaveAnAccount": "Already have an account?",
+  "@alreadyHaveAnAccount": {
+    "description": "A redirect to a login screen"
+  },
+  "iAgreeto": "I agree to",
+  "@iAgreeto": {
+    "description": ""
+  },
+  "policy": "Terms & Conditions",
+  "@policy": {
+    "description": "A redirect to terms & conditions page"
+  },
+  "verifyEmailTitle": "Verify your email",
+  "@verifyEmailTitle": {
+    "description": "Title on the email verification screen"
+  },
+  "verifyEmailCodeInstruction": "Enter the 4-digit code sent to",
+  "@verifyEmailCodeInstruction": {
+    "description": "Line above the recipient email on the verification screen"
+  },
+  "verifyEmailSubmit": "Verify",
+  "@verifyEmailSubmit": {
+    "description": "Primary button on the email verification screen"
+  },
+  "verifyEmailDidNotReceive": "Didn't receive the signal?",
+  "@verifyEmailDidNotReceive": {
+    "description": "Prompt before the resend action on the email verification screen"
+  },
+  "verifyEmailResendCode": "Resend code",
+  "@verifyEmailResendCode": {
+    "description": "Tappable action to resend the verification code"
+  },
+  "verifyEmailCodeRequired": "Enter the verification code",
+  "@verifyEmailCodeRequired": {
+    "description": "Shown when the verification code field is empty on submit"
+  },
+  "verifyEmailCodeIncomplete": "Enter all 4 digits",
+  "@verifyEmailCodeIncomplete": {
+    "description": "Shown when fewer than 4 digits were entered"
+  },
+  "verifyEmailCodeInvalid": "Code must contain digits only",
+  "@verifyEmailCodeInvalid": {
+    "description": "Shown when the verification code contains non-digit characters"
+  },
+  "profileSetupMainText": "One last step",
+  "@profileSetupMainText": {
+    "description": "Main text in pofile setup screen"
+  },
+  "profileSetupSecondText": "Complete your profile to join the void",
+  "@profileSetupSecondText": {
+    "description": "A text under main text in pofile setup screen"
+  },
+  "profileSetupUsernameLabel": "Username",
+  "@profileSetupUsernameLabel": {
+    "description": "Label for username field on profile setup"
+  },
+  "profileSetupUsernameHint": "username",
+  "@profileSetupUsernameHint": {
+    "description": "Hint for username field on profile setup"
+  },
+  "profileSetupDisplayNameLabel": "Display Name",
+  "@profileSetupDisplayNameLabel": {
+    "description": "Label for display name field on profile setup"
+  },
+  "profileSetupDisplayNameHint": "Arthur Morgan",
+  "@profileSetupDisplayNameHint": {
+    "description": "Hint for display name field on profile setup"
+  },
+  "profileSetupDisplayNameRequired": "Enter a display name",
+  "@profileSetupDisplayNameRequired": {
+    "description": "Validation: empty display name on profile setup"
+  },
+  "profileSetupDisplayNameTooLong": "Display name is too long",
+  "@profileSetupDisplayNameTooLong": {
+    "description": "Validation: display name exceeds max length"
+  },
+  "profileSetupHintText": "Your username and display name are public. You can change them later in settings.",
+  "@profileSetupHintText": {
+    "description": "A note under forms with public users data"
+  },
+  "completeSetup": "Complete setup",
+  "@completeSetup": {
+    "description": "A text on a button to finish registration"
+  },
+  "startChatting": "Start chatting",
+  "@startChatting": {
+    "description": "The text on a button to continue log in"
+  },
+  "codeSent": "Code sent!",
+  "@codeSent": {
+    "description": "A snack bar message that appears when user request the code"
+  },
+  "codeResent": "Code sent again",
+  "@codeResent": {
+    "description": "A snack bar message that appears when user request the code again"
+  },
+  "loginEmailCodeResendTooSoon": "Wait until resend",
+  "@loginEmailCodeResendTooSoon": {
+    "description": "The warning when resend request is too early"
+  }
+}
