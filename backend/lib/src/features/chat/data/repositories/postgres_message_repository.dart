@@ -1,15 +1,13 @@
-import 'package:backend/src/core/data/pg_error_handling_mixin.dart';
+import 'package:backend/src/core/data/pg_repository.dart';
+import 'package:backend/src/core/data/pg_row.dart';
 import 'package:backend/src/features/chat/domain/repositories/i_message_repository.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
 
 @LazySingleton(as: IMessageRepository)
-class PostgresMessageRepositoryImpl
-    with PgErrorHandling
+class PostgresMessageRepositoryImpl extends PgRepository
     implements IMessageRepository {
-  final Pool<Connection> _pool;
-
-  PostgresMessageRepositoryImpl(this._pool);
+  const PostgresMessageRepositoryImpl(super.pool);
 
   @override
   Future<Map<String, Object?>> insert({
@@ -17,7 +15,7 @@ class PostgresMessageRepositoryImpl
     required String senderId,
     required String text,
   }) => guarded(() async {
-    final result = await _pool.execute(
+    final result = await pool.execute(
       Sql.named(
         '''
           INSERT INTO chat.messages (conversation_id, sender_id, text)
@@ -32,7 +30,8 @@ class PostgresMessageRepositoryImpl
         'text': text,
       },
     );
-    return result.first.toColumnMap();
+
+    return result.mapFirst((row) => row.columns);
   });
 
   @override
@@ -40,7 +39,7 @@ class PostgresMessageRepositoryImpl
     required String conversationId,
     required String userId,
   }) => guarded(() async {
-    final result = await _pool.execute(
+    final result = await pool.execute(
       Sql.named(
         '''
           SELECT 1
@@ -58,7 +57,7 @@ class PostgresMessageRepositoryImpl
   @override
   Future<List<String>> listMemberIds(String conversationId) =>
       guarded(() async {
-        final result = await _pool.execute(
+        final result = await pool.execute(
           Sql.named(
             '''
               SELECT user_id
@@ -69,8 +68,7 @@ class PostgresMessageRepositoryImpl
           ),
           parameters: {'conversation_id': conversationId},
         );
-        return result
-            .map((row) => row.toColumnMap()['user_id'].toString())
-            .toList();
+
+        return result.mapAll((row) => row.cellId('user_id'));
       });
 }

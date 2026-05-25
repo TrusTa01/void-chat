@@ -1,15 +1,13 @@
-import 'package:backend/src/core/data/pg_error_handling_mixin.dart';
+import 'package:backend/src/core/data/pg_repository.dart';
+import 'package:backend/src/core/data/pg_row.dart';
 import 'package:backend/src/features/auth/login/request/domain/repositories/i_request_login_repository.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
 
 @LazySingleton(as: IRequestLoginRepository)
-class RequestLoginRepository
-    with PgErrorHandling
+class RequestLoginRepository extends PgRepository
     implements IRequestLoginRepository {
-  final Pool<Connection> _pool;
-
-  const RequestLoginRepository(this._pool);
+  const RequestLoginRepository(super.pool);
 
   @override
   Future<void> insertCode({
@@ -17,7 +15,7 @@ class RequestLoginRepository
     required String codeHash,
     required DateTime expiresAt,
   }) => guarded(
-    () => _pool.execute(
+    () => pool.execute(
       Sql.named(
         '''
         INSERT INTO auth.login_email_codes (user_id, code_hash, expires_at)
@@ -35,7 +33,7 @@ class RequestLoginRepository
 
   @override
   Future<DateTime?> findLastCodeCreatedAt(String userId) => guarded(() async {
-    final result = await _pool.execute(
+    final result = await pool.execute(
       Sql.named(
         '''
         SELECT created_at
@@ -48,7 +46,9 @@ class RequestLoginRepository
       ),
       parameters: {'user_id': userId},
     );
-    final column = result.first.toColumnMap();
-    return column['created_at'] as DateTime;
+
+    return result.mapFirstOrNull(
+      (row) => row.columns['created_at'] as DateTime,
+    );
   });
 }

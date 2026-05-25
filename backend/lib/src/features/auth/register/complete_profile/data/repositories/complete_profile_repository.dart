@@ -1,20 +1,18 @@
-import 'package:backend/src/core/data/pg_error_handling_mixin.dart';
+import 'package:backend/src/core/data/pg_repository.dart';
+import 'package:backend/src/core/data/pg_row.dart';
 import 'package:backend/src/features/auth/register/complete_profile/domain/repositories/i_complete_profile_repository.dart';
 import 'package:backend/src/features/auth/register/complete_profile/domain/value_objects/pending_registration_for_completion.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
 
 @LazySingleton(as: ICompleteProfileRepository)
-class CompleteProfileRepository
-    with PgErrorHandling
+class CompleteProfileRepository extends PgRepository
     implements ICompleteProfileRepository {
-  final Pool<Connection> _pool;
-
-  const CompleteProfileRepository(this._pool);
+  const CompleteProfileRepository(super.pool);
 
   @override
   Future<void> deleteById(String id) => guarded(
-    () => _pool.execute(
+    () => pool.execute(
       Sql.named(
         '''
         DELETE FROM auth.pending_registrations
@@ -29,7 +27,7 @@ class CompleteProfileRepository
   @override
   Future<PendingRegistrationForCompletion?> findForCompletionById(String id) =>
       guarded(() async {
-        final result = await _pool.execute(
+        final result = await pool.execute(
           Sql.named(
             '''
             SELECT id, login, email, password_hash, verified_at
@@ -41,15 +39,15 @@ class CompleteProfileRepository
           ),
           parameters: {'id': id},
         );
-        if (result.isEmpty) return null;
-
-        final column = result.first.toColumnMap();
-        return PendingRegistrationForCompletion(
-          id: id,
-          login: column['login'] as String,
-          email: column['email'] as String,
-          passwordHash: column['password_hash'] as String,
-          verifiedAt: column['verified_at'] as DateTime?,
-        );
+        return result.mapFirstOrNull((row) {
+          final column = row.columns;
+          return PendingRegistrationForCompletion(
+            id: id,
+            login: column['login'] as String,
+            email: column['email'] as String,
+            passwordHash: column['password_hash'] as String,
+            verifiedAt: column['verified_at'] as DateTime?,
+          );
+        });
       });
 }

@@ -1,21 +1,19 @@
-import 'package:backend/src/core/data/pg_error_handling_mixin.dart';
+import 'package:backend/src/core/data/pg_repository.dart';
+import 'package:backend/src/core/data/pg_row.dart';
 import 'package:backend/src/features/auth/login/verify/domain/repositories/i_verify_login_email_repository.dart';
 import 'package:backend/src/features/auth/shared/verify-email/domain/value_objects/email_code.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
 
 @LazySingleton(as: IVerifyLoginEmailRepository)
-class VerifyLoginEmailRepository
-    with PgErrorHandling
+class VerifyLoginEmailRepository extends PgRepository
     implements IVerifyLoginEmailRepository {
-  final Pool<Connection> _pool;
-
-  const VerifyLoginEmailRepository(this._pool);
+  const VerifyLoginEmailRepository(super.pool);
 
   @override
   Future<EmailCode?> findActiveByUserId(String userId) async {
     return guarded(() async {
-      final result = await _pool.execute(
+      final result = await pool.execute(
         Sql.named(
           '''
         SELECT id, code_hash, expires_at, attempts
@@ -29,23 +27,21 @@ class VerifyLoginEmailRepository
         ),
         parameters: {'user_id': userId},
       );
-      if (result.isEmpty) return null;
-
-      final column = result.first.toColumnMap();
-      final id = (column['id']! as Object).toString();
-
-      return EmailCode(
-        id: id,
-        codeHash: column['code_hash'] as String,
-        expiresAt: column['expires_at'] as DateTime,
-        attempts: column['attempts'] as int,
-      );
+      return result.mapFirstOrNull((row) {
+        final column = row.columns;
+        return EmailCode(
+          id: row.cellId('id'),
+          codeHash: column['code_hash'] as String,
+          expiresAt: column['expires_at'] as DateTime,
+          attempts: column['attempts'] as int,
+        );
+      });
     });
   }
 
   @override
   Future<void> incrementAttempts(String id) => guarded(() async {
-    await _pool.execute(
+    await pool.execute(
       Sql.named(
         '''
         UPDATE auth.login_email_codes
@@ -60,7 +56,7 @@ class VerifyLoginEmailRepository
 
   @override
   Future<void> markConsumed(String id) => guarded(
-    () async => _pool.execute(
+    () async => pool.execute(
       Sql.named(
         '''
         UPDATE auth.login_email_codes
