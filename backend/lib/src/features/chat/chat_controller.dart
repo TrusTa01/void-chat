@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 import 'package:backend/src/core/di/locator.dart';
-import 'package:backend/src/features/chat/domain/repositories/i_message_repository.dart';
-import 'package:backend/src/features/chat/domain/usecases/send_message_use_case.dart';
 import 'package:backend/src/features/chat/domain/usecases/user_id_use_case.dart';
-import 'package:backend/src/features/chat/domain/value_objects/send_message_result.dart';
 import 'package:backend/src/features/chat/domain/ws/chat_connection_registry.dart';
+import 'package:backend/src/features/chat/domain/ws/ws_channel_sender.dart';
 import 'package:backend/src/features/chat/domain/ws/ws_inbound.dart';
 import 'package:backend/src/features/chat/domain/ws/ws_outbound.dart';
+import 'package:backend/src/features/chat/domain/ws/ws_send_message_handler.dart';
+import 'package:backend/src/features/chat/shared/chat_error_messages.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -16,17 +16,11 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 @lazySingleton
 class ChatApi {
-  final IUserIdUseCase _userIdUseCase;
   final ChatConnectionRegistry _connections;
-  final ISendMessageUseCase _sendMessageUseCase;
-  final IMessageRepository _messageRepository;
+  final IUserIdUseCase _userIdUseCase;
+  final WsSendMessageHandler _messageHandler;
 
-  ChatApi(
-    this._userIdUseCase,
-    this._connections,
-    this._sendMessageUseCase,
-    this._messageRepository,
-  );
+  ChatApi(this._connections, this._userIdUseCase, this._messageHandler);
 
   late final Router router = _buildRouter();
 
@@ -55,7 +49,7 @@ class ChatApi {
         return;
       }
 
-      _send(channel, WsConnected(userId: userId));
+      sendToChannel(channel, WsConnected(userId: userId));
       _connections.add(userId, channel);
       talker.info('WS connected: userId=$userId');
 
@@ -65,17 +59,23 @@ class ChatApi {
           final inbound = parseInbound(map);
 
           if (inbound == null) {
-            _send(channel, WsError('Unknown event: ${map['event']}'));
+            sendToChannel(
+              channel,
+              WsError(
+                code: '${ChatErrorMessages.unknownEvent} ${map['event']}',
+                message: 'Unknown event',
+              ),
+            );
             return;
           }
           talker.info('WS in: event=$inbound userId=$userId');
 
           switch (inbound) {
             case WsPing():
-              _send(channel, WsPong());
+              sendToChannel(channel, WsPong());
 
             case WsSendMessage(:final conversationId, :final text):
-              await _handleSendMessage(
+              await _messageHandler.handle(
                 userId: userId,
                 channel: channel,
                 conversationId: conversationId,
@@ -83,55 +83,12 @@ class ChatApi {
               );
           }
         } catch (_) {
-          _send(channel, WsError('Bad JSON'));
+          sendToChannel(
+            channel,
+            WsError(code: ChatErrorMessages.badJson, message: 'Bad JSON'),
+          );
         }
       }, onDone: () => _connections.remove(userId));
     });
-  }
-
-  void _send(WebSocketChannel channel, WsOutbound event) =>
-      channel.sink.add(jsonEncode(event.toJson()));
-
-  Future<void> _handleSendMessage({
-    required String userId,
-    required WebSocketChannel channel,
-    required String conversationId,
-    required String text,
-  }) async {
-    final result = await _sendMessageUseCase.call(
-      senderId: userId,
-      conversationId: conversationId,
-      text: text,
-    );
-
-    switch (result) {
-      case InvalidSendMessageInput():
-        _send(channel, const WsError('conversation_id and text required'));
-      case NotAMember():
-        _send(channel, const WsError('Not a member'));
-      case SendMessageSuccess(:final message):
-        await _broadcastMessage(userId: userId, row: message);
-    }
-  }
-
-  Future<void> _broadcastMessage({
-    required String userId,
-    required Map<String, Object?> row,
-  }) async {
-    final event = WsMessage.fromRow(row);
-    final conversationId = event.conversationId;
-
-    final senderChannel = _connections.get(userId);
-    if (senderChannel != null) {
-      _send(senderChannel, event);
-    }
-
-    final members = await _messageRepository.listMemberIds(conversationId);
-    for (final memberId in members) {
-      if (memberId == userId) continue;
-      final ch = _connections.get(memberId);
-      if (ch != null) _send(ch, event);
-    }
-    talker.info('WS message saved: id=${event.id}');
   }
 }

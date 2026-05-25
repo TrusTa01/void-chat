@@ -21,12 +21,17 @@ final class WsPong extends WsOutbound {
 }
 
 final class WsError extends WsOutbound {
+  final String code;
   final String message;
 
-  const WsError(this.message);
+  const WsError({required this.code, required this.message});
 
   @override
-  Map<String, dynamic> toJson() => {'event': 'error', 'message': message};
+  Map<String, dynamic> toJson() => {
+    'event': 'error',
+    'code': code,
+    'message': message,
+  };
 }
 
 final class WsMessage extends WsOutbound {
@@ -50,7 +55,7 @@ final class WsMessage extends WsOutbound {
     text: row['text'] as String,
     createdAt: row['created_at'].toString(),
   );
-  
+
   @override
   Map<String, dynamic> toJson() => {
     'event': 'message',
