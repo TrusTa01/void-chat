@@ -1,8 +1,8 @@
-import 'package:backend/src/features/chat/domain/usecases/send_message_use_case.dart';
-import 'package:backend/src/features/chat/domain/value_objects/send_message_result.dart';
-import 'package:backend/src/features/chat/domain/ws/message_broadcaster.dart';
-import 'package:backend/src/features/chat/domain/ws/ws_channel_sender.dart';
-import 'package:backend/src/features/chat/domain/ws/ws_outbound.dart';
+import 'package:backend/src/features/chat/messages/domain/usecases/send_message_use_case.dart';
+import 'package:backend/src/features/chat/messages/domain/value_objects/send_message_result.dart';
+import 'package:backend/src/features/chat/messages/domain/ws/message_broadcaster.dart';
+import 'package:backend/src/features/chat/shared/ws/ws_channel_sender.dart';
+import 'package:backend/src/features/chat/shared/ws/ws_outbound.dart';
 import 'package:backend/src/features/chat/shared/chat_error_messages.dart';
 import 'package:injectable/injectable.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';

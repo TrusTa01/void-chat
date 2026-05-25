@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:backend/src/core/di/locator.dart';
-import 'package:backend/src/features/chat/domain/usecases/user_id_use_case.dart';
-import 'package:backend/src/features/chat/domain/ws/chat_connection_registry.dart';
-import 'package:backend/src/features/chat/domain/ws/ws_channel_sender.dart';
-import 'package:backend/src/features/chat/domain/ws/ws_inbound.dart';
-import 'package:backend/src/features/chat/domain/ws/ws_outbound.dart';
-import 'package:backend/src/features/chat/domain/ws/ws_send_message_handler.dart';
+import 'package:backend/src/features/chat/messages/domain/usecases/user_id_use_case.dart';
+import 'package:backend/src/features/chat/shared/ws/chat_connection_registry.dart';
+import 'package:backend/src/features/chat/shared/ws/ws_channel_sender.dart';
+import 'package:backend/src/features/chat/shared/ws/ws_inbound.dart';
+import 'package:backend/src/features/chat/shared/ws/ws_outbound.dart';
+import 'package:backend/src/features/chat/messages/domain/ws/ws_send_message_handler.dart';
 import 'package:backend/src/features/chat/shared/chat_error_messages.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shelf/shelf.dart';
@@ -33,6 +33,11 @@ class ChatApi {
         _handleWebSocket(channel, token);
       })(request);
     });
+
+    r.post(
+      '/conversations/create',
+      (Request request) => _handleCreateConversation(request),
+    );
 
     return r;
   }
@@ -90,5 +95,9 @@ class ChatApi {
         }
       }, onDone: () => _connections.remove(userId));
     });
+  }
+
+  Future<Response> _handleCreateConversation(Request request) {
+    return Future.value(Response.ok(''));
   }
 }

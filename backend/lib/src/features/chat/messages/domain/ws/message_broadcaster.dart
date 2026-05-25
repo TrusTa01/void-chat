@@ -1,8 +1,8 @@
 import 'package:backend/src/core/di/locator.dart';
-import 'package:backend/src/features/chat/domain/repositories/i_message_repository.dart';
-import 'package:backend/src/features/chat/domain/ws/chat_connection_registry.dart';
-import 'package:backend/src/features/chat/domain/ws/ws_channel_sender.dart';
-import 'package:backend/src/features/chat/domain/ws/ws_outbound.dart';
+import 'package:backend/src/features/chat/messages/domain/repositories/i_message_repository.dart';
+import 'package:backend/src/features/chat/shared/ws/chat_connection_registry.dart';
+import 'package:backend/src/features/chat/shared/ws/ws_channel_sender.dart';
+import 'package:backend/src/features/chat/shared/ws/ws_outbound.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
