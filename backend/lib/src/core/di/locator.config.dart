@@ -81,6 +81,12 @@ import 'package:backend/src/features/auth/shared/verify-email/domain/services/em
 import 'package:backend/src/features/auth/shared/verify-email/domain/services/email_code_sender.dart'
     as _i1067;
 import 'package:backend/src/features/chat/chat_controller.dart' as _i657;
+import 'package:backend/src/features/chat/conversations/data/repositories/create_conversation_repository.dart'
+    as _i707;
+import 'package:backend/src/features/chat/conversations/domain/repositories/i_create_conversation_repository.dart'
+    as _i239;
+import 'package:backend/src/features/chat/conversations/domain/use_cases/create_conversations_use_case.dart'
+    as _i237;
 import 'package:backend/src/features/chat/messages/data/repositories/postgres_message_repository.dart'
     as _i571;
 import 'package:backend/src/features/chat/messages/domain/repositories/i_message_repository.dart'
@@ -117,6 +123,11 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i1045.ChatConnectionRegistry>(
       () => _i1045.ChatConnectionRegistry(),
+    );
+    gh.lazySingleton<_i239.ICreateConversationRepository>(
+      () => _i707.CreateConversationRepository(
+        gh<_i103.Pool<_i103.Connection>>(),
+      ),
     );
     gh.lazySingleton<_i375.SessionToken>(() => _i375.OpaqueBearerToken());
     gh.lazySingleton<_i443.UsernamePolicy>(
@@ -179,6 +190,12 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i310.ICompleteProfileRepository>(),
         gh<_i361.IUserRepository>(),
         gh<_i965.IValidateCompleteProfileInputUseCase>(),
+      ),
+    );
+    gh.lazySingleton<_i237.ICreateConversationUseCase>(
+      () => _i237.CreateConversationsUseCase(
+        gh<_i361.IUserRepository>(),
+        gh<_i239.ICreateConversationRepository>(),
       ),
     );
     gh.lazySingleton<_i476.IStartRegistrationValidateUseCase>(
@@ -274,6 +291,14 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i1050.ICreateSessionTokenUseCase>(),
       ),
     );
+    gh.lazySingleton<_i657.ChatApi>(
+      () => _i657.ChatApi(
+        gh<_i1045.ChatConnectionRegistry>(),
+        gh<_i275.IUserIdUseCase>(),
+        gh<_i513.WsSendMessageHandler>(),
+        gh<_i237.ICreateConversationUseCase>(),
+      ),
+    );
     gh.lazySingleton<_i48.AuthApi>(
       () => _i48.AuthApi(
         gh<_i64.IGetCurrentUserUseCase>(),
@@ -286,13 +311,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i226.ICancelRegistrationUseCase>(),
         gh<_i281.ILogoutUseCase>(),
         gh<_i151.ILogoutAllUseCase>(),
-      ),
-    );
-    gh.lazySingleton<_i657.ChatApi>(
-      () => _i657.ChatApi(
-        gh<_i1045.ChatConnectionRegistry>(),
-        gh<_i275.IUserIdUseCase>(),
-        gh<_i513.WsSendMessageHandler>(),
       ),
     );
     gh.lazySingleton<_i371.AppModule>(

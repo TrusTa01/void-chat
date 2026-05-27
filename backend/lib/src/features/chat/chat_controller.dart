@@ -1,6 +1,10 @@
 import 'dart:convert';
 
+import 'package:backend/src/core/api/json_response.dart';
 import 'package:backend/src/core/di/locator.dart';
+import 'package:backend/src/core/api/parse_body.dart';
+import 'package:backend/src/features/chat/conversations/api/dto/create_conversation_dto.dart';
+import 'package:backend/src/features/chat/conversations/domain/use_cases/create_conversations_use_case.dart';
 import 'package:backend/src/features/chat/messages/domain/usecases/user_id_use_case.dart';
 import 'package:backend/src/features/chat/shared/ws/chat_connection_registry.dart';
 import 'package:backend/src/features/chat/shared/ws/ws_channel_sender.dart';
@@ -8,6 +12,7 @@ import 'package:backend/src/features/chat/shared/ws/ws_inbound.dart';
 import 'package:backend/src/features/chat/shared/ws/ws_outbound.dart';
 import 'package:backend/src/features/chat/messages/domain/ws/ws_send_message_handler.dart';
 import 'package:backend/src/features/chat/shared/chat_error_messages.dart';
+import 'package:backend/src/middleware/auth_middleware.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -19,8 +24,14 @@ class ChatApi {
   final ChatConnectionRegistry _connections;
   final IUserIdUseCase _userIdUseCase;
   final WsSendMessageHandler _messageHandler;
+  final ICreateConversationUseCase _createConversationUseCase;
 
-  ChatApi(this._connections, this._userIdUseCase, this._messageHandler);
+  ChatApi(
+    this._connections,
+    this._userIdUseCase,
+    this._messageHandler,
+    this._createConversationUseCase,
+  );
 
   late final Router router = _buildRouter();
 
@@ -97,7 +108,14 @@ class ChatApi {
     });
   }
 
-  Future<Response> _handleCreateConversation(Request request) {
-    return Future.value(Response.ok(''));
+  Future<Response> _handleCreateConversation(Request request) async {
+    final creatorId = request.context[authenticatedUserIdKey] as String;
+    final body = await request.readAsString();
+    final dto = parseBody(body, CreateConversationRequestDto.fromJson);
+    final conversationId = await _createConversationUseCase.call(
+      creatorId: creatorId,
+      participantIds: dto.participantIds,
+    );
+    return JsonResponse.created({'conversation_id': conversationId});
   }
 }

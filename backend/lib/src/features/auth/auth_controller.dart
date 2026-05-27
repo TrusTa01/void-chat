@@ -19,7 +19,7 @@ import 'package:backend/src/features/auth/register/cancel/domain/use_cases/cance
 import 'package:backend/src/features/auth/register/verify_email/domain/use_cases/verify_registration_email_use_case.dart';
 import 'package:backend/src/features/auth/shared/verify-email/api/dto/request/verify_code_request_dto.dart';
 import 'package:backend/src/features/auth/shared/verify-email/api/dto/response/verify_email_response_dto.dart';
-import 'package:backend/src/features/auth/shared/api/mappers/parse_body.dart';
+import 'package:backend/src/core/api/parse_body.dart';
 import 'package:backend/src/features/auth/login/password/domain/usecases/login_password_use_case.dart';
 import 'package:backend/src/features/auth/register/complete_profile/api/mappers/register_response_mapper.dart';
 import 'package:backend/src/middleware/auth_middleware.dart';
