@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:void_chat/core/auth/infrastructure/i_session_expired_handler.dart';
+import 'package:void_chat/core/auth/session_expired_handler.dart';
 import 'package:void_chat/core/network/errors/api_exception.dart';
 
 class ErrorInterceptor extends Interceptor {

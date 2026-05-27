@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:void_chat/features/auth/shared/constants/email_code_resend.dart';
 
 class EmailCodeResendCooldown {
   final bool canResend;
@@ -18,7 +17,9 @@ class EmailCodeResendCooldown {
 
 /// Countdown for "resend code" links. Sync [cooldown] with the backend policy.
 EmailCodeResendCooldown useEmailCodeResendCooldown({
-  Duration cooldown = emailCodeResendCooldownS60,
+  /// Must match [EmailCodeResendPolicy.resendCooldownS60] on the backend
+  Duration cooldown = const Duration(seconds: 60),
+
   bool startOnMount = true,
 }) {
   final availableAt = useState<DateTime?>(null);

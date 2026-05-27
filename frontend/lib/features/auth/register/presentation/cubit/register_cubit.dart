@@ -8,7 +8,7 @@ import 'package:void_chat/features/auth/register/domain/use_cases/complete_regis
 import 'package:void_chat/features/auth/register/domain/use_cases/start_registration_use_case.dart';
 import 'package:void_chat/features/auth/register/domain/use_cases/verify_registration_email_use_case.dart';
 import 'package:void_chat/features/auth/register/presentation/cubit/register_state.dart';
-import 'package:void_chat/features/auth/shared/presentation/cubit/auth_cubit.dart';
+import 'package:void_chat/core/auth/auth_cubit.dart';
 
 @injectable
 class RegisterCubit extends Cubit<RegisterState> {

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:void_chat/core/extensions/l10n_ext.dart';
+import 'package:void_chat/core/l10n/l10n_ext.dart';
 import 'package:void_chat/features/auth/shared/presentation/validation/login_credentials_validation.dart';
 import 'package:void_chat/features/auth/shared/presentation/widgets/sections/form_section.dart';
+import 'package:void_chat/features/auth/shared/presentation/widgets/ui_kits/app_snack_bar.dart';
 import 'package:void_chat/features/auth/shared/presentation/widgets/ui_kits/loading_button.dart';
 import 'package:void_chat/features/auth/shared/presentation/widgets/ui_kits/password_text_form_field.dart';
 import 'package:void_chat/features/auth/shared/presentation/widgets/ui_kits/policy_checkbox.dart';
@@ -138,9 +139,7 @@ class RegisterFormSection extends HookWidget {
                   exposeValidationErrors.value = true;
                   if (!(formKey.currentState?.validate() ?? false)) return;
                   if (!policyAgreed.value) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(l10n.registerPolicyRequired)),
-                    );
+                    context.showAppSnackBar(l10n.registerPolicyRequired);
                     return;
                   }
                   await onContinueTap?.call(

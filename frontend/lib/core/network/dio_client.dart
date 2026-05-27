@@ -3,7 +3,7 @@ import 'package:dio/io.dart';
 import 'package:injectable/injectable.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 import 'package:talker_flutter/talker_flutter.dart';
-import 'package:void_chat/core/auth/infrastructure/i_session_expired_handler.dart';
+import 'package:void_chat/core/auth/session_expired_handler.dart';
 import 'package:void_chat/core/network/api_config.dart';
 import 'package:void_chat/core/network/interceptors/auth_interceptor.dart';
 import 'package:void_chat/core/network/interceptors/error_interceptor.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:void_chat/core/extensions/l10n_ext.dart';
+import 'package:void_chat/core/l10n/l10n_ext.dart';
 import 'package:void_chat/core/theme/palette/palette_data.dart';
 
 String paletteTitle(BuildContext context, PaletteData palette) {

@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:styled_text/styled_text.dart';
-import 'package:void_chat/core/extensions/l10n_ext.dart';
-import 'package:void_chat/core/extensions/theme_context_ext.dart';
+import 'package:void_chat/core/l10n/l10n_ext.dart';
+import 'package:void_chat/core/theme/theme_context_ext.dart';
 import 'package:void_chat/features/auth/shared/presentation/widgets/ui_kits/theme_switcher_icon.dart';
 import 'package:void_chat/router/app_router.dart';
 

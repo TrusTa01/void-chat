@@ -1,8 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:void_chat/core/extensions/l10n_ext.dart';
-import 'package:void_chat/core/layouts/auth_layout.dart';
+import 'package:void_chat/core/l10n/l10n_ext.dart';
 import 'package:void_chat/features/auth/login/presentation/cubit/login_cubit.dart';
 import 'package:void_chat/features/auth/login/presentation/cubit/login_state.dart';
 import 'package:void_chat/features/auth/login/presentation/extensions/login_failure_message.dart';
@@ -12,6 +11,7 @@ import 'package:void_chat/features/auth/shared/presentation/widgets/components/a
 import 'package:void_chat/features/auth/shared/presentation/widgets/components/auth_header.dart';
 import 'package:void_chat/features/auth/shared/presentation/widgets/ui_kits/app_snack_bar.dart';
 import 'package:void_chat/router/app_router.dart';
+import 'package:void_chat/router/layouts/auth_layout.dart';
 
 @RoutePage()
 class LoginScreen extends StatelessWidget {

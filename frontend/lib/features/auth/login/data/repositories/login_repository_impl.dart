@@ -7,8 +7,6 @@ import 'package:void_chat/features/auth/login/data/models/login_response_dto.dar
 import 'package:void_chat/features/auth/login/domain/repositories/i_login_repository.dart';
 import 'package:void_chat/features/auth/shared/domain/entities/user_entity.dart';
 
-class ServerException {}
-
 @LazySingleton(as: ILoginRepository)
 class LoginRepositoryImpl with ApiRequestHandler implements ILoginRepository {
   final LoginRemoteDataSource _dataSource;

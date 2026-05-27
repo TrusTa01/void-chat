@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:void_chat/core/extensions/l10n_ext.dart';
+import 'package:void_chat/core/l10n/l10n_ext.dart';
 import 'package:void_chat/features/auth/register/presentation/cubit/register_cubit.dart';
 import 'package:void_chat/features/auth/register/presentation/cubit/register_state.dart';
 import 'package:void_chat/features/auth/register/presentation/extensions/register_failure_message.dart';
@@ -50,7 +50,6 @@ class RegisterProfileBackButton extends StatelessWidget {
   const RegisterProfileBackButton({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return BackButton(onPressed: () => handleRegisterProfileBack(context));
-  }
+  Widget build(BuildContext context) =>
+      BackButton(onPressed: () => handleRegisterProfileBack(context));
 }

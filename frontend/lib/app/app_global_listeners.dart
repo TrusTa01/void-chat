@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:void_chat/core/di/locator.dart';
-import 'package:void_chat/features/auth/shared/presentation/cubit/auth_cubit.dart';
+import 'package:void_chat/core/auth/auth_cubit.dart';
 import 'package:void_chat/router/app_router.dart';
 
 class AppGlobalListeners extends StatelessWidget {

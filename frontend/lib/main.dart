@@ -10,7 +10,7 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: AppProviders.providers,
-      child: const VoidChat(),
+      child: const App(),
     ),
   );
 }

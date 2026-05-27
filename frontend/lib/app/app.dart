@@ -4,15 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:void_chat/app/app_global_listeners.dart';
 import 'package:void_chat/core/di/locator.dart';
-import 'package:void_chat/core/extensions/l10n_ext.dart';
 import 'package:void_chat/core/l10n/app_localization_setup.dart';
 import 'package:void_chat/core/l10n/cubit/l10n_cubit.dart';
+import 'package:void_chat/core/l10n/l10n_ext.dart';
 import 'package:void_chat/core/theme/cubit/theme_cubit.dart';
 import 'package:void_chat/core/theme/theme_catalog.dart';
 import 'package:void_chat/core/theme/theme_preferences.dart';
 
-class VoidChat extends StatelessWidget {
-  const VoidChat({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -15,9 +15,7 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 import 'package:talker_flutter/talker_flutter.dart' as _i207;
-import 'package:void_chat/core/auth/infrastructure/i_session_expired_handler.dart'
-    as _i1021;
-import 'package:void_chat/core/auth/infrastructure/session_expired_handler.dart'
+import 'package:void_chat/core/auth/session_expired_handler.dart'
     as _i1047;
 import 'package:void_chat/core/di/modules.dart' as _i980;
 import 'package:void_chat/core/l10n/cubit/l10n_cubit.dart' as _i331;
@@ -58,7 +56,7 @@ import 'package:void_chat/features/auth/register/domain/use_cases/verify_registr
     as _i201;
 import 'package:void_chat/features/auth/register/presentation/cubit/register_cubit.dart'
     as _i712;
-import 'package:void_chat/features/auth/shared/presentation/cubit/auth_cubit.dart'
+import 'package:void_chat/core/auth/auth_cubit.dart'
     as _i265;
 import 'package:void_chat/router/app_router.dart' as _i724;
 import 'package:void_chat/router/auth_guard.dart' as _i374;
@@ -89,7 +87,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i265.AuthCubit>(
       () => _i265.AuthCubit(gh<_i351.AppSecureStorage>()),
     );
-    gh.lazySingleton<_i1021.ISessionExpiredHandler>(
+    gh.lazySingleton<_i1047.ISessionExpiredHandler>(
       () => _i1047.SessionExpiredHandlerImpl(gh<_i265.AuthCubit>()),
     );
     gh.factory<_i331.L10nCubit>(() => _i331.L10nCubit(gh<_i959.AppPrefs>()));
@@ -98,7 +96,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i139.DioClient(
         gh<_i207.Talker>(),
         gh<_i351.AppSecureStorage>(),
-        gh<_i1021.ISessionExpiredHandler>(),
+        gh<_i1047.ISessionExpiredHandler>(),
       ),
     );
     gh.lazySingleton<_i361.Dio>(

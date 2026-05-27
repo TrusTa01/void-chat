@@ -42,8 +42,6 @@ linter:
     - use_build_context_synchronously
     
     # --- ADDITIONAL BEST PRACTICES ---
-    # Sort imports alphabetically for consistency
-    - directives_ordering
     # Use single quotes
     - prefer_single_quotes
     # Don't use 'null' as a default value for parameters
