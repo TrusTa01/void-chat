@@ -1,6 +1,6 @@
 import 'package:backend/src/core/errors/app_exception.dart';
 import 'package:backend/src/features/auth/login/password/domain/repositories/i_user_repository.dart';
-import 'package:backend/src/features/chat/conversations/domain/repositories/i_create_conversation_repository.dart';
+import 'package:backend/src/features/chat/conversations/create/domain/repositories/i_create_conversation_repository.dart';
 import 'package:injectable/injectable.dart';
 
 abstract interface class ICreateConversationUseCase {

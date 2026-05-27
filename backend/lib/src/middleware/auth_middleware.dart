@@ -32,7 +32,8 @@ bool _isPublicPath(String normalized) {
       normalized == '/health' ||
       normalized == '/favicon.ico' ||
       normalized == '/chat/ws' ||
-      normalized == '/conversations/create') {
+      normalized == '/conversations/create' ||
+      normalized == '/conversations') {
     return true;
   }
 

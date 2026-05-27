@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'package:backend/src/core/api/json_response.dart';
 import 'package:backend/src/core/di/locator.dart';
 import 'package:backend/src/core/api/parse_body.dart';
-import 'package:backend/src/features/chat/conversations/api/dto/create_conversation_dto.dart';
-import 'package:backend/src/features/chat/conversations/domain/use_cases/create_conversations_use_case.dart';
+import 'package:backend/src/features/chat/conversations/get/api/mappers/conversations_response_mapper.dart';
+import 'package:backend/src/features/chat/conversations/get/domain/use_cases/list_conversations_use_case.dart';
+import 'package:backend/src/features/chat/conversations/create/api/dto/create/create_conversation_dto.dart';
+import 'package:backend/src/features/chat/conversations/create/domain/use_cases/create_conversations_use_case.dart';
 import 'package:backend/src/features/chat/messages/domain/usecases/user_id_use_case.dart';
 import 'package:backend/src/features/chat/shared/ws/chat_connection_registry.dart';
 import 'package:backend/src/features/chat/shared/ws/ws_channel_sender.dart';
@@ -25,12 +27,14 @@ class ChatApi {
   final IUserIdUseCase _userIdUseCase;
   final WsSendMessageHandler _messageHandler;
   final ICreateConversationUseCase _createConversationUseCase;
+  final IListConversationsUseCase _listConversationsUseCase;
 
   ChatApi(
     this._connections,
     this._userIdUseCase,
     this._messageHandler,
     this._createConversationUseCase,
+    this._listConversationsUseCase,
   );
 
   late final Router router = _buildRouter();
@@ -48,6 +52,11 @@ class ChatApi {
     r.post(
       '/conversations/create',
       (Request request) => _handleCreateConversation(request),
+    );
+
+    r.get(
+      '/conversations',
+      (Request request) => _handleListConversation(request),
     );
 
     return r;
@@ -117,5 +126,11 @@ class ChatApi {
       participantIds: dto.participantIds,
     );
     return JsonResponse.created({'conversation_id': conversationId});
+  }
+
+  Future<Response> _handleListConversation(Request request) async {
+    final userId = request.context[authenticatedUserIdKey] as String;
+    final entity = await _listConversationsUseCase.call(userId);
+    return JsonResponse.ok(entity.toDto().toJson());
   }
 }

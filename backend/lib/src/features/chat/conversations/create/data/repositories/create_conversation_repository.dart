@@ -1,6 +1,6 @@
 import 'package:backend/src/core/data/pg_repository.dart';
 import 'package:backend/src/core/data/pg_row.dart';
-import 'package:backend/src/features/chat/conversations/domain/repositories/i_create_conversation_repository.dart';
+import 'package:backend/src/features/chat/conversations/create/domain/repositories/i_create_conversation_repository.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
 
