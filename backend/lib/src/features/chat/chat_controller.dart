@@ -5,6 +5,8 @@ import 'package:backend/src/core/di/locator.dart';
 import 'package:backend/src/core/api/parse_body.dart';
 import 'package:backend/src/features/chat/conversations/get/api/mappers/conversations_response_mapper.dart';
 import 'package:backend/src/features/chat/conversations/get/domain/use_cases/list_conversations_use_case.dart';
+import 'package:backend/src/features/chat/conversations/messages/api/mappers/messages_response_mapper.dart';
+import 'package:backend/src/features/chat/conversations/messages/domain/use_cases/list_messages_use_case.dart';
 import 'package:backend/src/features/chat/conversations/create/api/dto/create/create_conversation_dto.dart';
 import 'package:backend/src/features/chat/conversations/create/domain/use_cases/create_conversations_use_case.dart';
 import 'package:backend/src/features/chat/messages/domain/usecases/user_id_use_case.dart';
@@ -28,6 +30,7 @@ class ChatApi {
   final WsSendMessageHandler _messageHandler;
   final ICreateConversationUseCase _createConversationUseCase;
   final IListConversationsUseCase _listConversationsUseCase;
+  final IListMessagesUseCase _listMessagesUseCase;
 
   ChatApi(
     this._connections,
@@ -35,6 +38,7 @@ class ChatApi {
     this._messageHandler,
     this._createConversationUseCase,
     this._listConversationsUseCase,
+    this._listMessagesUseCase,
   );
 
   late final Router router = _buildRouter();
@@ -57,6 +61,11 @@ class ChatApi {
     r.get(
       '/conversations',
       (Request request) => _handleListConversation(request),
+    );
+
+    r.get(
+      '/conversations/<id>/messages',
+      (Request request) => _handleMessages(request),
     );
 
     return r;
@@ -131,6 +140,24 @@ class ChatApi {
   Future<Response> _handleListConversation(Request request) async {
     final userId = request.context[authenticatedUserIdKey] as String;
     final entity = await _listConversationsUseCase.call(userId);
+    return JsonResponse.ok(entity.toDto().toJson());
+  }
+
+  Future<Response> _handleMessages(Request request) async {
+    final userId = request.context[authenticatedUserIdKey] as String;
+    final conversationId = request.params['id']!;
+
+    final rawLimit = int.tryParse(request.url.queryParameters['limit'] ?? '');
+    final limit = (rawLimit ?? 50).clamp(1, 100);
+    final before = request.url.queryParameters['before'];
+
+    final entity = await _listMessagesUseCase.call(
+      userId: userId,
+      conversationId: conversationId,
+      limit: limit,
+      before: before,
+    );
+
     return JsonResponse.ok(entity.toDto().toJson());
   }
 }

@@ -93,6 +93,8 @@ import 'package:backend/src/features/chat/conversations/get/domain/repositories/
     as _i624;
 import 'package:backend/src/features/chat/conversations/get/domain/use_cases/list_conversations_use_case.dart'
     as _i250;
+import 'package:backend/src/features/chat/conversations/messages/domain/use_cases/list_messages_use_case.dart'
+    as _i140;
 import 'package:backend/src/features/chat/messages/data/repositories/postgres_message_repository.dart'
     as _i571;
 import 'package:backend/src/features/chat/messages/domain/repositories/i_message_repository.dart'
@@ -209,6 +211,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i443.EmailPolicy>(),
       ),
     );
+    gh.lazySingleton<_i140.IListMessagesUseCase>(
+      () => _i140.ListMessagesUseCaseImpl(gh<_i465.IMessageRepository>()),
+    );
     gh.lazySingleton<_i226.ICancelRegistrationUseCase>(
       () => _i226.CancelRegistrationUseCase(
         gh<_i310.ICompleteProfileRepository>(),
@@ -300,15 +305,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i270.MessageBroadcaster>(),
       ),
     );
-    gh.lazySingleton<_i657.ChatApi>(
-      () => _i657.ChatApi(
-        gh<_i1045.ChatConnectionRegistry>(),
-        gh<_i275.IUserIdUseCase>(),
-        gh<_i513.WsSendMessageHandler>(),
-        gh<_i112.ICreateConversationUseCase>(),
-        gh<_i250.IListConversationsUseCase>(),
-      ),
-    );
     gh.lazySingleton<_i599.ILoginPasswordUseCase>(
       () => _i599.LoginPasswordUseCase(
         gh<_i361.IUserRepository>(),
@@ -328,6 +324,16 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i226.ICancelRegistrationUseCase>(),
         gh<_i281.ILogoutUseCase>(),
         gh<_i151.ILogoutAllUseCase>(),
+      ),
+    );
+    gh.lazySingleton<_i657.ChatApi>(
+      () => _i657.ChatApi(
+        gh<_i1045.ChatConnectionRegistry>(),
+        gh<_i275.IUserIdUseCase>(),
+        gh<_i513.WsSendMessageHandler>(),
+        gh<_i112.ICreateConversationUseCase>(),
+        gh<_i250.IListConversationsUseCase>(),
+        gh<_i140.IListMessagesUseCase>(),
       ),
     );
     gh.lazySingleton<_i371.AppModule>(

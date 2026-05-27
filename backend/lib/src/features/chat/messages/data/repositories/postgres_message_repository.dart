@@ -71,4 +71,56 @@ class PostgresMessageRepositoryImpl extends PgRepository
 
         return result.mapAll((row) => row.cellId('user_id'));
       });
+
+  @override
+  Future<List<Map<String, Object?>>> listMessages({
+    required String conversationId,
+    required int limit,
+    DateTime? before,
+  }) => guarded(() async {
+    final result = await pool.execute(
+      Sql.named(
+        '''
+              SELECT id, sender_id, text, created_at
+              FROM chat.messages
+              WHERE conversation_id = @conversation_id
+              AND (@before IS NULL OR created_at < @before)
+              ORDER BY created_at DESC
+              LIMIT @limit
+            '''
+            .trim(),
+      ),
+      parameters: {
+        'conversation_id': conversationId,
+        'before': before,
+        'limit': limit,
+      },
+    );
+
+    return result.mapAll((row) => row.columns);
+  });
+
+  @override
+  Future<DateTime?> findCreatedAtByMessageId({
+    required String conversationId,
+    required String messageId,
+  }) => guarded(() async {
+    final result = await pool.execute(
+      Sql.named(
+        '''
+              SELECT created_at
+              FROM chat.messages
+              WHERE id = @message_id
+              AND conversation_id = @conversation_id
+              LIMIT 1
+            '''
+            .trim(),
+      ),
+      parameters: {'message_id': messageId, 'conversation_id': conversationId},
+    );
+
+    return result.mapFirstOrNull(
+      (row) => row.columns['created_at'] as DateTime,
+    );
+  });
 }

@@ -9,4 +9,15 @@ abstract interface class IMessageRepository {
     required String userId,
   });
   Future<List<String>> listMemberIds(String conversationId);
+
+  Future<List<Map<String, Object?>>> listMessages({
+    required String conversationId,
+    required int limit,
+    DateTime? before,
+  });
+
+  Future<DateTime?> findCreatedAtByMessageId({
+    required String conversationId,
+    required String messageId,
+  });
 }
