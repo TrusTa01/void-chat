@@ -9,8 +9,9 @@
 !.vscode/extensions.json
 *.code-workspace
 
-# ------- Cursor AI -------
+# ------- AI -------
 .cursor/
+ruvector.db
 
 # ------- Dart && Shared -------
 **/.dart_tool/
