@@ -7,7 +7,6 @@ import 'package:void_chat/features/auth/register/presentation/screens/profile_se
 import 'package:void_chat/features/auth/register/presentation/screens/register_email_confirm_screen.dart';
 import 'package:void_chat/features/auth/register/presentation/screens/register_screen.dart';
 import 'package:void_chat/features/auth/shared/presentation/screens/welcome_screen.dart';
-import 'package:void_chat/features/home/presentation/screens/home_screen.dart';
 import 'package:void_chat/router/auth_guard.dart';
 import 'package:void_chat/router/layouts/app_layout.dart';
 import 'package:void_chat/router/layouts/auth_layout.dart';
